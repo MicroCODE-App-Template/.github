@@ -72,7 +72,7 @@ Our platform extends Gravity with enterprise-specific enhancements:
 - **Email**: Transactional email with multiple provider support
 - **Testing**: Jest, integration tests, end-to-end testing
 
-## Applications Built on MicroCODE Web App
+## Applications Built on MicroCODE App Template
 
 Products built on this platform:
 
@@ -170,7 +170,7 @@ This automatically generates:
 
 ### For New Applications
 
-1. Clone MicroCODE Web App repository
+1. Clone MicroCODE App Template repository
 2. Configure entities in `__config.js`
 3. Run entity generation CLI
 4. Customize views and business logic
@@ -197,7 +197,7 @@ This GitHub Organization contains:
 
 ### Gravity Updates
 
-We maintain a separate reference copy of the original Gravity boilerplate to track upstream changes. Updates are evaluated and selectively integrated into MicroCODE Web App to maintain compatibility while preserving our customizations.
+We maintain a separate reference copy of the original Gravity boilerplate to track upstream changes. Updates are evaluated and selectively integrated into MicroCODE App Template to maintain compatibility while preserving our customizations.
 
 ### Version Management
 
@@ -228,7 +228,7 @@ For platform support, feature requests, or bug reports:
 
 **Platform Team**
 📧 dev-team@mcode.com
-💬 Internal Slack: #microcode-web-app
+💬 Internal Slack: #microcode-app-template
 
 **MicroCODE, Inc.**
 55 E. Long Lake Rd #224
