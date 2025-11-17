@@ -10,9 +10,9 @@ This template includes all major features:
 - **Shadcn/UI Integration**
 - **Express 5 Compatibility**
 - **Enhanced Server Architecture** (SIG handling, graceful shutdown, port management)
-- **MicroCODE Package Suite** (mcode-* packages)
+- **MicroCODE Package Suite** (mcode-\* packages)
 - **Bootstrap System** for environment initialization
-- **MongoDB _id as Primary Key** (no secondary UUID)
+- **MongoDB \_id as Primary Key** (no secondary UUID)
 
 NOTE: For testing multiple Clients against one Server, remove this from `VITE Config`:
 
@@ -27,6 +27,7 @@ January 2024. We are free to use it to build as many Web Apps as we like, we
 cannot resell the boilerplate nor any derivative of it.
 
 This `app-template` serves as the foundation for building new MicroCODE SaaS applications, including:
+
 - **LADDERS®** - PLC Programming Platform
 - **Regatta RC™** - Remote Control Application
 - Future MicroCODE SaaS products
@@ -39,7 +40,7 @@ This `app-template` serves as the foundation for building new MicroCODE SaaS app
 - MongoDB - database
 - Stripe - payments
 - Mailgun - email service
-- mcode-* packages - MicroCODE logging, caching, data, and list processing
+- mcode-\* packages - MicroCODE logging, caching, data, and list processing
 - ...
 
 ### Documentation
@@ -192,11 +193,11 @@ docker volume create mcode-mongodb-volume
 npm run seed:all
 ```
 
-- You should see these messages...
-<p align="left"><img src=".\.github\images\mongodb-run-seeds.png" width="720" title="Init new MongoDB" style="border: 0.5px solid lightgray;"></p>
+- You should see these messages like these...
+<p align="left"><img src=".\images\mongodb-run-seeds.png" width="720" title="Init new MongoDB" style="border: 0.5px solid lightgray;"></p>
 
-- Then check the "saasDatabase" in mongosh...
-<p align="left"><img src=".\.github\images\mongodb-drop-database.png" width="720" title="Delete MongoDB" style="border: 0.5px solid lightgray;"></p>
+- Then check the "saasDatabase" in mongosh for the default tables, similar to these...
+<p align="left"><img src=".\images\mongodb-drop-database.png" width="720" title="Delete MongoDB" style="border: 0.5px solid lightgray;"></p>
 
 # Production SECURITY
 
@@ -249,13 +250,17 @@ Consider environment-specific users (dev vs production)
 npm run dev
 ```
 
-<p align="left"><img src=".\.github\images\npm-run-dev-1.png" width="720" title="Server startup" style="border: 0.5px solid lightgray;"></p>
+You should see `Server console` output like this...
 
-The Client launches here, but is not 100% available until the Server completes...
+<p align="left"><img src=".\images\npm-run-dev-1.png" width="720" title="Server startup" style="border: 0.5px solid lightgray;"></p>
 
-<p align="left"><img src=".\.github\images\npm-run-dev-2.png" width="720" title="Client startup" style="border: 0.5px solid lightgray;"></p>
+The `Client` launches here, but is not 100% available until the Server completes...
 
-<p align="left"><img src=".\.github\images\npm-run-dev-3.png" width="720" title="App Login" style="border: 0.5px solid lightgray;"></p>
+<p align="left"><img src=".\images\npm-run-dev-2.png" width="720" title="Client startup" style="border: 0.5px solid lightgray;"></p>
+
+And the `App` should automatically open to the Login screen, similar to this...
+
+<p align="left"><img src=".\images\npm-run-dev-3.png" width="720" title="App Login" style="border: 0.5px solid lightgray;"></p>
 
 ## Help
 
@@ -266,7 +271,7 @@ MicroCODE has a support contract with Gravity Ltd, Kyle Gawley.
 | Word or Acronym | Description/Definition                                                                                                                              |
 | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **SaaS**        | Software as a Service (SaaS) - subscription based access to a software product or service.                                                          |
-| **Gravity**     | A SaaS Boilerplate, from which this App Template is constructed.                                                                                             |
+| **Gravity**     | A SaaS Boilerplate, from which this App Template is constructed.                                                                                    |
 | **API**         | An Application Programming Interface, or API, is the set of functions/objects that a developer will provide in order to make use of their services. |
 | **NPM**         | Node Package Manager, actually "Node PM", "Node pkgmakeinst" a system to deploy, install, and maintain NodeJS Apps. (PM was a BASH utility).        |
 | **NVM**         | Node Version Manager, a tool that supports changing NodeJS versions.                                                                                |
@@ -285,8 +290,7 @@ Contributors names and contact info
 
 ## Version History
 
-- 0.0.0
-  - Initial Release
+- See [CHANGELOG.md](./CHANGELOG.md) for details
 
 ## License
 

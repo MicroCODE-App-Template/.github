@@ -15,6 +15,7 @@ MicroCODE App Template serves as the foundation for all MicroCODE, Inc. SaaS pro
 This is our **active development platform** - the customized derivative of the licensed Gravity boilerplate that we use to build production applications.
 
 📚 **[Developer Setup Guide](../DEVELOPER-SETUP.md)** - Complete installation and configuration instructions
+📋 **[Changelog](../CHANGELOG.md)** - Version history and release notes
 
 ## Built From Gravity
 
