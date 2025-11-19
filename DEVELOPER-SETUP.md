@@ -17,11 +17,7 @@ This template will include all major features:
 - **MicroCODE Bootstrap System** for environment initialization
 - **MongoDB \_id as Primary Key** (no secondary UUID)
 
-NOTE: For testing multiple Clients against one Server, remove this from `VITE Config`:
-
-```
-  strictPort: true
-```
+NOTE: For testing multiple Clients against one Server, remove this from `VITE Config`: `strictPort: true`
 
 ## Description
 
@@ -76,495 +72,70 @@ they had beautiful online documentation, and training...
 
    - `git clone https://github.com/MicroCODE-App-Template/app-template.git`
 
-5. Create a shared `.env` file
+5. Create the required `.env` configuration files
 
-   - Clone `.env.example` to `.env.shared` in the root directory and fill in the required values
-   - Note: `DB_CLIENT` controls '`npm run setup`' behavior in Steps 6 and 7
-   - the `.env` files should never be committed to source control with real credentials!
-   - the `.env` files are ignored by `.gitignore` to prevent accidental commits, **_STORE them securely!_**
-   - the `.env` files are required for both `server` and `mission-control` directories.
-   - the `.env` files in `server` and `mission-control` must be identical.
+   - See [DEVELOPER-ENV.md](./DEVELOPER-ENV.md) for details
 
-6. Created a `.env` file in the `server` directory
+6. Fill out the required `config/default.json` configuration files
 
-   - Clone `.env.shared` to `.env` and fill in the required values
+   - See [DEVELOPER-CONFIG.md](./DEVELOPER-CONFIG.md) for details
 
-7. Created a `.env` file in the `mission-control` directory
+7. Ensure MongoDB is running with a 'appDatabase' and 'appAdmin' user and SEED data
 
-   - Clone `.env.shared` to `.env` and fill in the required values
+   - See [DEVELOPER-MONGO.md](./DEVELOPER-MONGO.md) for details
 
 8. Setup proper DB Models and Install NPM dependencies
+
    - Move to the SERVER directory (`cd server`)
    - Run the setup script to create DB Models and install dependencies (`npm run setup`)
    - Move to the MISSION-CONTROL directory (`cd mission-control`)
    - Run the setup script to create DB Models and install dependencies (`npm run setup`)
-   - Run the script to create the Mission Control Admin Account (`http://localhost:5002/setup`)
+   - Create the Mission Control Admin Account (`npm run create:admin`)
 
-#### MongoDB
+   - You should see these messages like these...
+   <p align="left"><img src=".\images\mongodb-run-seeds.png" width="720" title="Init new MongoDB" style="border: 0.5px solid lightgray;"></p>
 
-MongoDB is our chosen DB for our SaaS.
-
-To create a clean database for testing...
-
-- Ensure you have admin privileges in the current MongoDB environment.
-- To establish this from nothing...
-- Install MongoDB and start with no security...
-- Stop MongoDB - to erase current Dev environment
-
-```
-net stop mongodb
-```
-
-- UNINSTALL MongoDB from ADD/REMOVE PROGRAMS...
-
-- Delete existing MongoDB Data Files...
-
-```
-cd "C:\Program Files\MongoDB\Server\<version>\data\db"
-cd "C:\Program Files\MongoDB\Server\8.2\data\db"
-del *.*
-```
-
-- Delete existing MongoDB Log Files...
-
-```
-cd "C:\Program Files\MongoDB\Server\<version>\log"
-cd "C:\Program Files\MongoDB\Server\6.0\log"
-del *.*
-```
-
-- DOWNLOAD & INSTALL MongoDB from scratch.
-- INSTALL MONGO DB SHELL...
-
-```
-winget install MongoDB.Shell
-```
-
-- Turn off default security...
-  (Edit **mongod.cfg** and comment out these lines _if_ present)
-
-```
-cd "C:\Program Files\MongoDB\Server\<version>\bin"
-cd "C:\Program Files\MongoDB\Server\8.2\bin"
-edit mongod.cfg
-
-#security:
-#  authorization: "enabled"
-```
-
-- Start MongoDB -- if you just installed as a Windows Service it should have start automatically...
-
-```
-net start mongodb
-```
-
-- Shell into MongoDB (mongosh) and create your admin and application accounts...
-
-```
-mongosh
-
-# First, confirm the existing admin/saas accounts (do not delete them)
-use admin
-db.getUsers()
-# If the `admin` superuser is missing, create it with the command below, otherwise skip.
-# db.createUser({ ... })
-
-# Next, create the new application user in the `appDatabase`
-use appDatabase
-db.createUser({
-  user: "appAdmin",
-  pwd: "appPassword",
-  roles: [
-    { role: "readWrite", db: "appDatabase" },
-    { role: "dbAdmin", db: "appDatabase" }
-  ]
-})
-
-# Verify the users were created (admin + appDatabase coexist with existing saasDatabase)
-use admin
-db.getUsers()
-use appDatabase
-db.getUsers()
-```
-
-- Stop MongoDB
-
-```
-net stop mongodb
-```
-
-- Enable security... (Edit **mongod.cfg** enable these lines)
-- NOTE: Remove `#` characters from both lines
-
-```
-security:
-  authorization: "enabled"
-```
-
-- Restart MongoDB...
-
-```
-net start mongodb
-```
-
-- (Optional) Test the legacy `saasAdmin` connection if you still use it for other apps...
-
-```
-mongosh "mongodb://saasAdmin:saasPassword@localhost:27017/saasDatabase" --eval "db.getName()"
-```
-
-- Test the new `appAdmin` connection for this template...
-
-```
-mongosh "mongodb://appAdmin:appPassword@localhost:27017/appDatabase" --eval "db.getName()"
-```
+   - Then check the "appDatabase" in mongosh for the default tables, similar to these...
+   <p align="left"><img src=".\images\mongodb-drop-database.png" width="720" title="Delete MongoDB" style="border: 0.5px solid lightgray;"></p>
 
 ---
 
-## Configuration Files (⚠️ CRITICAL - DO NOT SKIP)
+## Running the Frontends (Mission Control and User App)
 
-The application requires proper configuration files in `server/config/` that are **NOT tracked in git** for security. Missing or incomplete configuration will cause runtime errors.
+Mission Control is your admin dashboard for managing users, viewing metrics, and monitoring the application.
+Instead of using the legacy setup wizard, follow this manual configuration process above, and then start the servers.
 
-### Required Configuration Files
-
-Create these files in the `server/config/` directory:
-
-#### 1. `default.json` (Development Configuration)
-
-This file is used for local development. Create it with the following structure:
-
-```json
-{
-  "app": {
-    "name": "Your App Name",
-    "url": "http://localhost:3000"
-  },
-  "email": {
-    "domain": "sandbox-xxxxxxxxxxxxx.mailgun.org",
-    "sender": "noreply@yourdomain.com"
-  },
-  "database": {
-    "connection": "mongodb://appAdmin:appPassword@localhost:27017/appDatabase"
-  }
-}
-```
-
-#### 2. `production.json` (Production Configuration)
-
-This file is used when `NODE_ENV=production`. It should contain production-specific values:
-
-```json
-{
-  "app": {
-    "url": "https://yourdomain.com"
-  },
-  "email": {
-    "domain": "mg.yourdomain.com",
-    "sender": "noreply@yourdomain.com"
-  }
-}
-```
-
-### Critical: Mailgun Email Configuration
-
-The `email.domain` field is **required** for email functionality. If missing or empty, you'll see:
-
-- ❌ Red banner in the UI warning about configuration errors
-- ❌ Server startup warnings in the console
-- ❌ 404 errors when attempting to send emails
-
-**Where to find your Mailgun domain:**
-
-1. Log into your [Mailgun dashboard](https://app.mailgun.com/)
-2. Navigate to **Sending** → **Domains**
-3. Copy your sandbox domain (format: `sandbox-xxxxxxxxxxxxx.mailgun.org`) for development
-4. For production, use your verified custom domain
-
-**Important:** Do not leave `email.domain` as an empty string `""` - this will cause Mailgun to return 404 errors.
-
-### Environment Variables
-
-Create a `.env` file in the `server/` directory with sensitive credentials:
+### Start the App Server
 
 ```bash
-# Mailgun API credentials
-MAILGUN_API_KEY=your_mailgun_api_key_here
-
-# Stripe payment processing
-STRIPE_SECRET_API_KEY=sk_test_xxxxxxxxxxxxx
-
-# Session security
-SESSION_SECRET=your_random_session_secret
-
-# MongoDB (if not using config files)
-MONGO_URI=mongodb://appAdmin:appPassword@localhost:27017/appDatabase
+cd server
+npm run dev
 ```
 
-**Find your Mailgun API key:**
+The App will be available at `http://localhost:3000`
 
-- Dashboard → **Settings** → **API Keys**
-- Copy the **Private API Key** (starts with `key-`)
+### First User Login
 
-### Configuration Validation
-
-The application validates configuration on startup:
-
-- ✅ **Green/No banner**: All required configuration is present
-- ⚠️ **Orange banner**: Non-critical warnings (check console)
-- 🛑 **Red banner**: Critical errors - app may not function (check `/api/health/config`)
-
-If you see validation errors:
-
-1. Check the browser console and server logs
-2. Verify `server/config/default.json` exists and has valid JSON
-3. Ensure `email.domain` is not empty
-4. Verify `MAILGUN_API_KEY` is set in `.env`
-5. Restart the server after fixing configuration
-
----
-
-## Seeding the Database
-
-- Move to the SERVER directory (`cd server`)
-- In the SERVER CLI, run the new MicroCODE scripts to create all static DB Tables
-
-```
-$env:NODE_OPTIONS = "--openssl-legacy-provider"
-docker volume create mcode-app-name-mongodb-volume
-npm run seed:all
-```
-
-- You should see these messages like these...
-<p align="left"><img src=".\images\mongodb-run-seeds.png" width="720" title="Init new MongoDB" style="border: 0.5px solid lightgray;"></p>
-
-- Then check the "saasDatabase" in mongosh for the default tables, similar to these...
-<p align="left"><img src=".\images\mongodb-drop-database.png" width="720" title="Delete MongoDB" style="border: 0.5px solid lightgray;"></p>
-
----
-
-## Mission Control Setup (Manual Configuration)
-
-Mission Control is your admin dashboard for managing users, viewing metrics, and monitoring the application. Instead of using the legacy setup wizard, follow this manual configuration process.
-
-### Prerequisites
-
-- MongoDB running with `appAdmin` user configured (see MongoDB Setup above)
-- Mission Control `.env` file configured with proper credentials
-
-### Create Mission Control Admin Account
-
-Navigate to the mission-control directory and create the master admin account:
-
-```bash
-cd mission-control
-npm run create:admin
-```
-
-This will create a master admin account with default credentials:
-
-- **Email**: `admin@mcode.com`
-- **Password**: `admin123`
-
-⚠️ **IMPORTANT**: Change this password immediately after first login!
-
-The script will:
-
-1. Connect to MongoDB using credentials from `.env`
-2. Create a "Master" account with `master` plan
-3. Create an admin user with `master` permissions
-4. Set the user as verified and ready to log in
+1. Navigate to `http://localhost:3000/signup`
+2. Create a login with email validation
+3. Select Plan and Invite Users as needed
 
 ### Start Mission Control
 
 ```bash
+cd mission-control
 npm run dev
 ```
 
 Mission Control will be available at `http://localhost:5002`
 
-### First Login
+### First Admin Login
 
 1. Navigate to `http://localhost:5002/signin`
 2. Log in with `admin@mcode.com` / `admin123`
 3. **Immediately change your password** in the account settings
 
-### Troubleshooting Mission Control
-
-If you see "ENOENT: no such file or directory, open 'D:\\MicroCODE\\saas\\app-demo\\mission-control\\model\\mongo.js'":
-
-- This means the MongoDB model files haven't been set up
-- The `create:admin` script doesn't require these files
-- Once the admin account is created, you can log in and manage users
-
-**Database Connection Issues:**
-
-Check your `mission-control/.env` file has:
-
-```bash
-DB_CLIENT=mongo
-DB_HOST=localhost
-DB_USER=appAdmin
-DB_PASSWORD=appPassword
-DB_NAME=appDatabase
-DB_PORT=27017
-```
-
-Or use the MONGO_URI format:
-
-```bash
-MONGO_URI=mongodb://appAdmin:appPassword@localhost:27017/appDatabase
-```
-
 ---
-
-# BIN/ Utilities
-
-The `bin/` directories contain utility scripts for scaffolding, setup, and maintenance. All scripts follow the new file naming conventions:
-
-- `{entity}.model.js` for models
-- `{entity}.controller.js` for controllers
-- `{entity}.route.js` for API routes
-- `{entity}.{locale}.json` for locale files
-
-## server/bin/
-
-### Scaffolding & Code Generation
-
-- **`view.js`** — Scaffolds new MVC entities (model, view, controller, API routes, locales).
-
-  - Usage: `node bin/view.js <entity-name> [-ui] [-db]`
-  - Creates: `{entity}.model.js`, `{entity}.controller.js`, `{entity}.route.js`, `{entity}.{locale}.json`
-  - `-ui` flag: Also creates React UI views and routes
-  - `-db` flag: Creates SQL migration file (SQL databases only, not MongoDB)
-
-- **`component.js`** — Creates new React components. Usage: `node bin/component.js <component-name>`
-
-  - Creates component file and adds export to `lib.jsx`
-
-- **`master.js`** — Creates master admin accounts. Usage: `node bin/master.js <email>:<password>`
-  - Creates account with `master` plan and admin user with `master` permissions
-
-### Setup & Configuration
-
-- **`setup.js`** — Initial database setup and model file copying
-
-  - Reads `DB_CLIENT` from `.env` to determine database type
-  - Copies model files from `model/sql/` or `model/mongo/` to `model/` root
-  - Renames files to `.model.js` format during copy
-  - Runs database migrations (SQL) or prepares MongoDB models
-
-- **`cleanup.js`** — Removes setup/demo files after initial setup
-  - Deletes setup controller, model, route, and locale files
-  - Removes setup views from client
-
-### CLI & Tooling
-
-- **`gravity.js`** — Interactive CLI toolbelt for common tasks
-
-  - `gravity create view` — Scaffold new MVC (interactive)
-  - `gravity create component` — Create React component (interactive)
-  - `gravity create master` — Create master account (interactive)
-  - `gravity help` — Show interactive help menu
-  - `gravity test` — Run test suite (server only)
-
-- **`start.js`** — Starts development servers concurrently
-  - Runs `npm run server`, `npm run app` (if exists), `npm run client` (if exists)
-
-### Installation Checks
-
-- **`installcheck.js`** — Validates Node.js version (requires 15+)
-- **`appcheck.js`** — Checks for mobile app directory and renames if needed
-  - Looks for: `app`, `client-react-native`, `client-react-native-main`
-- **`clientcheck.js`** — Checks for web client directory and renames if needed
-  - Looks for: `client`, `client-react-web`, `client-react-web-main`
-
-## mission-control/bin/
-
-### Scaffolding & Code Generation
-
-- **`view.js`** — Scaffolds new MVC entities (same as server version)
-
-  - Creates: `{entity}.model.js`, `{entity}.controller.js`,
-  - `{entity}.route.js`, `{entity}.{locale}.json`
-
-- **`component.js`** — Creates new React components (same as server version)
-
-- **`master.js`** — Creates master admin accounts (same as server version)
-
-- **`create-admin.js`** — Creates Mission Control admin account directly in MongoDB
-  - Usage: `npm run create:admin` or `node bin/create-admin.js`
-  - Creates default admin: `admin@mcode.com` / `admin123`
-  - Bypasses setup wizard for manual configuration
-  - Uses mongoose schemas directly (no model file dependencies)
-
-### Setup & Configuration
-
-- **`setup.js`** — Initial database setup and model file copying (same as server version)
-
-  - Copies model files and renames to `.model.js` format
-
-- **`cleanup.js`** — Removes setup/demo files (same as server version)
-
-### CLI & Tooling
-
-- **`gravity.js`** — Interactive CLI toolbelt (same as server, without test command)
-
-### Installation Checks
-
-- **`installcheck.js`** — Validates Node.js version (requires 15+)
-
----
-
-# Production SECURITY
-
-## What's Currently Set Up: ✅
-
-- Authorization enabled
-- User authentication required
-- Role-based access control (saasAdmin has proper roles)
-- Connection authentication working
-- What You Should Consider Adding:
-
-## Network Security
-
-MongoDB is bound to 127.0.0.1 (localhost only) ✅ Good for development
-
-- For production, keep it this way or use VPN/firewall rules
-
-## Stronger Password
-
-- Currently using saasPassword - change to a strong, random password for production
-
-## Principle of Least Privilege ✅
-
-- **Admin user (`admin`)**: Full access to all databases - use only for maintenance and user management
-- **Application user (`appAdmin`)**: Limited to `appDatabase` only - used by the application
-  - This isolation ensures leaked application credentials don't compromise other databases
-- Consider creating additional users:
-  - Read-only user for reporting
-  - Backup user with minimal permissions
-
-## Additional Security Measures (for production):
-
-- Enable TLS/SSL encryption
-- Enable audit logging
-- Set up IP whitelisting
-- Regular backups with encryption
-- Rotate credentials periodically
-- For your current development setup, you have everything you need. Just remember to:
-
-Use a strong password before going to production
-Never commit .env file with real credentials to git
-Consider environment-specific users (dev vs production)
-
-### Executing program
-
-- Move to the SERVER directory (`cd server`)
-- Start the development server (this also starts the Web Browser Client)
-
-```
-npm run dev
-```
 
 You should see `Server console` output like this...
 
@@ -577,6 +148,83 @@ The `Client` launches here, but is not 100% available until the Server completes
 And the `App` should automatically open to the Login screen, similar to this...
 
 <p align="left"><img src=".\images\npm-run-dev-3.png" width="720" title="App Login" style="border: 0.5px solid lightgray;"></p>
+
+---
+
+# App Branding and Colors
+
+The primary color for the App can be changed in these two files:
+
+- `client-react-web/tailwind.config.js`
+
+```
+'primary': '#6363ac',  // Purple
+```
+
+- `client-react-native/components/global/global.js`
+
+```
+const Color = {
+  primary: "#546DB7",      // Blue-purple (line 12)
+  purple: "#576CB5",       // Purple (line 22)
+  darkpurple: "#556CB6",   // Dark purple (line 25)
+  // ... other colors
+};
+```
+
+- `mission-control/client/tailwind.config.js`
+
+```
+'primary': '#6363ac',  // Purple (same as web app)
+```
+
+The current primary color is a purple: `#6363ac`
+
+---
+
+# Production Security
+
+## What's Currently Set Up:
+
+- Authorization enabled
+- User authentication required
+- Role-based access control (appAdmin has proper roles)
+- Connection authentication working
+- What You Should Consider Adding:
+
+## Network Security
+
+MongoDB is bound to 127.0.0.1 (localhost only) ✅ Good for development
+
+- For production, keep it this way or use VPN/firewall rules
+
+## Stronger Password
+
+- Currently using `"appPassword"` - change to a strong, random password for production
+
+## Principle of Least Privilege
+
+- **Admin user (`admin`)**: Full access to all databases - use only for maintenance and user management
+- **Application user (`appAdmin`)**: Limited to `appDatabase` only - used by the application
+  - This isolation ensures leaked application credentials don't compromise other databases
+- Consider creating additional users:
+  - Read-only user for reporting
+  - Backup user with minimal permissions
+
+## Additional Security Measures (for production):
+
+- Force HTTPS connections
+- Force 2-Factor Authentication (2FA) for Admin / Master users
+- Enable TLS/SSL encryption
+- Enable audit logging
+- Set up IP whitelisting
+- Regular backups with encryption
+- Rotate credentials periodically
+- For your current development setup, you have everything you need. Just remember to:
+
+Use a strong password before going to production
+Never commit .env file with real credentials to git
+Consider environment-specific users (dev vs production)
 
 ## Help
 

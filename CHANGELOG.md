@@ -5,6 +5,40 @@ All notable changes to the MicroCODE App Template will be documented in this fil
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## MicroCODE App Template [0.0.2] - 2025-11-19
+
+### Changed
+
+- Permanently renamed repo 'client-react-web' to `client`
+- Permanently renamed repo 'client-react-native' to `app`
+- Permanently renamed repo 'supernova' to `website`
+
+## MicroCODE App Template [0.0.1] - 2025-11-19
+
+### Changed
+
+- `npm run dev` now starts both server and applicable clients concurrently
+- Updated Developer Setup Guide with MongoDB installation and configuration steps
+- Added DEVELOPER-MONGO-SETUP.md for detailed MongoDB setup instructions
+- Added DEVELOPER-SETUP.md for comprehensive developer environment setup
+- Added DEVELOPER-ENV.md for environment variable documentation
+- Added DEVELOPER-CONFIG.md for configuration file documentation
+- Added DEVELOPER-BIND.md for binary scripts documentation
+- Updated README.md with new organization and setup instructions
+- Aligned all color schemes in client-react-native global.js with client-react-web
+- Updated all repository remote URLs to new MicroCODE-App-Template organization
+- Removed 'dirty' \*.model.js files from /model directory
+- Added MicroCODE Branding Images to all (4) repositories
+- Updated `server: npm run setup` and `server: npm run dev` scripts to init, build, and 'run dev' all all solution components:
+  - 'server'
+  - 'client'
+  - 'mission-control:server'
+  - 'mission-control:client'
+
+### Updated
+
+- Aligned 'client' and 'mission-control:client' to use the same Tailwind package and input.css
+
 ## MicroCODE App Template [0.0.0] - 2025-11-17
 
 ### Changed
