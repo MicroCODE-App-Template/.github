@@ -14,8 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Permanently renamed repo 'client-react-native' to `app`
 - Permanently renamed repo 'client-react-web' to `client`
 - Permanently renamed repo 'mission-control' to `console`
+- Permanently renamed repo 'supernova' website to `portal`
 - Maintained the original repo name 'server' as `server`
-- Permanently renamed repo 'supernova' to `website`
 
 ## MicroCODE App Template [0.0.1]
 
