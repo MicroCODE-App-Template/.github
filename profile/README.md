@@ -28,7 +28,7 @@ MicroCODE App Template is our enhanced version of the [Gravity SaaS Boilerplate]
 - **UI Components**: 50+ components, 25+ views, dark mode, Shadcn components
 - **Multi-Tenant Architecture**: Organizations, invitations, user roles
 - **Mobile Apps**: Native iOS & Android with React Native
-- **Admin Dashboard**: Mission Control for metrics, user management, logs
+- **Admin Dashboard**: MicroCODE Console for metrics, user management, logs
 - **Email System**: 20+ multilingual templates, 20+ email services
 - **API Infrastructure**: REST API with token auth, throttling, security
 - **Testing**: 40+ integration tests

@@ -83,14 +83,15 @@ they had beautiful online documentation, and training...
 7. Ensure MongoDB is running with a 'appDatabase' and 'appAdmin' user and SEED data
 
    - See [DEVELOPER-MONGO.md](./DEVELOPER-MONGO.md) for details
+   - Move to the CONSOLE directory (`cd console`)
+   - Create the MicroCODE Console Admin Account (`npm run create:admin`)
 
-8. Setup proper DB Models and Install NPM dependencies
+8. Install NPM dependencies and Setup proper DB Models in Source Code
 
    - Move to the SERVER directory (`cd server`)
-   - Run the setup script to create DB Models and install dependencies (`npm run setup`)
-   - Move to the MISSION-CONTROL directory (`cd mission-control`)
-   - Run the setup script to create DB Models and install dependencies (`npm run setup`)
-   - Create the Mission Control Admin Account (`npm run create:admin`)
+   - Run the setup scripts `npm run setup.all` to create DB Models and install dependencies
+   - NOTE: `setup.all` runs the 'setup' scripts for both the SERVER and CONSOLE
+   - To place the entire `app-template` in a GitHub repo state, run `npm run teardown.all` from the SERVER directory
 
    - You should see these messages like these...
    <p align="left"><img src=".\images\mongodb-run-seeds.png" width="720" title="Init new MongoDB" style="border: 0.5px solid lightgray;"></p>
@@ -100,9 +101,9 @@ they had beautiful online documentation, and training...
 
 ---
 
-## Running the Frontends (Mission Control and User App)
+## Running the Frontends (MicroCODE Console and User App)
 
-Mission Control is your admin dashboard for managing users, viewing metrics, and monitoring the application.
+MicroCODE Console is your admin dashboard for managing users, viewing metrics, and monitoring the application.
 Instead of using the legacy setup wizard, follow this manual configuration process above, and then start the servers.
 
 ### Start the App Server
@@ -120,14 +121,14 @@ The App will be available at `http://localhost:3000`
 2. Create a login with email validation
 3. Select Plan and Invite Users as needed
 
-### Start Mission Control
+### Start MicroCODE Console
 
 ```bash
-cd mission-control
+cd console
 npm run dev
 ```
 
-Mission Control will be available at `http://localhost:5002`
+MicroCODE Console will be available at `http://localhost:5002`
 
 ### First Admin Login
 
@@ -172,7 +173,7 @@ const Color = {
 };
 ```
 
-- `mission-control/client/tailwind.config.js`
+- `console/client/tailwind.config.js`
 
 ```
 'primary': '#6363ac',  // Purple (same as web app)

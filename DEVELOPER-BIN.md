@@ -59,7 +59,7 @@ The `bin/` directories contain utility scripts for scaffolding, setup, and maint
 - **`clientcheck.js`** — Checks for web client directory and renames if needed
   - Looks for: `client`, `client-react-web`, `client-react-web-main`
 
-## mission-control/bin/
+## console/bin/
 
 ### Scaffolding & Code Generation
 
@@ -74,7 +74,7 @@ The `bin/` directories contain utility scripts for scaffolding, setup, and maint
 
 - **`master.js`** — Creates master admin accounts (same as server version)
 
-- **`create-admin.js`** — Creates Mission Control admin account directly in MongoDB
+- **`create-admin.js`** — Creates MicroCODE Console admin account directly in MongoDB
   - Usage: `npm run create:admin` or `node bin/create-admin.js`
   - Creates default admin: `admin@mcode.com` / `admin123`
   - Bypasses setup wizard for manual configuration
@@ -144,7 +144,7 @@ The `bin/` directories contain utility scripts for scaffolding, setup, and maint
 - **`clientcheck.js`** — Checks for web client directory and renames if needed
   - Looks for: `client`, `client-react-web`, `client-react-web-main`
 
-## mission-control/bin/
+## console/bin/
 
 ### Scaffolding & Code Generation
 
@@ -157,7 +157,7 @@ The `bin/` directories contain utility scripts for scaffolding, setup, and maint
 
 - **`master.js`** — Creates master admin accounts (same as server version)
 
-- **`create-admin.js`** — Creates Mission Control admin account directly in MongoDB
+- **`create-admin.js`** — Creates MicroCODE Console admin account directly in MongoDB
   - Usage: `npm run create:admin` or `node bin/create-admin.js`
   - Creates default admin: `admin@mcode.com` / `admin123`
   - Bypasses setup wizard for manual configuration

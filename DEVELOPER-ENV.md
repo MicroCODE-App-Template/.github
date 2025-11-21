@@ -8,14 +8,14 @@ Create a required .env files in the appropriate directories with sensitive crede
    - Note: `DB_CLIENT` controls '`npm run setup`' behavior in Steps 6 and 7
    - the `.env` files should never be committed to source control with real credentials!
    - the `.env` files are ignored by `.gitignore` to prevent accidental commits, **_STORE them securely!_**
-   - the `.env` files are required for both `server` and `mission-control` directories.
-   - the `.env` files in `server` and `mission-control` must be identical.
+   - the `.env` files are required for both `server` and `console` directories.
+   - the `.env` files in `server` and `console` must be identical.
 
 2. Created a `.env` file in the `server` directory
 
    - Clone `.env.shared` to `.env` and fill in the required values
 
-3. Created a `.env` file in the `mission-control` directory
+3. Created a `.env` file in the `console` directory
 
    - Clone `.env.shared` to `.env` and fill in the required values
 

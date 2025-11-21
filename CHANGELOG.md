@@ -17,6 +17,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Permanently renamed repo 'supernova' website to `portal`
 - Maintained the original repo name 'server' as `server`
 - Added READMEs for all Repos in App-Template Org
+- Created 'breakdown' of all repos in Developer Setup Guide (the opposite of 'setup'),
+- 'Setup' / 'Breakdown' allow devs to setup teh tempalte locally for development,
+- Allows Devs to then restore the update code repos to their 'original' state for cloning new apps
+- Updated all repository remote URLs to new MicroCODE-App-Template organization
+- Updated Developer Setup Guide with new repo names and structure
 
 ## MicroCODE App Template [0.0.1]
 

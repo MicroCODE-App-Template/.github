@@ -123,7 +123,7 @@ npm run seed:all
 
 **Database Connection Issues:**
 
-Check your `mission-control/.env` file has:
+Check your `console/.env` file has:
 
 ```bash
 DB_CLIENT=mongo
