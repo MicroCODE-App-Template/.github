@@ -30,9 +30,9 @@ Links to all the Features included in this Release:
 
 Links to all the Hotfixes included in this Release:
 
-- [hotfix/{nnnn}--{defect-short-name}](../hotfix/hotfix-nnnn--defect-short-name.md)
-- [hotfix/{nnnn}--{defect-short-name}](../hotfix/hotfix-nnnn--defect-short-name.md)
-- [hotfix/{nnnn}--{defect-short-name}](../hotfix/hotfix-nnnn--defect-short-name.md)
+- [hotfix/{nnnn}--{hotfix-short-name}](../hotfix/hotfix-nnnn--hotfix-short-name.md)
+- [hotfix/{nnnn}--{hotfix-short-name}](../hotfix/hotfix-nnnn--hotfix-short-name.md)
+- [hotfix/{nnnn}--{hotfix-short-name}](../hotfix/hotfix-nnnn--hotfix-short-name.md)
 - ...
 
 ### Breaking Changes / Migration Notes

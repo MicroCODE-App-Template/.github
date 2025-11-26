@@ -5,6 +5,19 @@ All notable changes to the MicroCODE App Template will be documented in this fil
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## MicroCODE App Template [0.0.4]
+
+`November 26, 2025`
+
+### Added
+
+- Added a complete `.github/` directory with:
+  - GIT - Issue Templates/ for hotfix, feature, bugfix and release requests
+  - PULL_REQUEST_TEMPLATE for standardized PR submissions
+  - FUNDING.yml to support open source funding options
+  - CODE_OF_CONDUCT.md to establish community guidelines
+  - CONTRIBUTING.md to guide contributors on how to contribute effectively
+
 ## MicroCODE App Template [0.0.3]
 
 `November 23, 2025`

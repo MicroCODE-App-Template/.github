@@ -29,14 +29,14 @@ main                (Production)
       └── bugfix/*  (Defect corrections in beta test)
 ```
 
-| Branch                           | Purpose                                                | Source                                                                                  | Merge Target(s)                              | Documenation Template                              |
-| -------------------------------- | ------------------------------------------------------ | --------------------------------------------------------------------------------------- | -------------------------------------------- | -------------------------------------------------- |
-| `main`                           | Production code only. Always tagged. Protected branch. | n/a                                                                                     | n/a                                          | --                                                 |
-| `hotfix/{issue#}--{short-name}`  | Emergency production fix.                              | `main`                                                                                  | `main`, `develop`, open `release/*`          | `GIT - Issue Notes/hotfix/ HOTFIX - template.md`   |
-| `develop`                        | Alpha integration branch where features accumulate.    | `main`                                                                                  | None: integration and testing branch         | --                                                 |
-| `release/bM.F.0`                 | Beta testing branch. Holds selected features for RC.   | `main` + cherry-picks directly from `feature/*`                                         | `main`, `develop`                            | `GIT - Issue Notes/release/ RELEASE - template.md` |
-| `feature/{issue#}--{short-name}` | Implements a single GitHub Issue (new capability).     | `main`                                                                                  | `develop` and cherry-picked into `release/*` | `GIT - Issue Notes/feature/ FEATURE - template.md` |
-| `bugfix/{issue#}--{short-name}`  | Fixes discovered while in Alpha or Beta testing.       | `feature/*` (canonical source) or `release/bM.F.0` (if feature branch no longer exists) | `feature/*`, `develop`, or `release/*`       | `GIT - Issue Notes/bugfix/ BUGFIX - template.md`   |
+| Branch                           | Purpose                                                | Source                                                                                  | Merge Target(s)                              | Documenation Template                                           |
+| -------------------------------- | ------------------------------------------------------ | --------------------------------------------------------------------------------------- | -------------------------------------------- | --------------------------------------------------------------- |
+| `main`                           | Production code only. Always tagged. Protected branch. | n/a                                                                                     | n/a                                          | --                                                              |
+| `hotfix/{issue#}--{short-name}`  | Emergency production fix.                              | `main`                                                                                  | `main`, `develop`, open `release/*`          | [hotfix](./ISSUEs/hotfix/hotfix-nnnn--hotfix-short-name.md)     |
+| `develop`                        | Alpha integration branch where features accumulate.    | `main`                                                                                  | None: integration and testing branch         | --                                                              |
+| `release/bM.F.0`                 | Beta testing branch. Holds selected features for RC.   | `main` + cherry-picks directly from `feature/*`                                         | `main`, `develop`                            | [release](./ISSUEs/release/release-bM.F.0.md)                   |
+| `feature/{issue#}--{short-name}` | Implements a single GitHub Issue (new capability).     | `main`                                                                                  | `develop` and cherry-picked into `release/*` | [feature](./ISSUEs/feature/feature-nnnn--feature-short-name.md) |
+| `bugfix/{issue#}--{short-name}`  | Fixes discovered while in Alpha or Beta testing.       | `feature/*` (canonical source) or `release/bM.F.0` (if feature branch no longer exists) | `feature/*`, `develop`, or `release/*`       | [bugfix](./ISSUEs/bugfix/bugfix-nnnn--bugfix-short-name.md)     |
 
 Notes:
 
@@ -206,10 +206,10 @@ release/b2.2.0
 
 ## 5. Template Index
 
-- Feature work: `./.github/GIT - Issue Notes/feature/FEATURE - template.md`
-- Bugfix during Beta: `./.github/GIT - Issue Notes/bugfix/BUGFIX - template.md`
-- Hotfix to Production: `./.github/GIT - Issue Notes/hotfix/HOTFIX - template.md`
-- Release coordination: `./.github/GIT - Issue Notes/release/RELEASE - template.md`
+- Feature work: [feature template](./ISSUEs/feature/feature-nnnn--feature-short-name.md)
+- Bugfix during Beta: [bugfix template](./ISSUEs/bugfix/bugfix-nnnn--bugfix-short-name.md)
+- Hotfix to Production: [hotfix template](./ISSUEs/hotfix/hotfix-nnnn--hotfix-short-name.md)
+- Release coordination: [release template](./ISSUEs/release/release-bM.F.0.md)
 
 Each template aligns with the MicroCODE Software Support Process (SSP) expectations
 ([Problem → Observation → Resolution → Verification]()) and should be completed before requesting a PR review.
