@@ -13,7 +13,7 @@ Use these rules when generating code within the 'MicroCODE App Template' Boilerp
 - Business logic belongs in controllers not models.
 - Never query the database directly from controllers.
 - Prefer async/await syntax. No callbacks or nested promises.
-- Comment non-trivial functions with our JSDocs header format.
+- Comment non-trivial functions with our JSDocs header format, see below.
 - Comment non-trivial logic blocks with a beginning // {brief description of code purpose}...
 
 ## Project Structure
@@ -45,10 +45,48 @@ The file naming has been upgraded by MicroCODE to provide a plan to migrate to a
 - `/locales/{entity}.{locale}.json` for locale files - .en., .es., .fr., etc.
 - `/controller/{entity}.controller.js` for controllers
 
+## JSDoc Formats
+
+- Use this format for function headers:
+
+```
+/**
+  * @func <functionName>
+  * @memberof <module.path>
+  * @desc <Description of the function, including purpose, side-effects, and error handling>.
+  * @api <public or private>
+  * @param {type} <paramName> <Description of paramName>.
+  * @param {type} <paramName> <Description of paramName>.
+  * @param {type} <paramName> <Description of paramName>.
+  * ...for all params
+  * @returns {type} <Description of return value>.
+  */
+```
+
+- Example:
+
+```
+/**
+ * @func createAppEvent
+ * @memberof backend.ssr
+ * @desc Creates an App Event object for logging and display.
+ * @param {string} entity the entity to display with the event, which always has a matching icon file.
+ * @param {string} message [optional] the message to display.
+ * @param {string} source [optional] the source (code) of the event.
+ * @param {number} status [optional] the HTTP status code of the event.
+ * @param {string} internal [optional] the internal event message to display.
+ * @param {string} severity [optional] the severity of the event.
+ * @returns {AppEvent} the AppEvent object.
+ */
+function createAppEvent(entity = 'app', message = '', source = '<unknown>.js>', status = 0, internal = mcode.httpStatus(status), severity = mcode.httpSeverity(status))
+{
+...
+```
+
 ## Database
 
 - Gravity uses Knex.js to support MySQL, Postgres and all supported Knex.js providers.
-- MicroCODE's App Template is using MongoDB models, no SQL, no Knex.
+- MicroCODE's App Template is using MongoDB models, no SQL, no Knex; bit we keep teh option in the template.
 - Please refer to DB_CLIENT in .env to determine the current database in use.
 - 'account' is the main organisation and can have multiple users - stored in 'account_users'.
 - Other tables store data related to the account and are secured by having an 'account_id' column.
@@ -56,10 +94,10 @@ The file naming has been upgraded by MicroCODE to provide a plan to migrate to a
 - Tables usually have a foreign key relationship and cascade to remove user or account data when it's deleted.
 - Always consider the security of the data and explain the security implications.
 - There is a wrapper object that can be used to perform database queries.
-- All DB queries must use account_id as a constraint unless public
-- Validate all inputs in controller layer
-- Prevent mass assignment by destructuring only expected fields
-- Use parameterized queries — no raw SQL unless necessary
+- All DB queries must use account_id as a constraint unless returning public data.
+- Validate all inputs in controller layer, assume valid inputs in the model layer.
+- Prevent mass assignment by destructuring only expected fields.
+- Use parameterized queries — no raw SQL unless necessary.
 
 ```js
 const db = require("./knex")();
@@ -68,9 +106,9 @@ await db("account").insert({ email: "hello@usegravity.app" });
 
 ## Accounts
 
-- Store the account-level information, such as plan ID, stripe subscription ID
+- Store the account-level information, such as plan ID, stripe subscription ID, mailgun sunscription ID
 - Each account has at least one user with a permission type of 'owner'
-- An account can only have one user with the permission of owner
+- An account can only have one user with the permission of 'owner'
 - If an account is deleted, all users and associated data linked with the account_id foreign key relationship is deleted
 
 ## Users
@@ -99,8 +137,9 @@ api.get(
 
 ## Config
 
-- Configuration files are stored in /config and a .json file exists for each environment
+- Configuration files are stored in /config and a .json file exists for each environment: dev, production, etc.
 - Config files store stripe plans, the permission stack, api scopes, throttle settings etc.
+- 'dev' is used for local development against STRIPE Test mode and Test Plans
 
 ## Controllers
 
@@ -140,7 +179,7 @@ const data = utility.validate(
 
 - Gravity uses i18n to handle multiple locales
 - Locales are stored in /locales
-- Both en and es files are included
+- Both en and es files are included and will be exapnded to: fr, dt, rs, etc.
 - Locales are output using the res object
 
 ```js
@@ -164,7 +203,8 @@ res.__("account.plan.requires_action");
 
 ### Code Style
 
-- Use modern JavaScript (ES6+) with const/let
+- Use modern JavaScript (2022+) with const/let
+- All exported functions must have JSDoc Headers, see above
 - All functions must be pure unless side effects are explicitly needed
 - Avoid deeply nested logic—extract helpers in /helper
 - Always include clear, factual comments above non-trivial functions
@@ -173,7 +213,7 @@ res.__("account.plan.requires_action");
 
 ## Folder Rules
 
-/api
+`/api`
 
 - Group routes by feature
 - Each route must:
@@ -181,26 +221,26 @@ res.__("account.plan.requires_action");
 - Use auth.verify() with correct permission and scope
 - Reference the corresponding controller method
 
-/controller
+`/controller`
 
 - Only handle request/response logic
 - Business logic must be offloaded to helpers or services
 - Never query the database directly
 - Export named functions, grouped by entity (e.g., account.get, account.update)
 
-/model
+`/model`
 
 - Handle only DB queries
 - Wrap DB calls with reusable query builder (db('table'))
 - Never include business logic
 
-/helper
+`/helper`
 
 - Place all reusable logic here
 - Split into mailer.js, s3.js, file.js, etc.
 - Utility functions should be easily testable and documented
 
-/worker
+`/worker`
 
 - Use Bull queue
 - Workers must gracefully handle retries and logging

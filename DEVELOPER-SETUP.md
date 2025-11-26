@@ -94,10 +94,10 @@ they had beautiful online documentation, and training...
    - To place the entire `app-template` in a GitHub repo state, run `npm run teardown.all` from the SERVER directory
 
    - You should see these messages like these...
-   <p align="left"><img src=".\images\mongodb-run-seeds.png" width="720" title="Init new MongoDB" style="border: 0.5px solid lightgray;"></p>
+   <p align="left"><img src=".\.images\mongodb-run-seeds.png" width="720" title="Init new MongoDB" style="border: 0.5px solid lightgray;"></p>
 
    - Then check the "appDatabase" in mongosh for the default tables, similar to these...
-   <p align="left"><img src=".\images\mongodb-drop-database.png" width="720" title="Delete MongoDB" style="border: 0.5px solid lightgray;"></p>
+   <p align="left"><img src=".\.images\mongodb-drop-database.png" width="720" title="Delete MongoDB" style="border: 0.5px solid lightgray;"></p>
 
 ---
 
@@ -140,15 +140,15 @@ MicroCODE Console will be available at `http://localhost:5002`
 
 You should see `Server console` output like this...
 
-<p align="left"><img src=".\images\npm-run-dev-1.png" width="720" title="Server startup" style="border: 0.5px solid lightgray;"></p>
+<p align="left"><img src=".\.images\npm-run-dev-1.png" width="720" title="Server startup" style="border: 0.5px solid lightgray;"></p>
 
 The `Client` launches here, but is not 100% available until the Server completes...
 
-<p align="left"><img src=".\images\npm-run-dev-2.png" width="720" title="Client startup" style="border: 0.5px solid lightgray;"></p>
+<p align="left"><img src=".\.images\npm-run-dev-2.png" width="720" title="Client startup" style="border: 0.5px solid lightgray;"></p>
 
 And the `App` should automatically open to the Login screen, similar to this...
 
-<p align="left"><img src=".\images\npm-run-dev-3.png" width="720" title="App Login" style="border: 0.5px solid lightgray;"></p>
+<p align="left"><img src=".\.images\npm-run-dev-3.png" width="720" title="App Login" style="border: 0.5px solid lightgray;"></p>
 
 ---
 

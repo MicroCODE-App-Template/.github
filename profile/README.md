@@ -14,8 +14,32 @@ MicroCODE App Template serves as the foundation for all MicroCODE, Inc. SaaS pro
 
 This is our **active development platform** - the customized derivative of the licensed Gravity boilerplate that we use to build production applications.
 
+This GitHub Organization has (5) repositories that form a complete App Solution:
+
+- `admin` — Admin console/backend [Gravity's "mission-control"]
+- `app` — Mobile app (React Native for iOS and Android) [Gravity's "client-react-native"]
+- `client` — Web client [Gravity's "client-react-web"]
+- `portal` — Portal/marketing site (Astro) [Gravity's "supernova"]
+- `server` — Backend API server [Gravity's "server"]
+
+This is a multi-repo setup where each component is versioned independently but works together.
+
+Common benefits:
+
+- Independent versioning and releases
+- Separate access controls
+- Clear separation of concerns
+- Easier to scale teams per component
+
 📚 **[Developer Setup Guide](../DEVELOPER-SETUP.md)** - Complete installation and configuration instructions
 📋 **[Changelog](../CHANGELOG.md)** - Version history and release notes
+
+### Version Management
+
+- Platform version follows semantic versioning (vM.F.p), see **[App Versioning GIT Rules](../DEVELOPER-GIT.md)**
+- Breaking changes communicated to all product teams
+- Backward compatibility maintained whereever possible
+- Migration guides provided for major updates
 
 ## Built From Gravity
 
@@ -34,60 +58,61 @@ MicroCODE App Template is our enhanced version of the [Gravity SaaS Boilerplate]
 - **Testing**: 40+ integration tests
 - **AI Support**: Cursor & Windsurf rules for accelerated development
 
-## MicroCODE Customizations
+### MicroCODE Customizations
 
 Our platform extends Gravity with enterprise-specific enhancements:
 
-### Enhanced Architecture
+#### Enhanced Architecture
+
+These features were added by MicroCODE, Inc. befoe using Gravity for production apps:
 
 - **Layered API Design**: UI, UX, DB, and IO layers for clear separation of concerns
-- **Dynamic Entity System**: Single source of truth configuration driving all CRUD operations
+- **Dynamic Entity System**: Single source of truth configuration driving all CRUD operations,
+  this required a complete reorganization of the Gravity code to be 'Entity Centric'
 - **HTMX Integration**: Hypermedia-driven UI following principles from "Hypermedia Systems"
 - **Auto-Generated Documentation**: Swagger and JSDoc generated from configuration
 - **Entity Resolution**: Automatic UUID-to-text resolution for display
 
-### Enterprise Features
+#### Enterprise Features
 
-- **Advanced RBAC**: Seven-level privilege system (Super, Developer, Admin, Engineer, Group Leader, Team Leader, Operator)
 - **Redis Integration**: Enhanced caching and pub/sub for real-time features
 - **Health Monitoring**: Comprehensive system diagnostics and health checks
 - **Support System**: Built-in ticket and help desk management
 - **Admin Tools**: Cache, Redis, database, and JSON management utilities
 
-### Developer Experience
+#### Developer Experience
 
 - **Configuration-Driven Development**: Define entities once, generate everything automatically
 - **Automatic API Generation**: Routes, validation, and documentation from `__config.js`
 - **Consistent Patterns**: Standardized CRUD operations across all entities
-- **Type Safety**: Enhanced TypeScript support and type definitions
-- **CLI Tools**: Custom commands for scaffolding and entity management
+- **CLI Tools**: Custom commands for scaffolding and entity management (setup.all and teardown.all)
 
-## Technology Stack
+## Technology Stack - MERN
 
-- **Frontend**: React (Web), React Native (Mobile)
-- **Backend**: Node.js with Express
-- **UI Framework**: HTMX + HTML/CSS (Hypermedia-driven), Shadcn components
-- **Database**: MongoDB, MySQL, PostgreSQL, MariaDB (multi-database support)
-- **API**: RESTful with Swagger and JSDoc documentation
-- **Authentication**: PassportJS with multi-provider support
-- **Payments**: Stripe for subscriptions and billing
-- **Caching**: Redis for performance and real-time features
-- **Email**: Transactional email with multiple provider support
-- **Testing**: Jest, integration tests, end-to-end testing
+- **App**: `React` (Web), `React Native` (Mobile)
+- **Server**: `Node.js` with `Express` routing
+- **UI Framework**: `React` with Shadcn(Radix-UI) components
+- **Database**: `MongoDB`, MySQL, PostgreSQL, MariaDB (Mongo or SQL database support)
+- **API**: RESTful with `Swagger` and `JSDoc` documentation
+- **Authentication**: `PassportJS` with multi-provider support
+- **Payments**: `Stripe` for subscriptions and billing
+- **Caching**: `Redis` for performance and real-time features
+- **Email**: `Mailgun` Transactional email with optional multiple provider support
+- **Testing**: `Mocha` and `Chai`, integration tests, end-to-end testing
 
 ## Applications Built on MicroCODE App Template
 
 Products built on this platform:
 
 - **LADDERS® as a Service**: Cloud-based PLC compare reporting for industrial automation
-- **Regatta RC™**: Race Committee management for sailing regattas
+- **Regatta RC™**: Race Committee management and Recision Scoring for sailing regattas
 - **[Additional Applications]**: Enterprise SaaS solutions for various industries
 
 ## Key Capabilities
 
 ### For Product Teams
 
-- Launch new SaaS products in weeks, not months
+- Launch new SaaS products in days or weeks, not months
 - Focus on core features instead of authentication, billing, and infrastructure
 - Consistent UX patterns across all MicroCODE products
 - Shared component library and design system
@@ -111,59 +136,21 @@ Products built on this platform:
 
 ## Architecture Overview
 
-### Layered API Structure
+### Complete Solution Structure
 
-**UI Layer** - Server-Side Rendering
+- **Admin** - backend control and maintenance
+- **App** - mobile Apps for iOS and Android
+- **Client** - web frontend
+- **Portal** - cloud marketing site
+- **Server** - cloud backend
 
-- System operations and commands
-- View and component rendering
-- Modal components via HTMX
-- Banner notifications
-- Enum resolution and lookups
-
-**UX Layer** - Client-Side Interactivity
-
-- Media rendering (local/remote)
-- Real-time clock and timers
-- Interactive components
-
-**DB Layer** - Data Persistence
-
-- Entity CRUD operations
-- Schema management
-- Query optimization
-- Multi-database support
-
-**IO Layer** - External Integration
-
-- Real-time data streaming
-- Hardware interfacing
-- Health monitoring
-- External API integration
-
-## Entity Configuration System
+## SERVER: Entity Configuration System
 
 The `__config.js` file serves as the single source of truth:
 
-```javascript
-{
-    name: 'entity',
-    description: 'Entity description for documentation',
-    api: ['ui', 'db'],           // Exposed APIs
-    nature: 'logical',            // Entity type
-    resolves: true,               // UUID resolution
-    auth: {
-        create: 'Engineer',
-        read: 'Operator',
-        update: 'Engineer',
-        delete: 'Admin',
-    }
-}
-```
-
 This automatically generates:
 
-- Database tables and enums
+- Database Tables and enums for Tupe and State
 - API endpoints (GET, POST, PUT, DELETE)
 - Swagger documentation
 - UI views and forms
@@ -174,10 +161,11 @@ This automatically generates:
 ### For New Applications
 
 1. Clone MicroCODE App Template repository
-2. Configure entities in `__config.js`
-3. Run entity generation CLI
-4. Customize views and business logic
-5. Deploy with included infrastructure code
+2. Follow DEVERLOPER-SETUP instructions.
+3. Configure entities in `__config.js`
+4. Run entity generation CLI
+5. Customize views and business logic
+6. Deploy with included infrastructure code
 
 ### For Contributions
 
@@ -185,29 +173,19 @@ This is an internal platform. Contributions should follow MicroCODE development 
 
 ## Repository Structure
 
-This GitHub Organization contains:
+This GitHub Organization `MicroCODE-App-Template` contains:
 
-- **microcode-app-core**: Core platform and framework
-- **microcode-app-frontend**: React web application base
-- **microcode-app-mobile**: React Native mobile app base
-- **microcode-app-api**: Backend API and services
-- **microcode-app-docs**: Platform documentation and guides
-- **microcode-app-cli**: CLI tools for scaffolding and management
-- **microcode-app-components**: Shared component library
-- **microcode-app-infra**: Deployment and infrastructure templates
+- `admin` - backend control and maintenance
+- `app` - mobile Apps for iOS and Android
+- `client` - web frontend
+- `portal` - cloud marketing site
+- `server` - cloud backend
 
 ## Maintenance and Updates
 
 ### Gravity Updates
 
-We maintain a separate reference copy of the original Gravity boilerplate to track upstream changes. Updates are evaluated and selectively integrated into MicroCODE App Template to maintain compatibility while preserving our customizations.
-
-### Version Management
-
-- Platform version follows semantic versioning
-- Breaking changes communicated to all product teams
-- Backward compatibility maintained where possible
-- Migration guides provided for major updates
+We maintain a separate reference copy of the original Gravity boilerplate to track upstream changes. Updates are evaluated and selectively integrated into `MicroCODE App Template` to maintain compatibility while preserving our customizations. **NOTE**: Our App Template has diveraged greatly from the `Gravity App` solution and it can only be used as a reference or detailed example going forward.
 
 ## License
 
