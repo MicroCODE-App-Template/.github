@@ -18,3 +18,5 @@ Common benefits:
 - Separate access controls
 - Clear separation of concerns
 - Easier to scale teams per component
+
+NOTE: Do NOT rename folders under `.github/ISSUEs` as they are linked to issue templates.

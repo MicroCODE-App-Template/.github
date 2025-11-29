@@ -1,0 +1,92 @@
+# Dependency Update Workflow
+# Automatically creates PRs for dependency updates (complements Dependabot)
+
+name: Dependency Update
+
+on:
+    workflow_call:
+        inputs:
+            working-directory:
+                description: "Working directory for the job"
+                required: false
+                type: string
+                default: "."
+    schedule:
+        # Run monthly on the first Monday
+        - cron: "0 9 1-7 * 1"
+    workflow_dispatch:
+
+jobs:
+    update-dependencies:
+        name: Update Dependencies
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ${{ inputs.working-directory }}
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "20"
+                  cache: "npm"
+                  cache-dependency-path: ${{ inputs.working-directory }}/package-lock.json
+
+            - name: Install dependencies
+              run: npm ci
+              working-directory: ${{ inputs.working-directory }}
+
+            - name: Check for outdated packages
+              run: npm outdated || true
+              working-directory: ${{ inputs.working-directory }}
+
+            - name: Update patch and minor versions
+              run: |
+                  npm update
+                  npm audit fix --audit-level=moderate || true
+              working-directory: ${{ inputs.working-directory }}
+
+            - name: Check for changes
+              id: check-changes
+              run: |
+                  if [ -n "$(git status --porcelain)" ]; then
+                    echo "changes=true" >> $GITHUB_OUTPUT
+                  else
+                    echo "changes=false" >> $GITHUB_OUTPUT
+                  fi
+              working-directory: ${{ inputs.working-directory }}
+
+            - name: Create Pull Request
+              if: steps.check-changes.outputs.changes == 'true'
+              uses: peter-evans/create-pull-request@v6
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  commit-message: "chore: update dependencies"
+                  title: "chore: automated dependency update"
+                  body: |
+                      ## Automated Dependency Update
+
+                      This PR was automatically created to update dependencies.
+
+                      ### Changes
+                      - Updated npm packages to latest patch and minor versions
+                      - Applied security fixes from npm audit
+
+                      ### Review Checklist
+                      - [ ] Review updated packages
+                      - [ ] Run tests locally
+                      - [ ] Check for breaking changes
+                      - [ ] Verify application functionality
+
+                      **Note:** Major version updates require manual review.
+                  branch: chore/dependency-update
+                  delete-branch: true
+                  labels: |
+                      dependencies
+                      automated
+                  working-directory: ${{ inputs.working-directory }}

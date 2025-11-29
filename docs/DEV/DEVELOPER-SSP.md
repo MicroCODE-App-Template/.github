@@ -129,7 +129,7 @@ We use **Semantic Versioning (SemVer)**: `vM.F.H`
 - `v2.2.0` - Major Version 2, 2nd Feature Release (new features bundled), no hotfixes
 - `v3.0.0` - Major Version 3 (architectural change), 1st Feature Release
 
-See [MicroCODE Git Workflow](./DEVELOPER-GIT.md) - for detailed procedures and examples.
+See [MicroCODE Git Workflow](./docs/DEV/DEVELOPER-GIT.md) - for detailed procedures and examples.
 
 ## Issue Tracking with GitHub Issues/Projects
 
@@ -190,6 +190,26 @@ We use **GitHub Projects** (board view) to visualize workflow:
 - Filter by labels, assignees, milestones
 - Multiple views (board, table, roadmap)
 - All tracking in one place (GitHub)
+
+### Linking Issues Without Auto-Closing
+
+We deliberately **do not** use GitHub's automatic issue closing keywords (such as `Fixes #123`, `Closes #123`, or `Resolves #123`) because our branches must remain open until changes have propagated through all required Circles.
+
+Instead, when referencing Issues in commits and Pull Requests, use **non-closing phrases** such as:
+
+- `Refs #123`
+- `Related to #123`
+- `Implements part of #123`
+
+This preserves the linkage between Issues, branches, and PRs without automatically closing the Issue when a single PR is merged.
+
+Branch and Issue lifecycle expectations:
+
+- **`hotfix/*` branches:** Remain open until the fix has been merged into `main`, `develop`, and any open `release/*` branches. The related Issue is closed **manually** after all merges are complete and verified.
+- **`feature/*` branches:** Remain open until they have been merged into `develop`, then into the appropriate `release/*` branch(es), and finally deployed via merge of `release/*` into `main`. The related Issue is closed **manually** when the feature is available in Production.
+- **`bugfix/*` branches:** Remain open until merged into their parent `feature/*` or `release/*` branch, and that work has flowed through `release/*` into `main`. The related Issue is closed **manually** once the fix is confirmed in Production.
+
+This approach ensures Issues and branches reflect the true end-to-end lifecycle across Alpha, Beta, and Production Circles.
 
 ### Linking Issues to Code
 
@@ -308,4 +328,4 @@ The workflow ensures:
 
 ---
 
-**For detailed Git commands and examples, see:** `DEVELOPER-GIT.md`
+**For detailed Git commands and examples, see:** `./docs/DEV/DEVELOPER-GIT.md`

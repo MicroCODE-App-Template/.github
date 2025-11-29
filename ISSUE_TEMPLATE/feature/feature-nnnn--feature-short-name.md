@@ -21,8 +21,8 @@ Describe in detail the current behavior, including screenshots, logs, or relevan
 
 {Current behavior}
 
-- **Current UI / Workflow:**
-<p align="left"><img src="./.images/current-nnnn.png" width="720" title="Current behavior" style="border: 0.5px solid lightgray;"></p>
+- **Current UI, Workflow or Code:**
+<p align="left"><img src="./.images/issue-nnnn--before.png" width="720" title="Current behavior" style="border: 0.5px solid lightgray;"></p>
 
 ## Requested Behavior (TO-BE)
 
@@ -30,8 +30,8 @@ Describe in detail the desired behavior. Include acceptance criteria, UX/UI mock
 
 {Requested behavior}
 
-- **Proposed UI / Workflow:**
-<p align="left"><img src="./.images/request-nnnn.png" width="720" title="Requested behavior" style="border: 0.5px solid lightgray;"></p>
+- **Proposed UI, Workflow or Code:**
+<p align="left"><img src="./.images/issue-nnnn--after.png" width="720" title="Requested behavior" style="border: 0.5px solid lightgray;"></p>
 
 ## Reason for Change
 
@@ -49,4 +49,5 @@ Describe the change to code, process, or configuration required to achieve the T
 - **Dependencies / External systems:** {list}
 - **Testing Plan:** {unit/integration/SAT/UAT}
 - **Risks & Mitigations:** {list}
+- **Rollout Plan:** {describe}
 - **Back-out Plan:** {describe}

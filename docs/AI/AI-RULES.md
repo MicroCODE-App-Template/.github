@@ -1,7 +1,7 @@
-## Cursor Assistant Guidelines
+## A.I. Assistant Guidelines
 
 Use these rules when generating code within the 'MicroCODE App Template' Boilerplate. Follow our mantra:
-"Code like a Machine: Consistently and Explicitly, Simply and for Readability (Hail CEASAR)!”℠". While following best security practices.
+"Code like a Machine: Consistently and Explicitly, Simply and for Readability (Hail CEASAR)!". While following best security practices.
 
 ## General Principles
 

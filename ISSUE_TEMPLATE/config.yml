@@ -1,0 +1,30 @@
+blank_issues_enabled: false
+
+contact_links:
+  - name: Workflow Documentation
+    url: https://github.com/MicroCODE-App-Template/server/blob/main/.github/WORKFLOW.md
+    about: Read the MicroCODE workflow before opening an issue.
+
+# Issue Templates Configuration
+#
+# NOTE: GitHub's issue template system automatically recognizes templates in the root
+# of ISSUE_TEMPLATE/ folder. Templates in subfolders are NOT automatically recognized
+# by GitHub's UI, but can be accessed directly or used as working document templates.
+#
+# Directory Structure:
+#
+# - bug_report.md → GitHub issue template (for beta bugs)
+# - bugfix/bugfix-nnnn--*.md → Working document template (development tracking)
+#
+# - defect_report.md → GitHub issue template (for production defects)
+# - hotfix/hotfix-nnnn--*.md → Working document template (development tracking)
+#
+# - feature_request.md → GitHub issue template (for new features)
+# - feature/feature-nnnn--*.md → Working document template` (development tracking)
+#
+# - release_request.md → GitHub issue template (for release planning)
+# - release/release-*.md → Working document template (development tracking)
+#
+# - security_vulnerability.md → GitHub issue template (for security issues)
+# - security/security-nnnn--*.md  → Working document template (development tracking)
+#

@@ -29,14 +29,14 @@ main                (Production)
       └── bugfix/*  (Defect corrections in beta test)
 ```
 
-| Branch                           | Purpose                                                | Source                                                                                  | Merge Target(s)                              | Documenation Template                                           |
-| -------------------------------- | ------------------------------------------------------ | --------------------------------------------------------------------------------------- | -------------------------------------------- | --------------------------------------------------------------- |
-| `main`                           | Production code only. Always tagged. Protected branch. | n/a                                                                                     | n/a                                          | --                                                              |
-| `hotfix/{issue#}--{short-name}`  | Emergency production fix.                              | `main`                                                                                  | `main`, `develop`, open `release/*`          | [hotfix](./ISSUEs/hotfix/hotfix-nnnn--hotfix-short-name.md)     |
-| `develop`                        | Alpha integration branch where features accumulate.    | `main`                                                                                  | None: integration and testing branch         | --                                                              |
-| `release/bM.F.0`                 | Beta testing branch. Holds selected features for RC.   | `main` + cherry-picks directly from `feature/*`                                         | `main`, `develop`                            | [release](./ISSUEs/release/release-bM.F.0.md)                   |
-| `feature/{issue#}--{short-name}` | Implements a single GitHub Issue (new capability).     | `main`                                                                                  | `develop` and cherry-picked into `release/*` | [feature](./ISSUEs/feature/feature-nnnn--feature-short-name.md) |
-| `bugfix/{issue#}--{short-name}`  | Fixes discovered while in Alpha or Beta testing.       | `feature/*` (canonical source) or `release/bM.F.0` (if feature branch no longer exists) | `feature/*`, `develop`, or `release/*`       | [bugfix](./ISSUEs/bugfix/bugfix-nnnn--bugfix-short-name.md)     |
+| Branch                           | Purpose                                                | Source                                                                                  | Merge Target(s)                              | Documenation Template                                                       |
+| -------------------------------- | ------------------------------------------------------ | --------------------------------------------------------------------------------------- | -------------------------------------------- | --------------------------------------------------------------------------- |
+| `main`                           | Production code only. Always tagged. Protected branch. | n/a                                                                                     | n/a                                          | --                                                                          |
+| `hotfix/{issue#}--{short-name}`  | Emergency production fix.                              | `main`                                                                                  | `main`, `develop`, open `release/*`          | [hotfix](../../ISSUE_TEMPLATE/hotfix/hotfix-nnnn--hotfix-short-name.md)     |
+| `develop`                        | Alpha integration branch where features accumulate.    | `main`                                                                                  | None: integration and testing branch         | --                                                                          |
+| `release/bM.F.0`                 | Beta testing branch. Holds selected features for RC.   | `main` + cherry-picks directly from `feature/*`                                         | `main`, `develop`                            | [release](../../ISSUE_TEMPLATE/release/release-bM.F.0.md)                   |
+| `feature/{issue#}--{short-name}` | Implements a single GitHub Issue (new capability).     | `main`                                                                                  | `develop` and cherry-picked into `release/*` | [feature](../../ISSUE_TEMPLATE/feature/feature-nnnn--feature-short-name.md) |
+| `bugfix/{issue#}--{short-name}`  | Fixes discovered while in Alpha or Beta testing.       | `feature/*` (canonical source) or `release/bM.F.0` (if feature branch no longer exists) | `feature/*`, `develop`, or `release/*`       | [bugfix](../../ISSUE_TEMPLATE/bugfix/bugfix-nnnn--bugfix-short-name.md)     |
 
 Notes:
 
@@ -198,11 +198,38 @@ release/b2.2.0
 ## 4. Practical Checklist
 
 - **PR Titles:** `[vM.F.H] Description` (e.g.: `[v2.2.0] Add sidebar builder`)
-- **Issue Linking:** Include `Fixes #NNNN` or `Closes #NNNN` in every PR description.
+- **Issue Linking (Non-Closing):** Reference Issues with **non-closing** phrases such as `Refs #NNNN`, `Related to #NNNN`, or `Implements part of #NNNN` so GitHub **does not** auto-close Issues when a single PR is merged.
 - **Branch Protection:** `main`, `develop`, and active `release/*` require PR approval + status checks.
 - **Tags:** Always tag releases on `main`. Hotfix tags use the next `H` value.
 - **Documentation:** Use the Markdown templates in `./.github/GIT - Issue Notes/` to capture context before merging.
 - **Auto-delete:** Enable automatic branch deletion in GitHub settings for merged branches.
+
+### Issue & Branch Lifecycle Rules
+
+To align Git behavior with the Circles model, keep branches and Issues open until changes have propagated through all required environments. Use the following lifecycle rules:
+
+- **`hotfix/{issue#}--{short-name}`**
+
+  - Create from `main` for emergency production fixes.
+  - Reference the Issue using non-closing phrases only (`Refs #NNNN`, etc.).
+  - Merge the hotfix into `main`, then **echo** the same branch into `develop` and any open `release/*` branches.
+  - Keep both the `hotfix/*` branch and the Issue **open** until all required merges are complete and verified.
+  - Close the Issue and delete the branch **manually** once the fix is confirmed in Production.
+
+- **`feature/{issue#}--{short-name}`**
+
+  - Implements a single GitHub Issue.
+  - Merge into `develop` for Alpha integration, and cherry-pick into the appropriate `release/bM.F.0` branch(es) as needed.
+  - Keep the feature branch and Issue **open** until the selected `release/*` has been merged into `main` and the capability is live.
+  - Close the Issue and delete the branch **manually** after Production verification.
+
+- **`bugfix/{issue#}--{short-name}`**
+  - Create from the canonical `feature/*` branch (or `release/*` if the feature branch no longer exists).
+  - Merge back into the canonical branch, then echo into `develop` and any affected `release/*` branches.
+  - Keep the bugfix branch and Issue **open** until the corrected code has flowed through `release/*` into `main`.
+  - Close the Issue and delete the branch **manually** once the fix is verified in Production.
+
+In all cases, avoid closing Issues automatically via `Fixes #NNNN`/`Closes #NNNN` so that Issue state reflects the true end-to-end lifecycle across Alpha, Beta, and Production.
 
 ## 5. Template Index
 
@@ -213,5 +240,20 @@ release/b2.2.0
 
 Each template aligns with the MicroCODE Software Support Process (SSP) expectations
 ([Problem → Observation → Resolution → Verification]()) and should be completed before requesting a PR review.
+
+## 5. Branch Naming Conventions (GitHub Organizations with Multiple Repos)
+
+Most Web Apps are deployed within GitHub Organizations.
+When working within an Organization, create branches and PRs according to the following checklist:
+
+- [ ] `.github` - type/nnnn-gx-type-short-name
+- [ ] `server` - type/nnnn--db-type-short-name
+- [ ] `client` - type/nnnn--ui-type-short-name
+- [ ] `app` - type/nnnn--ux-type-short-name
+- [ ] `admin` - type/nnnn--cx-type-short-name
+- [ ] `console` - type/nnnn--cx-type-short-name
+- [ ] `portal` - type/nnnn--wp-type-short-name
+
+  - where **type** is: `hotfix`, `feature`, `bugfix`, `security`, or `release`.
 
 - See [DEVELOPER-SSP.md](./DEVELOPER-SSP.md) for more information.
