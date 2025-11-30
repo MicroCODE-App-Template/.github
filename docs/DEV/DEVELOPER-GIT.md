@@ -250,8 +250,7 @@ When working within an Organization, create branches and PRs according to the fo
 - [ ] `server` - type/nnnn--db-type-short-name
 - [ ] `client` - type/nnnn--ui-type-short-name
 - [ ] `app` - type/nnnn--ux-type-short-name
-- [ ] `admin` - type/nnnn--ad-type-short-name
-- [ ] `console` - type/nnnn--cs-type-short-name
+- [ ] `admin`+`console` - type/nnnn--cs-type-short-name
 - [ ] `portal` - type/nnnn--wp-type-short-name
 
   - where **type** is: `hotfix`, `feature`, `bugfix`, `security`, or `release`.
