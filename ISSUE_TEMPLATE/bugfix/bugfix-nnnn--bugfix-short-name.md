@@ -1,18 +1,18 @@
-# bugfix/{nnnn}--{bugfix-short-name} (repo: {app-repo-name})
+# 🎃 bugfix/nnnn--bugfix-short-name (app-repo-name)
 
-| Issue # | PR #    | Corrected by | Date        | Release # |
-| ------- | ------- | ------------ | ----------- | --------- |
-| `#nnnn` | `#pppp` | {dev-name}   | {date-time} | `bM.F.0`  |
+| Issue # | PR #    | Corrected by | Date       | Release # |
+| ------- | ------- | ------------ | ---------- | --------- |
+| `#nnnn` | `#pppp` | dev-name     | yyyy-mm-dd | `bM.F.0`  |
 
-- **Source Branch:** `feature/{nnnn}--{feature-short-name}`
+- **Source Branch:** `feature/nnnn--feature-short-name`
 - **Alternate Source:** `release/bM.F.0`
-- **Working Branch:** `bugfix/{nnnn}--{bugfix-short-name}`
-- **Target Branch:** `feature/{nnnn}--{feature-short-name}`, then `release/bM.F.0`, `develop`
+- **Working Branch:** `bugfix/nnnn--bugfix-short-name`
+- **Target Branch:** `feature/nnnn--feature-short-name`, then `release/bM.F.0`, `develop`
 - **Tag:** `bM.F.H`
 
 ## Summary
 
-This document describes a Bug Fix applied to `{app-web-name}` while the release candidate branch `release/bM.F.0` is in Beta testing. Beta bugfixes are created from the affected `feature/*` branch (canonical source) to ensure fixes persist even if the `release/*` branch is abandoned.
+This document describes a Bug Fix applied to `app-web-name` while the release candidate branch `release/bM.F.0` is in Beta testing. Beta bugfixes are created from the affected `feature/*` branch (canonical source) to ensure fixes persist even if the `release/*` branch is abandoned.
 
 **Problem**: Summary of the problem as reported by the customer or internal testing. Include links to the GitHub Issue / customer ticket if applicable:
 

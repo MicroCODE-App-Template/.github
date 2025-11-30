@@ -1,8 +1,8 @@
-# release/bM.F.0 (repo: {app-repo-name})
+# 🎯 release/bM.F.0 (app-repo-name)
 
-| Release # | PR #    | Release Owner   | Date        | Scope           | Tag    |
-| --------- | ------- | --------------- | ----------- | --------------- | ------ |
-| `vM.F.0`  | `#pppp` | {release-owner} | {date-time} | Major / Feature | bM.F.0 |
+| Release # | PR #    | Release Owner | Date       | Scope         | Tag    |
+| --------- | ------- | ------------- | ---------- | ------------- | ------ |
+| `vM.F.0`  | `#pppp` | release-owner | yyyy-mm-dd | Major/Feature | bM.F.0 |
 
 - **Source Branch:** `main`
 - **Working Branch:** `release/bM.F.0`

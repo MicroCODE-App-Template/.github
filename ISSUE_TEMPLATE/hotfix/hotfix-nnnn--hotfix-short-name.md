@@ -1,17 +1,17 @@
-# hotfix/{nnnn}--{hotfix-short-name} (repo: {app-repo-name})
+# ⛔ hotfix/nnnn--hotfix-short-name (app-repo-name)
 
-| Issue # | PR #    | Corrected by | Date        | Hotfix # |
-| ------- | ------- | ------------ | ----------- | -------- |
-| `#nnnn` | `#pppp` | {dev-name}   | {date-time} | `vM.F.H` |
+| Issue # | PR #    | Corrected by | Date       | Hotfix # |
+| ------- | ------- | ------------ | ---------- | -------- |
+| `#nnnn` | `#pppp` | dev-name     | yyyy-mm-dd | `vM.F.H` |
 
 - **Source Branch:** `main`
-- **Working Branch:** `hotfix/{nnnn}--{hotfix-short-name}`
+- **Working Branch:** `hotfix/nnnn--hotfix-short-name`
 - **Target Branch:** `main`, then `develop`, `release/*`
 - **Tag:** `vM.F.H`
 
 ## Summary
 
-This document describes a Hot Fix applied to `{app-web-name}`. This hotfix is designed to be applied as a patch to a live production Web App on the `main` trunk and back-merged into `develop` and any open `release/*` branches per SSP. After merging to `main` and tagging `vM.F.H`, also merge this hotfix to `develop` (tag `aM.F.H`) and any open `release/*` branches (tag `bM.F.H`) per the workflow in `./docs/DEV/DEVELOPER-GIT.md`
+This document describes a Hot Fix applied to `app-web-name`. This hotfix is designed to be applied as a patch to a live production Web App on the `main` trunk and back-merged into `develop` and any open `release/*` branches per SSP. After merging to `main` and tagging `vM.F.H`, also merge this hotfix to `develop` (tag `aM.F.H`) and any open `release/*` branches (tag `bM.F.H`) per the workflow in `./docs/DEV/DEVELOPER-GIT.md`
 
 **Problem**: Summary of the problem as reported by the customer or internal testing. Include links to the GitHub Issue / customer ticket if applicable:
 

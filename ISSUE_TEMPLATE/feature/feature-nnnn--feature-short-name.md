@@ -1,11 +1,11 @@
-# feature/{nnnn}--{feature-short-name} (repo: {app-repo-name})
+# 😎 feature/nnnn--feature-short-name (app-repo-name)
 
-| Issue # | PR #    | Requested by  | Implemented by | Date        | Release # |
-| ------- | ------- | ------------- | -------------- | ----------- | --------- |
-| `#nnnn` | `#pppp` | {stakeholder} | {dev-name}     | {date-time} | `aM.F.0`  |
+| Issue # | PR #    | Requested by | Implemented by | Date       | Release # |
+| ------- | ------- | ------------ | -------------- | ---------- | --------- |
+| `#nnnn` | `#pppp` | stakeholder  | dev-name       | yyyy-mm-dd | `aM.F.0`  |
 
 - **Source Branch:** `main`
-- **Working Branch:** `feature/{nnnn}--{feature-short-name}`
+- **Working Branch:** `feature/nnnn--feature-short-name`
 - **Target Branch:** `develop`
 - **Tag:** `aM.F.H`
 

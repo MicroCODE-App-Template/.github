@@ -1,10 +1,19 @@
 name: Release request
-description: Propose a new release and its scope.
+description: Propose a new RELEASE and its scope, including FEATUREs and changes.
 title: "[RELEASE] "
 labels: [enhancement]
 assignees: []
 
 body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🎯 RELEASE Request report
+
+        **IMPORTANT:** This template is for reporting RELEASE requests only.
+        For BETA testing bugs, please use the BUG Report template.
+        For PRODUCTION defects, please use the DEFECT Report template.
+
   - type: textarea
     id: release_description
     attributes:

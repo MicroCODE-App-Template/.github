@@ -1,10 +1,19 @@
 name: Feature request
-description: Suggest an idea for this project.
+description: Suggest an idea for a NEW FEATURE or ENHANCEMENT in this App.
 title: "[FEATURE] "
 labels: [enhancement]
 assignees: []
 
 body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 😎 FEATURE Request report
+
+        **IMPORTANT:** This template is for reporting FEATURE requests only.
+        For BETA testing bugs, please use the BUG Report template.
+        For PRODUCTION defects, please use the DEFECT Report template.
+
   - type: textarea
     id: feature_description
     attributes:

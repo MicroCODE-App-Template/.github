@@ -1,7 +1,15 @@
 name: Bug report
-description: Create a report to help us improve
+description: Create a report to help the DEVs correct issues in a BETA release.
 labels: [bug]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🎃 BETA Testing Bug Report
+
+        **IMPORTANT:** This template is for reporting BETA testing bugs only.
+        For general bugs, please use the DEFECT Report template.
+
   - type: textarea
     id: description
     attributes:

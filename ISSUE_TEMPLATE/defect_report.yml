@@ -1,10 +1,18 @@
 name: Defect report
-description: Create a report to help us improve production quality.
+description: Create a report to help the DEVs correct issues found in PRODUCTION.
 title: "[DEFECT] "
 labels: [defect]
 assignees: []
 
 body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ⛔ PRODUCTION Defect Report
+
+        **IMPORTANT:** This template is for reporting defects found in PRODUCTION only.
+        For BETA testing bugs, please use the BUG Report template.
+
   - type: markdown
     attributes:
       value: |
