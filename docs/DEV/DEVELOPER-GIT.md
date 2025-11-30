@@ -246,13 +246,16 @@ Each template aligns with the MicroCODE Software Support Process (SSP) expectati
 Most Web Apps are deployed within GitHub Organizations.
 When working within an Organization, create branches and PRs according to the following checklist:
 
-- [ ] `.github` - type/nnnn-gx-type-short-name
-- [ ] `server` - type/nnnn--db-type-short-name
-- [ ] `client` - type/nnnn--ui-type-short-name
-- [ ] `app` - type/nnnn--ux-type-short-name
-- [ ] `admin`+`console` - type/nnnn--cs-type-short-name
-- [ ] `portal` - type/nnnn--wp-type-short-name
+**Branch name**: `<type>/nnnn--short-issue-name`
+
+- [ ] `.github` - design document: <type>/nnnn--short-issue-name.md
+- [ ] `admin`+`console` - administrator tools and dashboards
+- [ ] `app` - mobile application
+- [ ] `client` - front-end codebase
+- [ ] `portal` - marketing website
+- [ ] `server` - database and APIs
 
   - where **type** is: `hotfix`, `feature`, `bugfix`, `security`, or `release`.
+  - where **nnnn** is the zero-padded GitHub Issue number.
 
 - See [DEVELOPER-SSP.md](./DEVELOPER-SSP.md) for more information.

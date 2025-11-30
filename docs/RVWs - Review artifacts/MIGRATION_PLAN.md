@@ -12,10 +12,17 @@ This plan merges the best features from **ladders** into **app-template** (based
 
 ### 0.1 Backup & Version Control
 
-- [ ] Create a new branches: `feature/0003--**-ladders-integration`
-- [ ] Tag current state: `git tag pre-0003--ladders-integration`
+- ✅ Create a new branches: `feature/0003--ladders-integration`
+- ✅ Tag current state: `git tag -a migration-baseline -m "Baseline before ladders integration"`
+- ✅ Push tag: `git push origin migration-baseline`
 - ✅ Document current app-template features - see Gravity Docs
 - ✅ Create backup of entire app-template directory
+
+**Tagging Strategy**: See `TAGGING_STRATEGY.md` for complete tagging guide. Quick reference:
+
+- Create checkpoint tags before high-risk phases (3, 4, 6)
+- Create phase tags after each phase completes and tests pass
+- Create tested tags after successful testing of high-risk phases
 
 ### 0.2 Setup Testing Infrastructure
 
@@ -172,6 +179,17 @@ exports.create = async function ({ plan } = {}) {
 
 ## PHASE 3: ID SYSTEM MIGRATION (Day 3-4 - 6 hours) ⚠️ HIGH RISK
 
+### 3.0 Create Checkpoint Tag (BEFORE STARTING)
+
+**⚠️ CRITICAL**: Create checkpoint tag before starting this phase:
+
+```bash
+git tag -a migration-checkpoint-before-id-migration -m "Checkpoint before ID system migration"
+git push origin migration-checkpoint-before-id-migration
+```
+
+This allows safe rollback if something goes wrong.
+
 ### 3.1 Strategy: Hybrid Approach
 
 **Decision**: Keep both `id` (for API) AND `_id` (for MongoDB) initially, then migrate
@@ -221,6 +239,13 @@ const accountSchema = new Schema({
 
 **Testing**: Test all CRUD operations
 
+**After Testing**: If all tests pass, create phase tag:
+
+```bash
+git tag -a migration-phase-3-id-system -m "Phase 3: ID system migration complete"
+git push origin migration-phase-3-id-system
+```
+
 ---
 
 #### Step 3.2.3: Update Foreign Key References
@@ -257,6 +282,15 @@ exports.create = async function ({ data, user_id, account_id }) {
 
 ## PHASE 4: TIMESTAMP STANDARDIZATION (Day 4-5 - 4 hours)
 
+### 4.0 Create Checkpoint Tag (BEFORE STARTING)
+
+**⚠️ CRITICAL**: Create checkpoint tag before starting this phase:
+
+```bash
+git tag -a migration-checkpoint-before-timestamps -m "Checkpoint before timestamp standardization"
+git push origin migration-checkpoint-before-timestamps
+```
+
 ### 4.1 Rename Timestamp Fields
 
 **Priority**: High | **Risk**: Medium | **Time**: 3 hours
@@ -289,6 +323,13 @@ exports.create = async function ({ data, user_id, account_id }) {
 4. Update aggregation pipelines
 
 **Testing**: Test all timestamp operations
+
+**After Testing**: If all tests pass, create phase tag:
+
+```bash
+git tag -a migration-phase-4-timestamps -m "Phase 4: Timestamp standardization complete"
+git push origin migration-phase-4-timestamps
+```
 
 ---
 
@@ -360,6 +401,15 @@ const accountSchema = new Schema({
 ---
 
 ## PHASE 6: USER SETTINGS SYSTEM (Day 6-7 - 6 hours) ⚠️ COMPLEX
+
+### 6.0 Create Checkpoint Tag (BEFORE STARTING)
+
+**⚠️ CRITICAL**: Create checkpoint tag before starting this phase:
+
+```bash
+git tag -a migration-checkpoint-before-settings -m "Checkpoint before user settings system"
+git push origin migration-checkpoint-before-settings
+```
 
 ### 6.1 Add Settings Schema to User Model
 
@@ -524,6 +574,13 @@ exports.setSettings = async function ({
     "default": {}
   }
 }
+```
+
+**After Testing**: If all tests pass, create phase tag:
+
+```bash
+git tag -a migration-phase-6-settings -m "Phase 6: User settings system complete"
+git push origin migration-phase-6-settings
 ```
 
 ---
