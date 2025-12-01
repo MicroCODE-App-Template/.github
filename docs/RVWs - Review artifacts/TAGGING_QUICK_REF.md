@@ -95,7 +95,7 @@ git push origin migration-phase-X-desc
 Only tag these critical points:
 
 1. `migration-baseline` - Before starting
-2. `migration-checkpoint-before-id-migration` - Before Phase 3
+2. `migration-checkpoint-before-id-handling` - Before Phase 3
 3. `migration-checkpoint-before-timestamps` - Before Phase 4
 4. `migration-checkpoint-before-settings` - Before Phase 6
 5. `migration-phase-9-bug-fixes` - After bug fixes

@@ -18,8 +18,8 @@ net stop mongodb
 - Delete existing MongoDB Data Files...
 
 ```
-cd "C:\Program Files\MongoDB\Server\<version>\data\db"
-cd "C:\Program Files\MongoDB\Server\8.2\data\db"
+cd "C:\Program Files\MongoDB\Server\<version>\data\data"
+cd "C:\Program Files\MongoDB\Server\8.2\data\data"
 del *.*
 ```
 
@@ -65,7 +65,20 @@ mongosh
 use admin
 db.getUsers()
 # If the `admin` superuser is missing, create it with the command below, otherwise skip.
-# db.createUser({ ... })
+db.createUser({
+  user: "admin",
+  pwd: "adminPassword",
+  roles: [
+    { role: "root", db: "admin" }
+  ]
+})
+
+# to connect to Mongo as 'admin':
+```
+
+mongosh "mongodb://admin:adminPassword@localhost:27017/admin"
+
+```
 
 # Next, create the new application user in the `appDatabase`
 use appDatabase
@@ -74,9 +87,17 @@ db.createUser({
   pwd: "appPassword",
   roles: [
     { role: "readWrite", db: "appDatabase" },
-    { role: "dbAdmin", db: "appDatabase" }
+    { role: "dbAdmin", db: "appDatabase" },
+    { role: "userAdmin", db: "appDatabase" }
   ]
 })
+
+# to connect to MOngo as 'appAdmin':
+```
+
+mongosh "mongodb://appAdmin:appPassword@localhost:27017/appDatabase?authSource=appDatabase"
+
+```
 
 # Verify the users were created (admin + appDatabase coexist with existing saasDatabase)
 use admin
@@ -109,6 +130,13 @@ net start mongodb
 
 ```
 mongosh "mongodb://appAdmin:appPassword@localhost:27017/appDatabase" --eval "db.getName()"
+```
+
+- With security enabled you must auth yourself once in mongosh:
+
+```
+use appDatabase
+db.auth("appAdmin", "appPassword")
 ```
 
 - Seed the MongoDB database with initial data

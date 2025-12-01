@@ -22,7 +22,7 @@ This plan merges the best features from **ladders** into **app-template** (based
 
 ### 0.1 Backup & Version Control
 
-- ✅ Create a new branches: `feature/0003--ladders-integration`
+- ✅ Create a new branches: `feature/0003--![1764608058516](image/MIGRATION_PLAN/1764608058516.png)ladders-integration`
 - ✅ Tag current state: `git tag -a migration-baseline -m "Baseline before ladders integration"`
 - ✅ Push tag: `git push origin migration-baseline`
 - ✅ Document current app-template features - see Gravity Docs
@@ -179,105 +179,213 @@ exports.create = async function ({ plan } = {}) {
 
 ---
 
-## PHASE 3: ID SYSTEM MIGRATION (Day 3-4 - 6 hours) ⚠️ HIGH RISK
+## PHASE 3: ID GENERATION MIGRATION (Day 3-4 - 4 hours) ⚠️ MEDIUM RISK
 
 ### 3.0 Create Checkpoint Tag (BEFORE STARTING)
 
 **⚠️ CRITICAL**: Create checkpoint tag before starting this phase:
 
 ```bash
-git tag -a migration-checkpoint-before-id-migration -m "Checkpoint before ID system migration"
-git push origin migration-checkpoint-before-id-migration
+git tag -a migration-checkpoint-before-id-handling -m "After PHASE 2 100% complete."
+git push origin migration-checkpoint-before-id-handling
 ```
 
 This allows safe rollback if something goes wrong.
 
-### 3.1 Strategy: Hybrid Approach
+### 3.1 Strategy: Replace UUID with unique_id()
 
-**Decision**: Keep both `id` (for API) AND `_id` (for MongoDB) initially, then migrate
+**Decision**: Keep MongoDB's `_id` invisible (handled by MongoDB), use `id` as primary key with `utility.unique_id()` generation
 
-**Current State**: gravity-current uses `id` field
-**Target State**: Use `_id` as primary key, keep `id` as alias for compatibility
+**Current State**: All models use `uuidv4()` for `id` generation
+**Target State**: All models use `utility.unique_id('prefix')` for `id` generation
 
-### 3.2 Step-by-Step Migration
+**Key Principles**:
 
-#### Step 3.2.1: Add `_id` to Schemas (Non-Breaking)
+1. **MongoDB `_id`**: Keep invisible, let MongoDB handle it automatically (like gravity-current)
+2. **App `id`**: Use `utility.unique_id('prefix')` instead of `uuidv4()`
+3. **Foreign Keys**: Continue using `{entity}_id` naming (already correct)
 
-**Priority**: High | **Risk**: Medium | **Time**: 2 hours
+### 3.2 Entity Prefix Mapping
 
-**Files**: All model files
+See `PHASE3_ID_PREFIXES.md` for complete prefix mapping. Each entity uses a 4-character prefix:
+
+**Database Entities:**
+
+- `account` → `'acct'`
+- `user` → `'user'`
+- `event` → `'evnt'`
+- `feedback` → `'fdbk'`
+- `invite` → `'invt'`
+- `key` (API key) → `'apik'`
+- `log` → `'log_'`
+- `login` → `'logn'`
+- `notification` → `'notf'`
+- `pushtoken` → `'psht'`
+- `token` → `'tokn'`
+- `usage` → `'used'`
+- `email` → `'mail'`
+
+**Non-Database Entities:**
+
+- `job` (queue) → `'jobs'` (Redis/Bull)
+- `file` (upload) → `'file'` (S3/File System)
+
+### 3.3 Step-by-Step Migration
+
+#### Step 3.3.1: Update Schema Defaults (MongoDB Models)
+
+**Priority**: High | **Risk**: Low | **Time**: 1 hour
+
+**Files**: All MongoDB model files (`server/model/mongo/*.mongo.js` and `admin/model/mongo/*.mongo.js`)
 
 **Pattern**:
 
 ```javascript
-const accountSchema = new Schema({
-  _id: { type: String, default: () => utility.unique_id("acct") },
-  id: { type: String, required: true, unique: true }, // Keep for compatibility
-  // ... rest of schema
+// Before
+const AccountSchema = new Schema({
+  id: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  // ...
+});
+
+// After
+const utility = require("../helper/utility");
+
+const AccountSchema = new Schema({
+  id: {
+    type: String,
+    required: true,
+    unique: true,
+    default: () => utility.unique_id("acct"),
+  },
+  // ...
 });
 ```
 
 **Action**:
 
-1. Add `_id` field with appropriate prefix to each schema
-2. Keep existing `id` field (for now)
-3. Add virtual to sync: `id = _id` on read
+1. Add `const utility = require('../helper/utility');` to each model file (if not already present)
+2. Update `id` field in schema to include `default: () => utility.unique_id('prefix')`
+3. Use appropriate prefix for each entity (see prefix mapping)
 
-**Testing**: Verify both `id` and `_id` work
+**Testing**: Verify schemas compile correctly
 
 ---
 
-#### Step 3.2.2: Update Internal References to Use `_id`
+#### Step 3.3.2: Remove Explicit ID Generation from Create Functions (MongoDB Models)
 
-**Priority**: High | **Risk**: Medium | **Time**: 2 hours
+**Priority**: High | **Risk**: Low | **Time**: 1 hour
 
-**Files**: All model files
+**Files**: All MongoDB model files
 
-**Changes**:
+**Pattern**:
 
-- `Account.findOne({ id: id })` → `Account.findOne({ _id: _id })`
-- `'account.id'` → `'account._id'` (in user model)
-- Return `_id` instead of `id` in responses
+```javascript
+// Before
+exports.create = async function ({ data, account }) {
+  data.id = uuidv4(); // Remove this line
+  // ...
+};
 
-**Testing**: Test all CRUD operations
+// After
+exports.create = async function ({ data, account }) {
+  // id will be auto-generated by schema default - no explicit generation needed
+  // ...
+};
+```
+
+**Action**:
+
+1. Remove `const { v4: uuidv4 } = require('uuid');` from files (if only used for id generation)
+2. Remove all `data.id = uuidv4();` lines - schema default will handle ID generation automatically
+3. Do NOT add explicit generation - rely on schema defaults only
+
+**Note**: Schema defaults will automatically generate IDs when documents are created. No explicit generation needed in create() functions.
+
+**Testing**: Test all create operations - verify IDs are generated correctly by schema defaults
+
+---
+
+#### Step 3.3.3: Update SQL Model Files
+
+**Priority**: High | **Risk**: Low | **Time**: 1 hour
+
+**Files**: All SQL model files (`server/model/sql/*.sql.js` and `admin/model/sql/*.sql.js`)
+
+**Pattern**:
+
+```javascript
+// Before
+const { v4: uuidv4 } = require("uuid");
+
+exports.create = async function ({ plan } = {}) {
+  const data = {
+    id: uuidv4(),
+    // ...
+  };
+  // ...
+};
+
+// After
+const utility = require("../helper/utility");
+
+exports.create = async function ({ plan } = {}) {
+  const data = {
+    id: utility.unique_id("acct"), // SQL requires explicit generation
+    // ...
+  };
+  // ...
+};
+```
+
+**Action**:
+
+1. Replace `const { v4: uuidv4 } = require('uuid');` with `const utility = require('../helper/utility');`
+2. Replace all `uuidv4()` calls with `utility.unique_id('prefix')`
+3. Use appropriate prefix for each entity
+4. **Note**: SQL models require explicit generation (no schema defaults like MongoDB)
+
+**Testing**: Test all SQL create operations
+
+---
+
+#### Step 3.3.4: Update Controller Files (if needed)
+
+**Priority**: Medium | **Risk**: Low | **Time**: 30 minutes
+
+**Files**: Any controller files that generate IDs directly
+
+**Action**:
+
+1. Search for `uuidv4()` in controller files
+2. Replace with `utility.unique_id('prefix')` if generating entity IDs
+3. Use appropriate prefix for each entity
+
+**Testing**: Test affected endpoints
+
+---
+
+#### Step 3.3.5: Verify Foreign Key Naming
+
+**Priority**: Low | **Risk**: None | **Time**: 30 minutes
+
+**Action**: Verify all foreign keys use `{entity}_id` naming (should already be correct)
+
+**Pattern**:
+
+- ✅ `user_id`, `account_id`, `event_id`, etc. (correct)
+- ❌ `userId`, `accountId`, etc. (incorrect - should not exist)
+
+**Testing**: Visual inspection, no code changes expected
 
 **After Testing**: If all tests pass, create phase tag:
 
 ```bash
-git tag -a migration-phase-3-id-system -m "Phase 3: ID system migration complete"
-git push origin migration-phase-3-id-system
-```
-
----
-
-#### Step 3.2.3: Update Foreign Key References
-
-**Priority**: High | **Risk**: Medium | **Time**: 2 hours
-
-**Pattern**: Use `{entity}_id` naming consistently
-
-**Changes**:
-
-- `user` parameter → `user_id` parameter
-- `account` parameter → `account_id` parameter
-- `'account.id'` → `'account._id'` in queries
-
-**Files**: All model files
-
-**Example**:
-
-```javascript
-// Before
-exports.create = async function ({ data, user, account }) {
-  data.user_id = user;
-  data.account_id = account;
-};
-
-// After
-exports.create = async function ({ data, user_id, account_id }) {
-  data.user_id = user_id;
-  data.account_id = account_id;
-};
+git tag -a migration-phase-3-id-generation -m "Phase 3: ID generation migration complete"
+git push origin migration-phase-3-id-generation
 ```
 
 ---
@@ -939,7 +1047,7 @@ return await User.findOneAndUpdate(
 
 ### High-Risk Phases:
 
-- **Phase 3** (ID System): Test thoroughly, may need data migration
+- **Phase 3** (ID Generation): Test thoroughly, verify ID format matches expectations
 - **Phase 4** (Timestamps): Test all date queries
 - **Phase 6** (Settings): Test with existing users
 
@@ -950,7 +1058,7 @@ return await User.findOneAndUpdate(
 - **Phase 0**: 2 hours ✅
 - **Phase 1**: 4 hours ✅
 - **Phase 2**: 3 hours ✅
-- **Phase 3**: 6 hours
+- **Phase 3**: 4 hours
 - **Phase 4**: 4 hours
 - **Phase 5**: 4 hours
 - **Phase 6**: 6 hours
@@ -970,7 +1078,7 @@ return await User.findOneAndUpdate(
 
 1. Phase 0: Preparation (2 hours) ✅
 2. Phase 1: mcode logging (4 hours) ✅
-3. Phase 3: ID system (6 hours) - Critical
+3. Phase 3: ID generation (4 hours) - Critical
 4. Phase 4: Timestamps (4 hours) - Critical
 5. Phase 6: Settings (6 hours) - Critical
 6. Phase 9: Fix bugs (2 hours) - Critical
@@ -999,7 +1107,7 @@ Defer to later:
 ## SUCCESS CRITERIA
 
 ✅ All mcode logging in place
-✅ All models use `_id` consistently
+✅ All models use `utility.unique_id()` for ID generation
 ✅ All timestamps use `_at` suffix
 ✅ User settings system working
 ✅ All bugs fixed

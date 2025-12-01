@@ -70,14 +70,22 @@
 
 ---
 
-### Phase 3: ID System Migration
+### Phase 3: ID Generation Migration
 
-**Status**: ⏳ Not Started
-**Started**: [Date]
+**Status**: ⏳ In process
+**Started**: 2025-11-30 10:30 PM
 **Completed**: [Date]
 **Files Modified**:
 
-- ⏳ All 14 model files
+- ⏳ All MongoDB model files (server + admin)
+- ⏳ All SQL model files (server + admin)
+- ⏳ Controller files (if generating IDs directly)
+
+**Strategy**:
+
+- Keep MongoDB `_id` invisible (handled automatically)
+- Replace `uuidv4()` with `utility.unique_id('prefix')` for `id` generation
+- Use entity-specific 4-character prefixes (see PHASE3_ID_PREFIXES.md)
 
 **Issues Found**:
 
@@ -232,9 +240,9 @@
 
 ### ID System
 
-- **Decision**: Use `_id` as primary key, keep `id` for compatibility (or remove after migration)
+- **Decision**: Keep MongoDB `_id` invisible, use `id` as primary key with `utility.unique_id('prefix')` generation
 - **Date**: [Date]
-- **Rationale**: [Reason]
+- **Rationale**: Matches ladders pattern, provides human-readable entity prefixes, avoids conflicts with MongoDB `_id`
 
 ### Timestamp Naming
 
@@ -261,8 +269,9 @@
 ### Phase 3 Tests
 
 - ⏳ All CRUD operations work
-- ⏳ Queries use `_id` correctly
-- ⏳ Foreign keys work
+- ⏳ ID generation uses `utility.unique_id()` correctly
+- ⏳ ID format matches expected pattern (prefix_timestamp+random)
+- ⏳ Foreign keys use `{entity}_id` naming
 
 ### Phase 4 Tests
 
@@ -292,7 +301,7 @@
 | Phase 0   | 2h        | 3h     | 1h       |
 | Phase 1   | 4h        | 1h     | 3h       |
 | Phase 2   | 3h        | 3h     | 0h       |
-| Phase 3   | 6h        | -      | -        |
+| Phase 3   | 4h        | -      | -        |
 | Phase 4   | 4h        | -      | -        |
 | Phase 5   | 4h        | -      | -        |
 | Phase 6   | 6h        | -      | -        |
@@ -301,6 +310,6 @@
 | Phase 9   | 2h        | -      | -        |
 | Phase 10  | 4h        | -      | -        |
 | Phase 11  | 2h        | -      | -        |
-| **Total** | **42h**   | **-**  | **-**    |
+| **Total** | **40h**   | **-**  | **-**    |
 
 ---
