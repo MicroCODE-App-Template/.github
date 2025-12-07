@@ -395,7 +395,7 @@ exports.create = async function ({ user, account }) {
     email: user.email,
     facebook_id: user.facebook_id,
     twitter_id: user.twitter_id,
-    default_account: account,
+    default_account_id: account,
     avatar: user.avatar,
     verified: user.verified,
     settings: JSON.stringify(config.get("settings") || {}), // Initialize from config
@@ -426,7 +426,7 @@ const cols = [
   "disabled",
   "account_id",
   "permission",
-  "default_account",
+  "default_account_id",
   "password",
   "tfa_enabled",
   "verified",

@@ -874,7 +874,7 @@ export function Form({ data, url, method, buttonText, settingsMode = false }) {
 2. 🎯 `client/src/views/account/profile.jsx` - Profile Preferences (Partial)
    - **Type**: Default account selector
    - **Current**: Mixed data entry form
-   - **Migration**: Only apply to `default_account` select input
+   - **Migration**: Only apply to `default_account_id` select input
    - **Approach**: Keep name/email/avatar in traditional, extract account selector
    - **Effort**: 2-3 hours (requires form splitting)
 

@@ -485,7 +485,7 @@
 - `_id` (custom UUID with 'user' prefix)
 - `settings: {type: Object, required: true}` - user settings object
 - `tfa_enabled`, `tfa_secret`, `tfa_backup_code` (vs `2fa_*` in gravity-current)
-- `default_account_id` (vs `default_account`)
+- `default_account` (vs `default_account_id`)
 - `linkedin_ident`, `facebook_ident`, `twitter_ident`, `github_ident` (vs `facebook_id`, `twitter_id`)
 - `created_at`, `active_at` (vs `date_created`, `last_active`)
 - `permission`, `onboarded`, `has_password` as direct fields (vs computed in gravity-current)
@@ -495,7 +495,7 @@
 
 - `id` field (UUID v4)
 - `2fa_enabled`, `2fa_secret`, `2fa_backup_code`
-- `default_account`
+- `default_account_id`
 - `facebook_id`, `twitter_id`
 - `date_created`, `last_active`
 - `support_enabled`, `dark_mode` (not in ladders)
@@ -506,7 +506,7 @@
 
    - **Ladders**: Initializes `settings` from config, sets `permission: 'user'`, `onboarded: false`, `has_password: false`
    - **Ladders**: Uses `default_account_id`
-   - **Gravity-Current**: Uses `default_account`, sets `support_enabled: false`, `2fa_enabled: false`
+   - **Gravity-Current**: Uses `default_account_id`, sets `support_enabled: false`, `2fa_enabled: false`
 
 2. **get()**:
 
