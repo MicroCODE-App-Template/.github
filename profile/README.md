@@ -8,6 +8,41 @@ This repository contains a working copy of the licensed [Gravity SaaS Boilerplat
 
 MicroCODE App Template is our production-ready web and mobile application framework, customized from the Gravity SaaS Boilerplate for building enterprise-grade applications.
 
+## 📋 Create Issues via Forms
+
+Use these links to open form-based issues for each type of work item:
+
+### 🐞 Bug Reports
+
+- [Report a Bug](https://github.com/app-template/.github/issues/new?template=bug_report.yml)
+- [Report a Defect](https://github.com/app-template/.github/issues/new?template=defect_report.yml)
+
+### 🚀 Feature Requests
+
+- [Feature Request](https://github.com/app-template/.github/issues/new?template=feature_request.yml)
+
+### 🧪 Hotfixes
+
+- [Hotfix Template](https://github.com/app-template/.github/issues/new?template=hotfix/hotfix-nnnn--hotfix-short-name.md)
+
+### 🛠 Bugfixes
+
+- [Bugfix Template](https://github.com/app-template/.github/issues/new?template=bugfix/bugfix-nnnn--bugfix-short-name.md)
+
+### 🛡️ Security
+
+- [Security Vulnerability Report](https://github.com/app-template/.github/issues/new?template=security_vulnerability.yml)
+- [Custom Security Template](https://github.com/app-template/.github/issues/new?template=security/security-nnnn--vulnerability-short-name.md)
+
+### 📦 Releases
+
+- [Release Request](https://github.com/app-template/.github/issues/new?template=release_request.yml)
+- [bM.F.0 Release](https://github.com/app-template/.github/issues/new?template=release/release-bM.F.0.md)
+
+### ⚙️ Configuration
+
+- [Configuration Change](https://github.com/app-template/.github/issues/new?template=config.yml)
+
 ## Overview
 
 MicroCODE App Template serves as the foundation for all MicroCODE, Inc. SaaS products. It provides a battle-tested, feature-rich platform that eliminates boilerplate development and accelerates time-to-market for new applications.
