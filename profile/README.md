@@ -14,34 +14,34 @@ Use these links to open form-based issues for each type of work item:
 
 ### 🐞 Bug Reports
 
-- [Report a Bug](https://github.com/app-template/issues/new?template=bug_report.yml)
-- [Report a Defect](https://github.com/app-template/issues/new?template=defect_report.yml)
+- [Report a Bug](https://github.com/MicroCODE-App-Template/issues/new?template=bug_report.yml)
+- [Report a Defect](https://github.com/MicroCODE-App-Template/issues/new?template=defect_report.yml)
 
 ### 🚀 Feature Requests
 
-- [Feature Request](https://github.com/app-template/issues/new?template=feature_request.yml)
+- [Feature Request](https://github.com/MicroCODE-App-Template/issues/new?template=feature_request.yml)
 
 ### 🧪 Hotfixes
 
-- [Hotfix Template](https://github.com/app-template/issues/new?template=hotfix/hotfix-nnnn--hotfix-short-name.md)
+- [Hotfix Template](https://github.com/MicroCODE-App-Template/issues/new?template=hotfix/hotfix-nnnn--hotfix-short-name.md)
 
 ### 🛠 Bugfixes
 
-- [Bugfix Template](https://github.com/app-template/issues/new?template=bugfix/bugfix-nnnn--bugfix-short-name.md)
+- [Bugfix Template](https://github.com/MicroCODE-App-Template/issues/new?template=bugfix/bugfix-nnnn--bugfix-short-name.md)
 
 ### 🛡️ Security
 
-- [Security Vulnerability Report](https://github.com/app-template/issues/new?template=security_vulnerability.yml)
-- [Custom Security Template](https://github.com/app-template/issues/new?template=security/security-nnnn--vulnerability-short-name.md)
+- [Security Vulnerability Report](https://github.com/MicroCODE-App-Template/issues/new?template=security_vulnerability.yml)
+- [Custom Security Template](https://github.com/MicroCODE-App-Template/issues/new?template=security/security-nnnn--vulnerability-short-name.md)
 
 ### 📦 Releases
 
-- [Release Request](https://github.com/app-template/issues/new?template=release_request.yml)
-- [bM.F.0 Release](https://github.com/app-template/issues/new?template=release/release-bM.F.0.md)
+- [Release Request](https://github.com/MicroCODE-App-Template/issues/new?template=release_request.yml)
+- [bM.F.0 Release](https://github.com/MicroCODE-App-Template/issues/new?template=release/release-bM.F.0.md)
 
 ### ⚙️ Configuration
 
-- [Configuration Change](https://github.com/app-template/issues/new?template=config.yml)
+- [Configuration Change](https://github.com/MicroCODE-App-Template/issues/new?template=config.yml)
 
 ## Overview
 
