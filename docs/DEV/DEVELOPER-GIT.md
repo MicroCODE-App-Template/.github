@@ -198,7 +198,7 @@ release/b2.2.0
 ## 4. Practical Checklist
 
 - **PR Titles:** `[vM.F.H] Description` (e.g.: `[v2.2.0] Add sidebar builder`)
-- **Issue Linking (Non-Closing):** Reference Issues with **non-closing** phrases such as `Refs #NNNN`, `Related to #NNNN`, or `Implements part of #NNNN` so GitHub **does not** auto-close Issues when a single PR is merged.
+- **Issue Linking (Non-Closing):** Reference Issues in the centralized `.issue` repository using **non-closing** phrases such as `Refs MicroCODE-App-Template/.issue#NNNN`, `Related to .issue#NNNN`, or `Implements part of .issue#NNNN` so GitHub **does not** auto-close Issues when a single PR is merged. All issues are created and tracked in the `.issue` repository.
 - **Branch Protection:** `main`, `develop`, and active `release/*` require PR approval + status checks.
 - **Tags:** Always tag releases on `main`. Hotfix tags use the next `H` value.
 - **Documentation:** Use the Markdown templates in `./.github/GIT - Issue Notes/` to capture context before merging.
@@ -211,7 +211,7 @@ To align Git behavior with the Circles model, keep branches and Issues open unti
 - **`hotfix/{issue#}--{short-name}`**
 
   - Create from `main` for emergency production fixes.
-  - Reference the Issue using non-closing phrases only (`Refs #NNNN`, etc.).
+  - Reference the Issue using non-closing phrases only (`Refs MicroCODE-App-Template/.issue#NNNN`, etc.).
   - Merge the hotfix into `main`, then **echo** the same branch into `develop` and any open `release/*` branches.
   - Keep both the `hotfix/*` branch and the Issue **open** until all required merges are complete and verified.
   - Close the Issue and delete the branch **manually** once the fix is confirmed in Production.
@@ -229,14 +229,55 @@ To align Git behavior with the Circles model, keep branches and Issues open unti
   - Keep the bugfix branch and Issue **open** until the corrected code has flowed through `release/*` into `main`.
   - Close the Issue and delete the branch **manually** once the fix is verified in Production.
 
-In all cases, avoid closing Issues automatically via `Fixes #NNNN`/`Closes #NNNN` so that Issue state reflects the true end-to-end lifecycle across Alpha, Beta, and Production.
+In all cases, avoid closing Issues automatically via `Fixes MicroCODE-App-Template/.issue#NNNN`/`Closes MicroCODE-App-Template/.issue#NNNN` so that Issue state reflects the true end-to-end lifecycle across Alpha, Beta, and Production.
 
-## 5. Template Index
+## 5. Centralized Issue Tracking
 
-- Feature work: [feature template](./ISSUEs/feature/feature-nnnn--feature-short-name.md)
-- Bugfix during Beta: [bugfix template](./ISSUEs/bugfix/bugfix-nnnn--bugfix-short-name.md)
-- Hotfix to Production: [hotfix template](./ISSUEs/hotfix/hotfix-nnnn--hotfix-short-name.md)
-- Release coordination: [release template](./ISSUEs/release/release-bM.F.0.md)
+All issues for the MicroCODE App Template solution are tracked in the centralized [`.issue`](https://github.com/MicroCODE-App-Template/.issue) repository.
+
+### Creating Issues
+
+1. Navigate to the `.issue` repository
+2. Click "New Issue" and select the appropriate template
+3. Fill out the form, selecting all affected repositories
+4. Submit the issue - it will be assigned a sequential issue number
+
+### Branch Naming with Issue Numbers
+
+Branches must reference the issue number from the `.issue` repository using zero-padded format:
+
+- Format: `{type}/{issue#}--{short-description}` (zero-padded to 4 digits)
+- Examples:
+  - `feature/0123--add-user-auth` (references `.issue#123`)
+  - `bugfix/0045--fix-login-error` (references `.issue#45`)
+  - `hotfix/0067--security-patch` (references `.issue#67`)
+
+**Note:** Issue numbers are zero-padded to 4 digits to preserve compatibility with existing branches (e.g., `feature/0003--use-mongodb-ids`).
+
+### Linking PRs to Issues
+
+When creating pull requests, reference issues using cross-repo syntax:
+
+- Use non-closing phrases: `Refs MicroCODE-App-Template/.issue#1234`
+- Avoid closing phrases (`Fixes`, `Closes`) until all repos are merged
+- Example PR description:
+
+  ```
+  Refs MicroCODE-App-Template/.issue#123
+
+  Implements user authentication feature as specified in .issue#123
+  ```
+
+### Issue Migration
+
+Existing issues from `.github` and `server` repos have been migrated to `.issue` repository preserving issue numbers (`.github#X → .issue#X`) to maintain branch compatibility.
+
+## 6. Template Index
+
+- Feature work: [feature template](../../../.issue/.github/ISSUE_TEMPLATE/feature/feature-nnnn--feature-short-name.md)
+- Bugfix during Beta: [bugfix template](../../../.issue/.github/ISSUE_TEMPLATE/bugfix/bugfix-nnnn--bugfix-short-name.md)
+- Hotfix to Production: [hotfix template](../../../.issue/.github/ISSUE_TEMPLATE/hotfix/hotfix-nnnn--hotfix-short-name.md)
+- Release coordination: [release template](../../../.issue/.github/ISSUE_TEMPLATE/release/release-bM.F.0.md)
 
 Each template aligns with the MicroCODE Software Support Process (SSP) expectations
 ([Problem → Observation → Resolution → Verification]()) and should be completed before requesting a PR review.

@@ -1,0 +1,150 @@
+name: Validate Branch Name
+
+on:
+    workflow_call:
+        inputs:
+            branch-name:
+                description: "Branch name to validate"
+                required: true
+                type: string
+            issue-repo:
+                description: "Repository containing issues (default: .issue)"
+                required: false
+                type: string
+                default: ".issue"
+
+jobs:
+    validate:
+        name: Validate Branch Name
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            issues: read
+            pull-requests: write
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Extract issue number from branch name
+              id: extract-issue
+              run: |
+                  BRANCH_NAME="${{ inputs.branch-name }}"
+
+                  # Pattern: {type}/{issue#}--{description}
+                  # Extract issue number (4 digits zero-padded)
+                  if [[ $BRANCH_NAME =~ ^(feature|bugfix|hotfix|security|release)/([0-9]{4})-- ]]; then
+                      ISSUE_NUM="${BASH_REMATCH[2]}"
+                      ISSUE_NUM_INT=$((10#$ISSUE_NUM))  # Convert to integer (removes leading zeros)
+                      echo "issue_number=${ISSUE_NUM_INT}" >> $GITHUB_OUTPUT
+                      echo "branch_type=${BASH_REMATCH[1]}" >> $GITHUB_OUTPUT
+                      echo "valid_format=true" >> $GITHUB_OUTPUT
+                  else
+                      echo "valid_format=false" >> $GITHUB_OUTPUT
+                      echo "issue_number=" >> $GITHUB_OUTPUT
+                  fi
+
+            - name: Validate branch format
+              if: steps.extract-issue.outputs.valid_format != 'true'
+              run: |
+                  echo "❌ Branch name validation failed"
+                  echo ""
+                  echo "Branch: ${{ inputs.branch-name }}"
+                  echo "Error: Branch name does not match required format"
+                  echo ""
+                  echo "Expected format: {type}/{issue#}--{description}"
+                  echo "  - type: feature, bugfix, hotfix, security, or release"
+                  echo "  - issue#: Zero-padded to 4 digits (e.g., 0123)"
+                  echo "  - description: Short snake-case description"
+                  echo ""
+                  echo "Examples:"
+                  echo "  ✅ feature/0123--add-user-auth"
+                  echo "  ✅ bugfix/0045--fix-login-error"
+                  echo "  ✅ hotfix/0067--security-patch"
+                  echo ""
+                  echo "❌ feature/123--add-user-auth (not zero-padded)"
+                  echo "❌ feature/0123-add-user-auth (single dash)"
+                  exit 1
+
+            - name: Verify issue exists
+              if: steps.extract-issue.outputs.valid_format == 'true'
+              id: verify-issue
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  ISSUE_NUM: ${{ steps.extract-issue.outputs.issue_number }}
+                  ISSUE_REPO: ${{ inputs.issue-repo }}
+              run: |
+                  # Check if issue exists in .issue repository
+                  ORG="MicroCODE-App-Template"
+                  REPO="${ISSUE_REPO}"
+
+                  echo "Checking if issue #${ISSUE_NUM} exists in ${ORG}/${REPO}..."
+
+                  RESPONSE=$(curl -s -H "Authorization: token ${GITHUB_TOKEN}" \
+                      -H "Accept: application/vnd.github.v3+json" \
+                      "https://api.github.com/repos/${ORG}/${REPO}/issues/${ISSUE_NUM}")
+
+                  # Check if issue exists and is not closed/pull request
+                  ISSUE_STATE=$(echo "$RESPONSE" | jq -r '.state // "not_found"')
+                  IS_PR=$(echo "$RESPONSE" | jq -r '.pull_request // empty')
+
+                  if [ "$ISSUE_STATE" = "not_found" ] || [ -n "$IS_PR" ]; then
+                      echo "❌ Issue validation failed"
+                      echo ""
+                      echo "Branch: ${{ inputs.branch-name }}"
+                      echo "Issue Number: #${ISSUE_NUM}"
+                      echo "Repository: ${ORG}/${REPO}"
+                      echo ""
+                      if [ "$ISSUE_STATE" = "not_found" ]; then
+                          echo "Error: Issue #${ISSUE_NUM} does not exist in ${REPO} repository"
+                      else
+                          echo "Error: #${ISSUE_NUM} is a pull request, not an issue"
+                      fi
+                      echo ""
+                      echo "Please create an issue in ${REPO} repository first, then create a branch referencing it."
+                      echo "Issue creation: https://github.com/${ORG}/${REPO}/issues/new"
+                      exit 1
+                  else
+                      ISSUE_TITLE=$(echo "$RESPONSE" | jq -r '.title // "Unknown"')
+                      echo "✅ Issue #${ISSUE_NUM} found: ${ISSUE_TITLE}"
+                      echo "issue_exists=true" >> $GITHUB_OUTPUT
+                  fi
+
+            - name: Comment on PR
+              if: failure()
+              uses: actions/github-script@v7
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  script: |
+                      const branchName = '${{ inputs.branch-name }}';
+                      const issueNum = '${{ steps.extract-issue.outputs.issue_number }}';
+                      const issueRepo = '${{ inputs.issue-repo }}';
+
+                      const body = `## ❌ Branch Name Validation Failed
+
+                      Branch: \`${branchName}\`
+
+                      **Issue:** Branch name must match the format: \`{type}/{issue#}--{description}\`
+
+                      **Requirements:**
+                      - Issue number must be zero-padded to 4 digits (e.g., \`0123\`)
+                      - Issue must exist in [\`.issue\`](https://github.com/MicroCODE-App-Template/${issueRepo}) repository
+                      - Use double dashes (\`--\`) between issue number and description
+
+                      **Examples:**
+                      - ✅ \`feature/0123--add-user-auth\`
+                      - ✅ \`bugfix/0045--fix-login-error\`
+                      - ❌ \`feature/123--add-user-auth\` (not zero-padded)
+                      - ❌ \`feature/0123-add-user-auth\` (single dash)
+
+                      **Next Steps:**
+                      1. Create an issue in [\`.issue\`](https://github.com/MicroCODE-App-Template/${issueRepo}/issues/new) repository
+                      2. Rename your branch to match the issue number (zero-padded)
+                      3. Push the renamed branch and update this PR`;
+
+                      github.rest.issues.createComment({
+                          issue_number: context.issue.number,
+                          owner: context.repo.owner,
+                          repo: context.repo.repo,
+                          body: body
+                      });

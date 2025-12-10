@@ -105,6 +105,10 @@ Complete reference guide for Markdown syntax and formatting.
 | `\`        | Escape character   | `\*not italic\*`  | \*not italic\* |
 | `&nbsp;`   | Non-breaking space | `word&nbsp;word`  | word word      |
 
+> Console Commands...
+
+> Mongosh Shell Commands...
+
 ## Common Extensions
 
 | Syntax         | Purpose         | Example        | Notes           |

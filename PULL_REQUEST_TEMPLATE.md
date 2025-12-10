@@ -28,12 +28,23 @@
 - [ ] server
 - [ ] Multiple repositories
 
-## Related Issue(s)
+## Related Issue
 
-<!-- Link to related issue(s) using #issue_number -->
+<!-- Link to the centralized issue in .issue repository -->
+<!-- Use non-closing phrases to preserve issue lifecycle across multiple repos -->
 
-Closes #
-Related to #
+Refs MicroCODE-App-Template/.issue#1234
+
+<!-- If this PR closes the issue (after all repos are merged), use: -->
+<!-- Closes MicroCODE-App-Template/.issue#1234 -->
+
+## Branch Name
+
+<!-- Must match the issue number from .issue repo (zero-padded to 4 digits) -->
+<!-- Format: {type}/{issue#}--{description} -->
+<!-- Example: feature/0123--add-user-auth -->
+
+Current branch: `{type}/{issue#}--{description}`
 
 ## Changes Made
 
@@ -102,6 +113,7 @@ Related to #
 - [ ] Code reviewed by at least one other team member
 - [ ] All CI/CD checks passing
 - [ ] No merge conflicts
+- [ ] Branch name matches `.issue` issue number (zero-padded format)
 
 ## Breaking Changes
 
@@ -124,3 +136,5 @@ Related to #
 **Note:** This is an internal MicroCODE, Inc. repository. All pull requests are confidential.
 
 **Reviewers:** Please review code quality, security, performance, and adherence to MicroCODE standards.
+
+**Issue Tracking:** All issues are tracked in the centralized [`.issue`](https://github.com/MicroCODE-App-Template/.issue) repository.
