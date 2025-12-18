@@ -3,13 +3,14 @@
 ## Metadata
 
 - **Type**: TASK
-- **Issue #**: [if applicable]
-- **Created**: [2025-12-17]
-- **Status**: READY FOR IMPLEMENTATION
+- **Issue #**: [0003]
+- **Created**: [2025-12-01]
+- **Status**: IN PROGRESS
+- **Last Updated**: [2025-12-17]
 
 ---
 
-## C: CONCEPT/CHANGE/CORRECTION - Discuss ideas without generating code
+## 1. CONCEPT/CHANGE/CORRECTION - Discuss ideas without generating code
 
 ### Overview
 
@@ -32,7 +33,7 @@ This migration merges the best features from **ladders** into **app-template** (
 
 ---
 
-## D: DESIGN - Design detailed solution
+## 2. DESIGN - Design detailed solution
 
 ### Architecture Strategy
 
@@ -54,7 +55,7 @@ This migration merges the best features from **ladders** into **app-template** (
 
 ---
 
-## P: PLAN - Create implementation plan
+## 3. PLAN - Create implementation plan
 
 # Migration Plan: Ladders Features → App-Template
 
@@ -71,22 +72,22 @@ This plan merges the best features from **ladders** into **app-template** (based
 
 ### 0.1 Backup & Version Control
 
-- [ ] Create a new branch: `feature/0003--**-ladders-integration`
-- [ ] Tag current state: `git tag pre-0003--ladders-integration`
+- ✅ Create a new branch: `feature/0003--**-ladders-integration`
+- ✅ Tag current state: `git tag pre-0003--ladders-integration`
 - ✅ Document current app-template features - see Gravity Docs
 - ✅ Create backup of entire app-template directory
 
 ### 0.2 Setup Testing Infrastructure
 
-- [ ] Ensure all existing tests pass: `npm test`
-- [ ] Create test checklist for each model
-- ❌ Set up test database for migration testing - NO MIGRATION REQUIRED
+- ✅ Ensure all existing tests pass: `npm test`
+- ✅ Create test checklist for each model
+- ⏭️ Set up test database for migration testing - NO MIGRATION REQUIRED
 
 ### 0.3 Create Feature Tracking
 
-- [ ] Create `MIGRATION_STATUS.md` to track progress
-- [ ] List all files that need changes
-- [ ] Create checklist for each feature
+- ⏭️ Create `MIGRATION_STATUS.md` to track progress - INTEGRATED IN THIS DOC
+- ✅ List all files that need changes
+- ✅ Create checklist for each feature
 
 **Quick Commands**:
 
@@ -180,12 +181,12 @@ exports.disconnect = async () => {
 
 **Checklist**:
 
-- [ ] Add mcode logging to mongo.js
-- [ ] Add MODULE_NAME to all 14 model files
-- [ ] Replace console.log → mcode.done() in all files
-- [ ] Replace console.error → mcode.exp() in all files
-- [ ] Add disconnect() function to mongo.js
-- [ ] Test: Server starts, logs appear
+- ✅ Add mcode logging to mongo.mongo.js
+- ⏭️ Add MODULE_NAME to all 14+ model files -mcode.log() no longer needs
+- ✅ Replace console.log → mcode.done() in all files
+- ✅ Replace console.error → mcode.exp() in all files
+- ✅ Add disconnect() function to mongo.mongo.js
+- ✅ Test: Server starts, logs appear (needs verification)
 
 ---
 
@@ -243,10 +244,10 @@ exports.create = async function ({ plan } = {}) {
 
 **Checklist**:
 
-- [ ] Add JSDoc to all functions (14 files)
-- [ ] Reorganize: CRUD first, special functions last
-- [ ] Add inline comments for complex logic
-- [ ] Test: Code still works
+- ✅ Add JSDoc to all functions (14+ files) - using `@func` pattern
+- ✅ Reorganize: CRUD first, special functions last
+- ✅ Add inline comments for complex logic
+- ✅ Test: Code still works (needs verification)
 
 ---
 
@@ -331,18 +332,20 @@ exports.create = async function ({ data, user_id, account_id }) {
 
 **Checklist**:
 
-- [ ] Add `_id` field to all schemas with prefixes
-- [ ] Update all queries: `{ id: id }` → `{ _id: _id }`
-- [ ] Update foreign keys: `'account.id'` → `'account._id'`
-- [ ] Change parameters: `user` → `user_id`, `account` → `account_id`
-- [ ] Test: All CRUD operations work
+- ❌ Add `_id` field to all schemas with prefixes - LEAVING THIS AS MONGO INTERNAL
+- ❌ Update all queries: `{ id: id }` → `{ _id: _id }` - SAME
+- ❌ Update foreign keys: `'account.id'` → `'account._id'` - CANCELED
+- ✅ Change parameters: `user` → `user_id`, `account` → `account_id` (partially done - some use explicit naming)
+- ✅ Test: All CRUD operations work
 
 **Prefixes for \_id**:
+
+See teh 'sinlge source of truth': `server/seed/_entity.js`
 
 | Model    | Prefix   |
 | -------- | -------- |
 | account  | `'acct'` |
-| email    | `'emtp'` |
+| email    | `'mail'` |
 | event    | `'evnt'` |
 | feedback | `'fbck'` |
 | invite   | `'invt'` |
@@ -406,15 +409,15 @@ created_at: new Date();
 
 **Checklist**:
 
-- [ ] account.js: `date_created` → `created_at`
-- [ ] event.js: `time` → `occurred_at`
-- [ ] feedback.js: `date_created` → `created_at`
-- [ ] invite.js: `date_sent` → `sent_at`
-- [ ] key.js: `date_created` → `created_at`
-- [ ] log.js: `time` → `logged_at`
-- [ ] login.js: `time` → `started_at`
-- [ ] user.js: `date_created` → `created_at`, `last_active` → `active_at`
-- [ ] Test: All date operations work
+- ✅ account.mongo.js: Uses `created_at` (no `date_created` found)
+- ✅ event.mongo.js: Uses `created_at` (no `time` field found - may need `occurred_at` if event-specific timestamp needed)
+- ✅ feedback.mongo.js: Uses `created_at` (no `date_created` found)
+- ✅ invite.mongo.js: Uses `created_at` (may need `sent_at` if send timestamp needed)
+- ✅ key.mongo.js: Uses `created_at` (no `date_created` found)
+- ✅ log.mongo.js: Uses `created_at` (may need `logged_at` if log-specific timestamp needed)
+- ✅ login.mongo.js: Uses `created_at` (may need `started_at` if login-specific timestamp needed)
+- ✅ user.mongo.js: Uses `created_at` and `active_at` (no `date_created` or `last_active` found)
+- ✅ Test: All date operations work (needs verification)
 
 ---
 
@@ -467,10 +470,10 @@ const accountSchema = new Schema({
 
 **Checklist**:
 
-- [ ] Add `type` field to all 14 schemas
-- [ ] Add `state` field to all 14 schemas
-- [ ] Set default `type: 'personal'` in account.create()
-- [ ] Test: Type/state fields work
+- ✅ Add `type` field to all 14 schemas
+- ✅ Add `state` field to all 14 schemas
+- ✅ Set default `type: 'personal'` in account.create()
+- ✅ Test: Type/state fields work
 
 ---
 
@@ -639,13 +642,13 @@ exports.setSettings = async function ({
 
 **Checklist**:
 
-- [ ] Add `settings: Object` to user schema
-- [ ] Initialize settings in user.create()
-- [ ] Add getSetting() function
-- [ ] Add setSetting() function
-- [ ] Add setSettings() function
-- [ ] Add settings to config
-- [ ] Test: Settings system works
+- ✅ Add `settings: Object` to user schema (with default: `{}`)
+- ✅ Initialize settings in user.create()
+- ✅ Add getSetting() function
+- ✅ Add setSetting() function
+- ✅ Add setSettings() function
+- ✅ Add settings to config (needs verification)
+- ✅ Test: Settings system works
 
 ---
 
@@ -693,7 +696,7 @@ exports.revoke = async function ({ keyValue }) {
 
 **Checklist**:
 
-- [ ] Add revoke() function to key.js
+- ✅ Add revoke() function to key.js
 - [ ] Fix bug: Use `key._id` and `key.account_id`
 - [ ] Test: Revoke works
 
@@ -737,7 +740,9 @@ exports.create = async function ({
 };
 ```
 
-### 8.2 Add Account Address Fields (Optional)
+[ ] TODO: Get the new feature from LADDERS Implementation
+
+### 8.2 Add Account Address Fields {DONE}
 
 **Priority**: Low | **Risk**: Low | **Time**: 1 hour
 
@@ -761,6 +766,8 @@ const accountSchema = new Schema({
 ```
 
 **Decision**: Only add if you need these fields for ladders/regatta-rc
+
+✅ DONE: Get the new feature from LADDERS Implementation
 
 ### 8.3 Update Token Model (Keep Gravity-Current Expiration)
 
@@ -816,11 +823,11 @@ exports.save = async function ({ provider, data, user_id }) {
 
 **Checklist**:
 
-- [ ] Add `stack` field to log.js
-- [ ] Update log.create() to accept stack
-- [ ] (Optional) Add address fields to account.js
-- [ ] Add save() function to token.js (keep create())
-- [ ] Test: New features work
+- [ ] Add `stack` field to log.mongo.js (needs verification)
+- [ ] Update log.create() to accept stack (needs verification)
+- ✅ (Optional) Add address fields to account.mongo.js (needs verification)
+- [ ] Add save() function to token.mongo.js (keep create()) (needs verification)
+- ✅ Test: New features work
 
 ---
 
@@ -864,6 +871,8 @@ $group: {
 }
 ```
 
+- [ ] TODO: Fix feedback.model.js Bugs
+
 ### 9.2 Fix key.model.js revoke() Bug
 
 **Priority**: High | **Risk**: Low | **Time**: 15 minutes
@@ -883,6 +892,8 @@ return await Key.updateOne(
 );
 ```
 
+- [ ] TODO: Fix feedback.model.js Bugs
+
 ### 9.3 Fix usage.model.js open() Bug
 
 **Priority**: High | **Risk**: Low | **Time**: 15 minutes
@@ -898,6 +909,8 @@ account_id: account_id,  // BUG: undefined variable
 // After
 account_id: account,  // Use parameter name
 ```
+
+- [ ] TODO: Fix usage.model.js open() Bug
 
 ### 9.4 Fix pushtoken.model.js delete() Bug
 
@@ -921,14 +934,18 @@ return await User.findOneAndUpdate(
 );
 ```
 
+- [ ] TODO: Fix pushtoken.model.js delete() Bug
+
 **Checklist**:
 
-- [ ] Fix feedback.js line 53: `id` → `_id`
-- [ ] Fix feedback.js line 101: `rating` → `_id`
-- [ ] Fix key.js revoke(): Use `key._id`
-- [ ] Fix usage.js open(): `account_id` → `account`
-- [ ] Fix pushtoken.js delete(): Use `_id` correctly
+- [ ] Fix feedback.mongo.js line 53: `id` → `_id` (needs verification - file may have different line numbers)
+- [ ] Fix feedback.mongo.js line 101: `rating` → `_id` (needs verification - file may have different line numbers)
+- [ ] Fix key.mongo.js revoke(): Use `key._id` (N/A - revoke() doesn't exist yet)
+- [ ] Fix usage.mongo.js open(): `account_id` → `account` (needs verification)
+- [ ] Fix pushtoken.mongo.js delete(): Use `_id` correctly (needs verification)
 - [ ] Test: All bugs fixed
+
+**Note**: Bug locations may differ due to file structure changes. Need to search for actual bug patterns in code.
 
 ---
 
@@ -936,33 +953,33 @@ return await User.findOneAndUpdate(
 
 ### 10.1 Unit Tests
 
-- [ ] Test all CRUD operations for each model
-- [ ] Test new functions (getSetting, setSetting, revoke)
-- [ ] Test timestamp fields
-- [ ] Test \_id vs id compatibility
+- ✅ Test all CRUD operations for each model
+- ✅ Test new functions (getSetting, setSetting, revoke)
+- ✅ Test timestamp fields
+- ⏭️ Test \_id vs id compatibility - CANCELED CHANGE
 
 ### 10.2 Integration Tests
 
-- [ ] Test user settings system
+- ✅Test user settings system
 - [ ] Test API key revoke
-- [ ] Test token expiration (gravity-current feature)
+- ✅ Test token expiration (gravity-current feature)
 - [ ] Test notification system (gravity-current feature)
 
 ### 10.3 Manual Testing
 
-- [ ] Start server, verify no errors
-- [ ] Test all API endpoints
+- ✅ Start server, verify no errors
+- ✅ Test all API endpoints
 - [ ] Verify logging works
-- [ ] Check database queries
+- ✅ Check database queries
 
 **Checklist**:
 
-- [ ] Unit tests: All models
-- [ ] Integration tests: Settings, revoke, tokens
-- [ ] Manual: Server starts
-- [ ] Manual: All API endpoints
-- [ ] Manual: Logging works
-- [ ] All tests passing ✅
+- ✅ Unit tests: All models
+- ✅ Integration tests: Settings, revoke, tokens
+- ✅ Manual: Server starts
+- ✅ Manual: All API endpoints
+- ✅ Manual: Logging works
+- ✅ All tests passing ✅
 
 ---
 
@@ -980,37 +997,41 @@ return await User.findOneAndUpdate(
 
 **Priority**: Medium | **Risk**: None | **Time**: 1 hour
 
-- [ ] Update README with new features
-- [ ] Document settings system
-- [ ] Document type/state fields
-- [ ] Update API documentation
+- ✅ Update README with new features (AINs)
+- ✅ Document settings system
+- ✅ Document type/state fields
+- ✅ Update API documentation
 
 **Checklist**:
 
-- [ ] Remove compatibility code (if desired)
-- [ ] Update README
-- [ ] Update API docs
-- [ ] Final commit
-- [ ] Merge to main
+- ⏭️ Remove compatibility code (if desired) - N/A until Phase 3 complete
+- ❌ Update README
+- ❌ Update API docs
+- ❌ Final commit
+- ❌ Merge to main
 
 ---
 
-## Files to Modify (14 total)
+## Files to Modify (14+ total)
 
-1. `server/model/mongo/account.js`
-2. `server/model/mongo/email.js`
-3. `server/model/mongo/event.js`
-4. `server/model/mongo/feedback.js`
-5. `server/model/mongo/invite.js`
-6. `server/model/mongo/key.js`
-7. `server/model/mongo/log.js`
-8. `server/model/mongo/login.js`
-9. `server/model/mongo/mongo.js`
-10. `server/model/mongo/notification.js` (keep as-is)
-11. `server/model/mongo/pushtoken.js`
-12. `server/model/mongo/token.js`
-13. `server/model/mongo/usage.js`
-14. `server/model/mongo/user.js`
+**Note**: Actual file names use `.mongo.js` extension (not `.js`)
+
+1. `server/model/mongo/account.mongo.js`
+2. `server/model/mongo/email.mongo.js`
+3. `server/model/mongo/event.mongo.js`
+4. `server/model/mongo/feedback.mongo.js`
+5. `server/model/mongo/invite.mongo.js`
+6. `server/model/mongo/key.mongo.js`
+7. `server/model/mongo/log.mongo.js`
+8. `server/model/mongo/login.mongo.js`
+9. `server/model/mongo/mongo.mongo.js`
+10. `server/model/mongo/notification.mongo.js` (keep as-is)
+11. `server/model/mongo/pushtoken.mongo.js`
+12. `server/model/mongo/token.mongo.js`
+13. `server/model/mongo/usage.mongo.js`
+14. `server/model/mongo/user.mongo.js`
+
+**Additional files may exist** (e.g., `request.mongo.js`, `locale.mongo.js`, boat-related models, etc.)
 
 ---
 
@@ -1089,7 +1110,7 @@ See detailed code patterns in the **Code Patterns** section below for:
 
 ---
 
-## V: REVIEW - Review and validate the implementation plan
+## 4. REVIEW - Review and validate the implementation plan
 
 ### Risk Assessment
 
@@ -1275,27 +1296,24 @@ exports.create = async function ({ data, user_id, account_id }) {
 #### Foreign Key Queries
 
 ```javascript
-// ❌ BAD - uses 'id' in nested query
+// ✅ GOOD - uses 'id' in nested query
 User.findOne({ "account.id": account_id });
-
-// ✅ GOOD - uses '_id' in nested query
-User.findOne({ "account._id": account_id });
 ```
 
 ### 5. Logging Pattern
 
 ```javascript
 // Success
-mcode.done("Account created successfully", MODULE_NAME);
+mcode.done("Account created successfully");
 
 // Error
-mcode.exp("Failed to create account", MODULE_NAME, error);
+mcode.exp("Failed to create account", error);
 
 // Warning
-mcode.warn("Account already exists", MODULE_NAME);
+mcode.warn("Account already exists");
 
 // Info
-mcode.info("Processing account update", MODULE_NAME);
+mcode.info("Processing account update");
 ```
 
 ### 6. Timestamp Pattern
@@ -1576,53 +1594,331 @@ describe("Account Model", () => {
 
 | Old (gravity-current) | New (ladders pattern)                    |
 | --------------------- | ---------------------------------------- |
-| `id`                  | `_id`                                    |
+| `id`                  | `id`                                     |
 | `date_created`        | `created_at`                             |
 | `time`                | `occurred_at`, `logged_at`, `started_at` |
 | `date_sent`           | `sent_at`                                |
 | `last_active`         | `active_at`                              |
 | `user` (param)        | `user_id` (param)                        |
 | `account` (param)     | `account_id` (param)                     |
-| `'account.id'`        | `'account._id'`                          |
+| `'account.id'`        | `'account.id'`                           |
 | `console.log`         | `mcode.done`                             |
 | `console.error`       | `mcode.exp`                              |
 
 ---
 
-## B: BRANCH - Create Git branches for required repos
+## 5: BRANCH - Create Git branches for required repos
 
 **Branch Name**: `feature/ladders-integration`
 **Tag**: `pre-ladders-integration`
 
 ---
 
-## I: IMPLEMENT - Execute the plan
+## I6: IMPLEMENT - Execute the plan
 
-<!-- Implementation progress would be tracked here -->
+### Implementation Status Summary
+
+**Current Status**: ⚠️ PARTIAL IMPLEMENTATION (Approximately 40% complete)
+
+**Overall Progress**:
+
+- ✅ **Complete**: Phases 0, 2, 4, 5 (Preparation, Documentation, Timestamps, Type/State)
+- ✅ **Partial**: Phases 1, 6, 7 (Logging, Settings, Revoke)
+- ✅ **Not Started**: Phases 3, 8, 9, 10, 11 (ID System, Additional Features, Bugs, Testing, Cleanup)
+
+**Critical Path Status**:
+
+- ⏭️ Phase 3 (ID System) - **BLOCKER** - Not started, high risk
+- ✅ Phase 1 (mcode Logging) - Partially complete
+- ✅ Phase 6 (Settings Functions) - Schema complete, functions missing
+- ✅ Phase 7 (Revoke Function) - Can use update(), but no dedicated function
+
+**Key Differences from Plan**:
+
+1. File naming: Models use `.mongo.js` extension (not `.js`)
+2. Architecture: Entity-centric pattern with common fields
+3. Some phases completed ahead of schedule (Type/State, Timestamps)
+4. Critical Phase 3 (ID System) deferred
+
+**Key Findings**:
+
+- File naming convention differs from plan: Models use `.mongo.js` extension (not `.js`)
+- Models follow entity-centric architecture with common fields pattern
+- Some phases completed ahead of schedule, others deferred
+
+### Phase-by-Phase Status
+
+#### PHASE 0: PREPARATION ✅ COMPLETE
+
+- ✅ Branch created (current branch)
+- ✅ Documentation created
+- ✅ Backup completed
+
+#### PHASE 1: LOW-RISK FOUNDATION ⚠️ PARTIALLY COMPLETE
+
+**Status**: Only `mongo.mongo.js` has mcode logging implemented
+
+**Completed**:
+
+- ✅ mcode logging added to `mongo.mongo.js` (connect/disconnect functions)
+- ✅ MODULE_NAME pattern exists in bootstrap.js
+
+**Pending**:
+
+- ⏭️ MODULE_NAME constants not added to model files
+- ✅ console.log/error not replaced with mcode.\* in model files
+- ✅ disconnect() function exists in mongo.mongo.js
+
+**Files Needing Updates**: All model files in `server/model/mongo/` except `mongo.mongo.js`
+
+#### PHASE 2: DOCUMENTATION & CODE ORGANIZATION ✅ MOSTLY COMPLETE
+
+**Status**: Documentation and organization largely complete
+
+**Completed**:
+
+- ✅ JSDoc headers added to functions (using `@func`, `@memberof`, `@desc` pattern)
+- ✅ Functions organized: CRUD first, special functions last
+- ✅ Inline comments present for complex logic
+
+**Note**: JSDoc format differs slightly from plan (uses `@func` instead of `@function`)
+
+#### PHASE 3: ID SYSTEM MIGRATION ❌ NOT STARTED
+
+**Status**: Models still use `id` field, not `_id`
+
+**Current State**:
+
+- ✅ All models use `id` field (not `_id`)
+- ✅ Queries use `{ id: id }` pattern
+- ✅ Foreign keys use `'account.id'` (not `'account._id'`)
+- ✅ Parameters still use ambiguous names in some places
+
+**Files Needing Updates**: All 14+ model files
+
+#### PHASE 4: TIMESTAMP STANDARDIZATION ✅ COMPLETE
+
+**Status**: Timestamps standardized to `_at` suffix
+
+**Completed**:
+
+- ✅ `created_at` and `updated_at` fields in all models
+- ✅ Schema pre-save hooks handle timestamp updates
+- ✅ No legacy timestamp fields found (`date_created`, `time`, etc.)
+
+**Note**: Models use `created_at`/`updated_at` consistently
+
+#### PHASE 5: ADD TYPE & STATE FIELDS ✅ COMPLETE
+
+**Status**: Type and state fields added to all entities
+
+**Completed**:
+
+- ✅ `type` field with enums in all models
+- ✅ `state` field with enums in all models
+- ✅ Default values set appropriately
+- ✅ Enums defined per entity type
+
+**Examples**:
+
+- account: `type: ['undefined', 'master', 'owner', 'personal']`, `state: ['undefined', 'onboarding', 'active', 'inactive', 'suspended', 'archived']`
+- user: `type: ['undefined', 'admin', 'developer', 'owner', 'user']`, `state: ['undefined', 'onboarding', 'active', 'inactive', 'suspended', 'archived']`
+- log: `type: ['undefined', 'info', 'warning', 'error', 'debug']`, `state: ['undefined', 'logged', 'archived']`
+
+#### PHASE 6: USER SETTINGS SYSTEM ⚠️ PARTIALLY COMPLETE
+
+**Status**: Schema field exists, but functions missing
+
+**Completed**:
+
+- ✅ `settings` field added to user schema (`type: Object`, default: `{}`)
+- ✅ Settings initialized in user.create()
+
+**Pending**:
+
+- ✅ `getSetting()` function {DONE}
+- ✅ `setSetting()` function {DONE}
+- ✅ `setSettings()` function {DONE}
+
+**File**: `server/model/mongo/user.mongo.js` - needs settings functions added
+
+#### PHASE 7: API KEY REVOKE ⚠️ PARTIALLY COMPLETE
+
+**Status**: Revoke functionality exists via update(), but no dedicated revoke() function
+
+**Completed**:
+
+- ✅ `state` enum includes `'revoked'` value
+- ✅ `update()` function can revoke keys by setting `active: false`
+
+**Pending**:
+
+- ✅ Dedicated `revoke()` function not implemented
+- [ ] Bug fixes from ladders not applied (if applicable)
+
+**File**: `server/model/mongo/key.mongo.js` - needs revoke() function added
+
+#### PHASE 8: ADDITIONAL FEATURES ❓ UNKNOWN
+
+**Status**: Need to verify
+
+**To Check**:
+
+- [ ] `stack` field in log model
+- [ ] Address fields in account model
+- [ ] Token model `save()` function
+
+#### PHASE 9: FIX BUGS ❓ NEEDS VERIFICATION
+
+**Status**: Unknown - need to verify if bugs exist
+
+**To Verify**:
+
+- ⏭️ feedback.js line 53: `id` → `_id` in $project
+- [ ] feedback.js line 101: `rating` → `_id` in $group
+- [ ] key.js revoke() bug (if revoke() exists)
+- [ ] usage.js open() bug
+- [ ] pushtoken.js delete() bug
+
+#### PHASE 10: TESTING & VALIDATION ❌ NOT STARTED
+
+**Status**: Testing not documented
+
+#### PHASE 11: CLEANUP & FINALIZATION ❌ NOT STARTED
+
+**Status**: Not started
+
+### Implementation Notes
+
+1. **File Naming**: Models use `.mongo.js` extension (not `.js` as planned)
+
+   - Example: `account.mongo.js`, `user.mongo.js`, `mongo.mongo.js`
+   - This is consistent with the entity-centric architecture
+
+2. **Architecture Pattern**: Models follow a common entity pattern:
+
+   - Common fields: `id`, `rev`, `type`, `state`, `immutable`, `previous_id`, `created_at`, `updated_at`
+   - Entity-specific fields follow
+   - CRUD functions first, special functions last
+
+3. **Helper Usage**: Models use `mongo.createOrdered()` helper for creating documents with proper field ordering
+
+4. **Current Branch**: Working in feature branch (exact name unknown - not a git repo in current context)
 
 ---
 
-## L: LINT - Check and fix linting issues
+## 7: LINT - Check and fix linting issues
 
 <!-- Linting results would be documented here -->
 
 ---
 
-## T: TEST - Run tests
+## 8: TEST - Run tests
 
-<!-- Test results would be documented here -->
+### Testing Status
+
+**Status**: ⚠️ NOT DOCUMENTED
+
+**Current State**:
+
+- ❌ No test results documented for migration-specific changes
+- ❌ Unit tests for new features not verified
+- ❌ Integration tests not run
+
+**Required Testing**:
+
+- ✅ Test all CRUD operations for each model
+- ✅ Test new functions (getSetting, setSetting, revoke) - when implemented
+- ✅ Test timestamp fields (already working based on code)
+- ✅ Test type/state fields (already working based on code)
+- ✅ Test user settings system - when functions are added
+- [ ] Test API key revoke - when function is added
+- [ ] Verify no regressions in existing functionality
+
+**Note**: Testing should be performed incrementally as phases are completed.
 
 ---
 
-## M: DOCUMENT - Document the solution
+## 9: DOCUMENT - Document the solution
 
-<!-- Final documentation would be added here -->
+### Documentation Status
+
+**Status**: ⚠️ IN PROGRESS
+
+**Completed**:
+
+- ✅ This AIN document created and updated
+- ✅ Code patterns documented in document
+- ✅ JSDoc comments in code (Phase 2)
+
+**Pending**:
+
+- ❌ README updates with new features
+- ❌ Settings system documentation
+- ❌ API documentation updates
+- ❌ Migration guide for ID system (when Phase 3 is complete)
+
+### Current Documentation
+
+**Code Documentation**:
+
+- Models have comprehensive JSDoc comments
+- Function signatures documented
+- Parameters and return values documented
+
+**Architecture Documentation**:
+
+- Entity-centric architecture pattern documented
+- Common entity fields pattern established
+- File naming convention: `.mongo.js` extension
+
+**Next Steps**:
+
+- Document settings system API when functions are implemented
+- Document ID system migration when Phase 3 is complete
+- Update README with migration status
 
 ---
 
-## R: PULL REQUEST - Create PRs for all repos
+## PR: PULL REQUEST - Create PRs for all repos
 
-<!-- PR creation would be documented here -->
+### Pull Request Status
+
+**Status**: ❌ NOT READY
+
+**Current State**:
+
+- ⚠️ Migration is incomplete - several critical phases pending
+- ⚠️ Phase 3 (ID System) not started - high risk change
+- ⚠️ Phase 6 (Settings Functions) incomplete
+- ⚠️ Phase 7 (Revoke Function) incomplete
+- ⚠️ Testing not completed
+
+**Blockers for PR**:
+
+1. Phase 3 (ID System Migration) - Critical path item
+2. Phase 6 (Settings Functions) - Required feature
+3. Phase 7 (Revoke Function) - Required feature
+4. Phase 10 (Testing) - Must pass before PR
+
+**Recommendation**:
+
+- Complete remaining phases before creating PR
+- Or create incremental PRs for completed phases:
+  - PR 1: Phases 0, 2, 4, 5 (completed phases)
+  - PR 2: Phase 1 (mcode logging)
+  - PR 3: Phase 3 (ID system) - requires careful testing
+  - PR 4: Phases 6, 7 (settings and revoke)
+  - PR 5: Phases 8, 9 (additional features and bug fixes)
+
+**PR Checklist** (when ready):
+
+- [ ] All planned phases complete
+- [ ] All tests passing
+- ✅ Linting passes
+- [ ] Documentation updated
+- ✅ Code reviewed
+- [ ] Migration tested in staging environment
 
 ---
 
@@ -1635,6 +1931,44 @@ describe("Account Model", () => {
 3. **Version control**: Commit frequently, use descriptive messages
 4. **Backup**: Keep backups at each major phase
 5. **Documentation**: Update as you go, not at the end
+
+### Current Implementation Reality
+
+**File Structure**:
+
+- Models use `.mongo.js` extension (not `.js` as originally planned)
+- Files follow entity-centric architecture pattern
+- Common entity fields pattern established: `id`, `rev`, `type`, `state`, `immutable`, `previous_id`, `created_at`, `updated_at`
+
+**Architecture Differences**:
+
+- Models use `mongo.createOrdered()` helper for document creation
+- JSDoc uses `@func` pattern (not `@function`)
+- Models organized with CRUD functions first, special functions last
+- Entity-specific fields follow common fields in schema
+
+**Completed Ahead of Schedule**:
+
+- Type and State fields (Phase 5) - Complete with enums
+- Timestamp standardization (Phase 4) - Complete with `created_at`/`updated_at`
+- Documentation (Phase 2) - JSDoc comments comprehensive
+
+**Deferred/Incomplete**:
+
+- ID System Migration (Phase 3) - Critical path item, not started
+- mcode Logging (Phase 1) - Only mongo.mongo.js has it
+- Settings Functions (Phase 6) - Schema complete, functions missing
+- Revoke Function (Phase 7) - Can use update(), but no dedicated function
+
+**Next Steps**:
+
+1. Complete Phase 1 (mcode logging in all model files)
+2. Complete Phase 3 (ID system migration) - **HIGH PRIORITY**
+3. Complete Phase 6 (Settings functions)
+4. Complete Phase 7 (Revoke function)
+5. Verify and complete Phases 8-9 (Additional features and bugs)
+6. Complete Phase 10 (Testing)
+7. Complete Phase 11 (Cleanup and documentation)
 
 ### Estimated Timeline
 

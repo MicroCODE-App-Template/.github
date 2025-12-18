@@ -227,7 +227,7 @@ Three React components follow identical patterns:
 
 ### No Backend Changes Required
 
-- Entity request API (`/api/entity_request`) already exists and works
+- Entity request API (`/api/request`) already exists and works
 - No database schema changes needed
 - No API endpoint modifications required
 
@@ -592,7 +592,7 @@ export function Boats({ t: propT }) {
 
     // Handle request new boat
     const handleRequestNew = () => {
-        // POST /api/entity_request with entity_type: 'boat'
+        // POST /api/request with entity_type: 'boat'
     };
 
     // Render (same structure as clubs.jsx with UI reorganization)
