@@ -1,6 +1,6 @@
 # BRANCH - Create Git branches for required repos
 
-## Phase: B - BRANCH
+## Phase: 5: BRANCH
 
 **Purpose**: Create Git branches for all repositories that need changes.
 

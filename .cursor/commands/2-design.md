@@ -1,6 +1,6 @@
 # DESIGN - Design detailed solution
 
-## Phase: D - DESIGN
+## Phase: 2: DESIGN
 
 **Purpose**: Design a detailed solution approach before implementation.
 

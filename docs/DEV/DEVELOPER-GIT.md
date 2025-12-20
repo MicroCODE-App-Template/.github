@@ -2,8 +2,9 @@
 
 This guide mirrors the [MicroCODE Software Support Process](./DEVELOPER-SSP.md) (SSP) and documents how developers work with Git branches, semantic versioning, and the four GitFlow templates stored in the centralized [`.issue`](https://github.com/MicroCODE-App-Template/.issue) repository.
 
-**`vM.F.H`**
+**`xM.F.H`**
 
+- 'x' = Branch: "v" = Production (main branch), "b" = Beta (release/\*), "a" = Alpha (develop)
 - `M` = Major Release (architecture/design/API change)
 - `F` = Feature Release (bundle of enhancements delivered together)
 - `H` = Hotfix Patch (single production fix)

@@ -1,6 +1,6 @@
 # PULL REQUEST - Create PRs for all repos
 
-## Phase: R - PULL REQUEST
+## Phase: PR: PULL REQUEST
 
 **Purpose**: Create pull requests for all repositories with changes.
 

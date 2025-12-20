@@ -4,48 +4,47 @@
 
 Provides an overview of the complete AI Development Notes workflow and all available phases.
 
-## Workflow Phases
+## 0: WORKFLOW Phases
 
 The workflow follows these phases, all documented in **ONE document** (`AIN [20YY-MM-DD] [FEATURE_NAME].md`):
 
-1. **C: CONCEPT** - Discuss ideas without generating code
+**1: CONCEPT/CHANGE/CORRECTION** - Discuss ideas without generating code
 
-   - Use `/1-concept` command
+- Use `/1-concept` command
 
-2. **D: DESIGN** - Design detailed solution
+**2: DESIGN** - Design detailed solution
 
-   - Use `/2-design` command
+- Use `/2-design` command
 
-3. **P: PLAN** - Create implementation plan
+**3: PLAN** - Create implementation plan
 
-   - Use `/3-plan` command
+- Use `/3-plan` command
 
-4. **V: REVIEW** - Review and validate the implementation plan
+**4: REVIEW** - Review and validate the implementation plan
 
-   - Use `/4-review` command
+- Use `/4-review` command
 
-5. **B: BRANCH** - Create Git branches for required repos
+**5: BRANCH** - Create Git branches for required repos
 
-   - Use `/5-branch` command
+- Use `/5-branch` command
 
-6. **I: IMPLEMENT** - Execute the plan
+**6: IMPLEMENT** - Execute the plan
 
-   - Use `/6-implement` command
+- Use `/6-implement` command
 
-7. **L: LINT** - Check and fix linting issues
+**7: LINT** - Check and fix linting issues
 
-   - Use `/7-lint` command
+- Use `/7-lint` command
 
-8. **T: TEST** - Run tests
+**8: TEST** - Run tests
 
-   - Use `/8-test` command
+- Use `/8-test` command
 
-9. **M: DOCUMENT** - Document the solution
+**9: DOCUMENT** - Document the solution
 
-   - Use `/9-document` command
+- Use `/9-document` command
 
-10. **R: PULL REQUEST** - Create PRs for all repos
-    - Use `/10-pull-request` command
+**PR: PULL REQUEST** - Create PRs for all repos - Use `/10-pull-request` command
 
 ## Getting Started
 
@@ -81,4 +80,4 @@ The workflow follows these phases, all documented in **ONE document** (`AIN [20Y
 - `/7-lint` - Fix linting issues
 - `/8-test` - Run tests
 - `/9-document` - Document solution
-- `/10-pull-request` - Create PRs
+- `/PR-pull-request` - Create PRs

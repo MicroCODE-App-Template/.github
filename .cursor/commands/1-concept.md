@@ -1,6 +1,6 @@
 # CONCEPT - Discuss ideas without generating code
 
-## Phase: C - CONCEPT
+## Phase: 1: CONCEPT/CHANGE/CORRECTION
 
 **Purpose**: Discuss ideas, requirements, and concepts without generating code.
 

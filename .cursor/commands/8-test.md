@@ -1,6 +1,6 @@
 # TEST - Run tests
 
-## Phase: T - TEST
+## Phase: 8: TEST
 
 **Purpose**: Run tests to verify the implementation works correctly.
 

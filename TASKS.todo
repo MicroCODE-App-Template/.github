@@ -1,0 +1,64 @@
+GM GPS eMITS UI:
+
+Our JSON UI built from scratch using HTML5, CSS3, HTMX, and JSON for General Motors Global Propulsion Systems (GPS).
+
+Description:
+
+    Using "To Do Tasks" by Sandeep Somavarapu. This is a convenient list of tasks being worked upon, a place to record TO-DOs within the project source code.
+
+Commands:
+
+    New Task - Ctrl+Enter
+    Complete - Alt-D (toggle)
+    Cancel   - Alt-C
+
+Priority Tags:
+
+    (These are highlighted via the extension: "TODO Hilight")
+    @critical
+    @today
+    @high
+    @medium
+    @low
+    @done
+
+Source Code Markers:
+
+    (These are highlighted via the extension: "TODO Hilight")
+    {NOTE}
+    {TODO}
+    {DONE}
+    {TMP}
+    {SIM}
+    {TBD}
+
+UI Component Tasks:
+
+    [] Login: Look thru all email addresses when a user is attempting to login, allow any from his list,
+    but each must be verified. Expand email objects to incuded verified.
+
+Backend Tasks:
+
+
+
+Database Tasks:
+
+
+
+Frontend Tasks:
+
+
+
+Documentation Tasks:
+
+
+
+DevOps Tasks:
+
+
+
+Testing Tasks:
+
+
+
+Research Tasks:
