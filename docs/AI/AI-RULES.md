@@ -243,6 +243,17 @@ res.__("account.plan.requires_action");
 - Use camelCase for variables and functions, snake-case for filenames
 - Use nested objects for controller functions eg. account.users.add
 
+## Component Architecture Rules
+
+- **NEVER put usage-specific logic inside common/shared UI components**
+- Common components (like Table, Button, Card, etc.) must remain generic and reusable
+- If a component needs table-specific, view-specific, or usage-specific behavior:
+  - Pass configuration as props (e.g., `columnFormat`, `columnAlignments`, `customStyles`)
+  - Let the parent component (the specific view/page) define the configuration
+  - Keep the common component completely agnostic about WHERE or HOW it's being used
+- Example: If Table needs different column alignment per table, pass `columnAlignments={{ design: 'center' }}` prop from the parent view, don't check for specific column names or data properties inside Table
+- Common components should only contain presentation logic, not business logic or usage detection
+
 ## Folder Rules
 
 `/api`
