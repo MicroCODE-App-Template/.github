@@ -70,7 +70,7 @@ Frontend Tasks:
     ☐ Course Management: Add Course data model, API, and admin console views.
     ☐ Exports of Courses, Waypoints to Device Types (e.g., Garmin, etc.) <-- paid 'connectors'.
     ☐ Get rid of generic 'Something went wrong' error messages, make them specific to the error encountered.
-
+    ☐ Add LADDERS Style Onboarding Flow for new users.
 
 Documentation Tasks:
 
