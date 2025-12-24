@@ -8,42 +8,45 @@ This repository contains a working copy of the licensed [Gravity SaaS Boilerplat
 
 MicroCODE App Template is our production-ready web and mobile application framework, customized from the Gravity SaaS Boilerplate for building enterprise-grade applications.
 
-## 📋 Create Issues via Forms
+## Create ISSUEs via Forms
 
 **All issues are tracked in the centralized [`.issue`](https://github.com/MicroCODE-App-Template/.issue) repository.**
 
 Use these links to open form-based issues for each type of work item:
 
-### 🐞 Bug Reports
+### ⛔ Hotfix - defect in PRODUCTION
 
-- [Report a Bug](https://github.com/MicroCODE-App-Template/.issue/issues/new?template=bug_report.yml)
-- [Report a Defect](https://github.com/MicroCODE-App-Template/.issue/issues/new?template=defect_report.yml)
+- **Report/Request:** [Defect Report](https://github.com/MicroCODE-App-Template/.issue/issues/new?template=defect_report.yml)
+- **Template MD:** [Hotfix Template](https://github.com/MicroCODE-App-Template/.issue/issues/new?template=hotfix/hotfix-nnnn--hotfix-short-name.md)
 
-### 🚀 Feature Requests
+### 🎃 Bug/Bugfix - defect in BETA or ALPHA Release
 
-- [Feature Request](https://github.com/MicroCODE-App-Template/.issue/issues/new?template=feature_request.yml)
+- **Report/Request:** [Bug Report](https://github.com/MicroCODE-App-Template/.issue/issues/new?template=bug_report.yml) | [Defect Report](https://github.com/MicroCODE-App-Template/.issue/issues/new?template=defect_report.yml)
+- **Template MD:** [Bugfix Template](https://github.com/MicroCODE-App-Template/.issue/issues/new?template=bugfix/bugfix-nnnn--bugfix-short-name.md)
 
-### 🧪 Hotfixes
+### 😎 Feature - new request for PRODUCTION
 
-- [Hotfix Template](https://github.com/MicroCODE-App-Template/.issue/issues/new?template=hotfix/hotfix-nnnn--hotfix-short-name.md)
+- **Report/Request:** [Feature Request](https://github.com/MicroCODE-App-Template/.issue/issues/new?template=feature_request.yml)
+- **Template MD:** [Feature Template](https://github.com/MicroCODE-App-Template/.issue/issues/new?template=feature/feature-nnnn--feature-short-name.md)
 
-### 🛠 Bugfixes
+### 📦 Release - request for new collection of features in PRODUCTION
 
-- [Bugfix Template](https://github.com/MicroCODE-App-Template/.issue/issues/new?template=bugfix/bugfix-nnnn--bugfix-short-name.md)
+- **Report/Request:** [Release Request](https://github.com/MicroCODE-App-Template/.issue/issues/new?template=release_request.yml)
+- **Template MD:** [Release Template](https://github.com/MicroCODE-App-Template/.issue/issues/new?template=release/release-bM.F.0.md)
 
-### 🛡️ Security
+### 📋 Task - backend work in DEVELOPMENT
 
-- [Security Vulnerability Report](https://github.com/MicroCODE-App-Template/.issue/issues/new?template=security_vulnerability.yml)
-- [Custom Security Template](https://github.com/MicroCODE-App-Template/.issue/issues/new?template=security/security-nnnn--vulnerability-short-name.md)
+- **Report/Request:** [Task Request](https://github.com/MicroCODE-App-Template/.issue/issues/new?template=task_request.yml)
+- **Template MD:** [Task Template](https://github.com/MicroCODE-App-Template/.issue/issues/new?template=task/task-nnnn--task-short-name.md)
 
-### 📦 Releases
+### 🛡️ Security - vulnerability in PRODUCTION
 
-- [Release Request](https://github.com/MicroCODE-App-Template/.issue/issues/new?template=release_request.yml)
-- [bM.F.0 Release](https://github.com/MicroCODE-App-Template/.issue/issues/new?template=release/release-bM.F.0.md)
+- **Report/Request:** [Security Vulnerability Report](https://github.com/MicroCODE-App-Template/.issue/issues/new?template=security_vulnerability.yml)
+- **Template MD:** [Security Template](https://github.com/MicroCODE-App-Template/.issue/issues/new?template=security/security-nnnn--vulnerability-short-name.md)
 
-### ⚙️ Configuration
+### ⚙️ Configuration - change to Solution set-up in DEVELOPMENT
 
-- [Configuration Change](https://github.com/MicroCODE-App-Template/.issue/issues/new?template=config.yml)
+- **Report/Request:** [Configuration Change](https://github.com/MicroCODE-App-Template/.issue/issues/new?template=config.yml)
 
 **Note:** All issues are created in the `.issue` repository to maintain centralized tracking across all solution repositories (admin, app, client, portal, server).
 
