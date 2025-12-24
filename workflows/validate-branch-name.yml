@@ -1,0 +1,109 @@
+name: Validate Branch Name
+
+on:
+  workflow_call:
+    inputs:
+      branch-name:
+        description: 'Branch name to validate'
+        required: true
+        type: string
+      issue-repo:
+        description: 'Repository containing issues (default: .issue)'
+        required: false
+        type: string
+        default: '.issue'
+    outputs:
+      is-valid:
+        description: 'Whether the branch name is valid'
+        value: ${{ jobs.validate.outputs.is-valid }}
+      issue-number:
+        description: 'Extracted issue number'
+        value: ${{ jobs.validate.outputs.issue-number }}
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    outputs:
+      is-valid: ${{ steps.validate.outputs.is-valid }}
+      issue-number: ${{ steps.validate.outputs.issue-number }}
+    steps:
+      - name: Validate branch name format
+        id: validate
+        env:
+          BRANCH_NAME: ${{ inputs.branch-name }}
+          ISSUE_REPO: ${{ inputs.issue-repo }}
+        run: |
+          echo "Validating branch: $BRANCH_NAME"
+
+          # Check if branch matches pattern: {type}/{issue#}--{description}
+          if [[ ! "$BRANCH_NAME" =~ ^(feature|bugfix|hotfix|security|release)/([0-9]{4})--(.+)$ ]]; then
+            echo "❌ Branch name validation failed"
+            echo ""
+            echo "Branch: $BRANCH_NAME"
+            echo "Error: Branch name must match format: {type}/{issue#}--{description}"
+            echo ""
+            echo "Valid types: feature, bugfix, hotfix, security, release"
+            echo "Issue number must be zero-padded to 4 digits (e.g., 0123)"
+            echo "Description must follow after double dash (--)"
+            echo ""
+            echo "Examples:"
+            echo "  ✅ feature/0123--add-user-auth"
+            echo "  ✅ bugfix/0045--fix-login-error"
+            echo "  ✅ hotfix/0067--security-patch"
+            echo "  ❌ feature/123--add-user-auth (not zero-padded)"
+            echo "  ❌ feature/0123-add-user-auth (single dash)"
+            echo ""
+            echo "is-valid=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+          # Extract issue number
+          if [[ "$BRANCH_NAME" =~ ^(feature|bugfix|hotfix|security|release)/([0-9]{4})--(.+)$ ]]; then
+            ISSUE_NUMBER="${BASH_REMATCH[2]}"
+            echo "issue-number=$ISSUE_NUMBER" >> $GITHUB_OUTPUT
+            echo "Extracted issue number: $ISSUE_NUMBER"
+          fi
+
+          echo "✅ Branch name format is valid"
+          echo "is-valid=true" >> $GITHUB_OUTPUT
+
+      - name: Verify issue exists
+        if: steps.validate.outputs.is-valid == 'true'
+        env:
+          ISSUE_NUMBER: ${{ steps.validate.outputs.issue-number }}
+          ISSUE_REPO: ${{ inputs.issue-repo }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Verifying issue #$ISSUE_NUMBER exists in $ISSUE_REPO repository..."
+
+          # Remove leading zeros for API call
+          ISSUE_NUM=$(echo "$ISSUE_NUMBER" | sed 's/^0*//')
+          if [ -z "$ISSUE_NUM" ]; then
+            ISSUE_NUM="0"
+          fi
+
+          # Check if issue exists
+          RESPONSE=$(curl -s -w "\n%{http_code}" \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/MicroCODE-App-Template/$ISSUE_REPO/issues/$ISSUE_NUM")
+
+          HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+          BODY=$(echo "$RESPONSE" | sed '$d')
+
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "❌ Issue validation failed"
+            echo ""
+            echo "Branch: ${{ inputs.branch-name }}"
+            echo "Issue Number: $ISSUE_NUMBER"
+            echo "Error: Issue #$ISSUE_NUM does not exist in MicroCODE-App-Template/$ISSUE_REPO repository"
+            echo ""
+            echo "Please ensure:"
+            echo "  1. The issue exists in the .issue repository"
+            echo "  2. The issue number is correct"
+            echo "  3. You have access to the .issue repository"
+            echo ""
+            exit 1
+          fi
+
+          echo "✅ Issue #$ISSUE_NUM verified in $ISSUE_REPO repository"
