@@ -5,6 +5,30 @@ All notable changes to the MicroCODE App Template will be documented in this fil
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## MicroCODE App Template [0.0.5]
+
+`December 25, 2025`
+
+### Changed
+
+- **BREAKING:** Removed all SQL database support, standardized exclusively on MongoDB
+  - Removed SQL model files, migrations, and Knex configuration
+  - Removed MongoDB source directories (files consolidated in `/model/` root)
+  - Removed SQL dependencies (`knex`, `mysql2`) from all repositories
+  - Simplified setup/teardown scripts to MongoDB-only workflow
+  - Updated setup UI components to remove SQL database options
+  - Updated README files with MongoDB-only requirements
+  - **Migration Note:** Existing SQL installations require manual data migration to MongoDB
+  - **Tag Lock:** See PRs #xxx (server), #xxx (admin), #xxx (client)
+
+### Removed
+
+- SQL database support (MySQL, PostgreSQL, SQLite, MSSQL, Oracle)
+- SQL migration files and Knex configuration
+- SQL-specific setup and teardown logic
+- `DB_PORT` environment variable (not used by MongoDB)
+- `mongo:update` and `sql:update` npm scripts
+
 ## MicroCODE App Template [0.0.4]
 
 `November 26, 2025`
