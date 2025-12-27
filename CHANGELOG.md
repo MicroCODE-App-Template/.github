@@ -5,6 +5,40 @@ All notable changes to the MicroCODE App Template will be documented in this fil
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## MicroCODE App Template [0.0.6]
+
+`January 26, 2025`
+
+### Added
+
+- **Complete Locales Implementation with Flags and Sail CC Support** (Issue #11)
+  - Comprehensive flag support for all 138 World Sailing countries
+  - Reusable Flag and SailNumber components across all platforms (client, admin, app)
+  - Legacy sail country code normalization (automatic mapping of pre-standard codes)
+  - Flag display in Entity Cards, tables, lists, and locale pickers
+  - New optional API endpoint: `GET /api/sail-cc` for dynamic mapping access
+  - **Tag Lock:** See PRs #xxx (server), #xxx (client), #xxx (admin), #xxx (app)
+
+### Changed
+
+- **Boat Model Schema** (`server/model/boat.model.js`):
+
+  - Added `sail_cc_raw` field (optional) to preserve original legacy codes
+  - `sail_cc` and `sail_no` now required for new records
+  - `boat_design_id` and `boat_builder_id` now required
+  - `bdsn_key` and `bbld_key` now optional
+
+- **UI Components**:
+
+  - EntityCard: BOAT entities display flag instead of logo when `sail_cc` present
+  - Admin Tables: Added 'Country' flag column, removed boat 'name' column
+  - Boat/SV Lists: Display Flag + Sail No. (bold) on line 1, Design (gray) on line 2
+  - Locale Pickers: Dynamic flag rendering using Flag component
+
+- **Seeder** (`server/seed/seeder.js`):
+  - Applies legacy sail_cc normalization during boat seeding
+  - Ensures consistency between API-created and seeded records
+
 ## MicroCODE App Template [0.0.5]
 
 `December 25, 2025`
