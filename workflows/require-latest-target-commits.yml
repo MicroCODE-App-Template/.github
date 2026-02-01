@@ -1,0 +1,62 @@
+name: Require latest target commits
+
+on:
+    pull_request:
+        branches:
+            - main # PRODUCTION code
+            - "release/b*" # BETA testing - Matches release/b0.2.0, release/b1.0.0, etc.
+            - develop # ALPHA work, FEATURE development
+
+jobs:
+    require-latest-target-commits:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout PR branch (full history)
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0 # REQUIRED – we need full history
+
+            - name: Fetch all refs cleanly
+              run: |
+                  git fetch --all --prune --tags
+
+            - name: Check for bypass label
+              id: bypass
+              run: |
+                  LABELS="${{ toJson(github.event.pull_request.labels) }}"
+                  echo "$LABELS" | grep -q '"allow-divergence"' && echo "bypass=true" >> $GITHUB_OUTPUT || echo "bypass=false" >> $GITHUB_OUTPUT
+
+            - name: Verify PR branch includes latest target commits
+              if: steps.bypass.outputs.bypass != 'true'
+              run: |
+                  TARGET_BRANCH="origin/${{ github.base_ref }}"
+
+                  echo "Checking for commits in '$TARGET_BRANCH' not present in this branch..."
+                  echo ""
+
+                  MISSING=$(git log --oneline HEAD..$TARGET_BRANCH --branches)
+                  MISSING_COUNT=$(echo "$MISSING" | grep -c . || true)
+
+                  if [ "$MISSING_COUNT" -ne 0 ]; then
+                    echo "::error::This branch is missing $MISSING_COUNT commit(s) from '${{ github.base_ref }}'."
+                    echo ""
+                    echo "Commits present in '${{ github.base_ref }}' but NOT in this branch:"
+                    echo ""
+                    echo "$MISSING"
+                    echo ""
+                    echo "You MUST merge or rebase '${{ github.base_ref }}' before this PR can be merged."
+                    echo ""
+                    echo "Fix with:"
+                    echo "  git checkout ${{ github.head_ref }}"
+                    echo "  git merge origin/${{ github.base_ref }}"
+                    echo "  git push"
+                    exit 1
+                  fi
+
+                  echo "::notice::Branch includes all commits from '${{ github.base_ref }}'. Safe to merge."
+
+            - name: Bypass notice
+              if: steps.bypass.outputs.bypass == 'true'
+              run: |
+                  echo "::warning::Bypass enabled via 'allow-divergence' label. Skipping target-commit enforcement."

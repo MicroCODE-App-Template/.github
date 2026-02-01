@@ -1,0 +1,160 @@
+# Dependabot Configuration for MicroCODE App Template
+# See: https://DOCs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+#
+# Note: This is an organization-level configuration that provides defaults.
+# Individual repositories can override these settings in their own .github/dependabot.yml files.
+
+version: 2
+updates:
+  # Enable version updates for npm (Node.js) packages
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    # Note: Reviewers must be specified at the repository level, not organization level
+    # Each repository should have its own dependabot.yml with reviewers specified
+    labels:
+      - "dependencies"
+      - "automated"
+    commit-message:
+      prefix: "chore"
+      prefix-development: "chore"
+    # Group updates to reduce PR noise
+    groups:
+      production-dependencies:
+        dependency-type: "production"
+      development-dependencies:
+        dependency-type: "development"
+    # Ignore major version updates (require manual review)
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    # Security updates are always allowed
+    allow:
+      - dependency-type: "direct"
+      - dependency-type: "indirect"
+
+  # Enable version updates for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "github-actions"
+      - "automated"
+    commit-message:
+      prefix: "ci"
+      prefix-development: "ci"
+
+  # Enable version updates for Docker (if applicable)
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 3
+    labels:
+      - "dependencies"
+      - "docker"
+      - "automated"
+    commit-message:
+      prefix: "chore"
+      prefix-development: "chore"
+
+  # Repository-specific configurations
+  # Note: These configurations are provided as templates/examples.
+  # Each repository should copy the relevant section to its own .github/dependabot.yml file
+  # and add reviewers field (e.g., reviewers: ["MicroCODE-App-Template/platform-team"])
+
+  # Admin repository
+  - package-ecosystem: "npm"
+    directory: "/admin"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    # reviewers: ["MicroCODE-App-Template/platform-team"]  # Add at repository level
+    labels:
+      - "dependencies"
+      - "admin"
+      - "automated"
+    commit-message:
+      prefix: "chore"
+      prefix-development: "chore"
+
+  # App repository (React Native)
+  - package-ecosystem: "npm"
+    directory: "/app"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    # reviewers: ["MicroCODE-App-Template/platform-team"]  # Add at repository level
+    labels:
+      - "dependencies"
+      - "app"
+      - "automated"
+    commit-message:
+      prefix: "chore"
+      prefix-development: "chore"
+
+  # Client repository (React Web)
+  - package-ecosystem: "npm"
+    directory: "/client"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    # reviewers: ["MicroCODE-App-Template/platform-team"]  # Add at repository level
+    labels:
+      - "dependencies"
+      - "client"
+      - "automated"
+    commit-message:
+      prefix: "chore"
+      prefix-development: "chore"
+
+  # Portal repository (Astro)
+  - package-ecosystem: "npm"
+    directory: "/portal"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    # reviewers: ["MicroCODE-App-Template/platform-team"]  # Add at repository level
+    labels:
+      - "dependencies"
+      - "portal"
+      - "automated"
+    commit-message:
+      prefix: "chore"
+      prefix-development: "chore"
+
+  # Server repository
+  - package-ecosystem: "npm"
+    directory: "/server"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    # reviewers: ["MicroCODE-App-Template/platform-team"]  # Add at repository level
+    labels:
+      - "dependencies"
+      - "server"
+      - "automated"
+    commit-message:
+      prefix: "chore"
+      prefix-development: "chore"

@@ -1,0 +1,113 @@
+# Release Workflow for MicroCODE App Template
+# Creates releases and tags based on semantic versioning
+
+name: Release
+
+on:
+    workflow_call:
+        inputs:
+            version:
+                description: "Version to release (e.g., 1.0.0)"
+                required: true
+                type: string
+            working-directory:
+                description: "Working directory for the job"
+                required: false
+                type: string
+                default: "."
+            release-notes:
+                description: "Release notes"
+                required: false
+                type: string
+                default: "See CHANGELOG.md for details"
+    workflow_dispatch:
+        inputs:
+            version:
+                description: "Version to release (e.g., 1.0.0)"
+                required: true
+                type: string
+            working-directory:
+                description: "Working directory for the job"
+                required: false
+                type: string
+                default: "."
+            release-notes:
+                description: "Release notes"
+                required: false
+                type: string
+                default: "See CHANGELOG.md for details"
+
+jobs:
+    release:
+        name: Create Release
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+        defaults:
+            run:
+                working-directory: ${{ inputs.working-directory }}
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "20"
+                  cache: "npm"
+                  cache-dependency-path: ${{ inputs.working-directory }}/package-lock.json
+
+            - name: Validate version format
+              run: |
+                  if [[ ! "${{ inputs.version }}" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9]+)?$ ]]; then
+                    echo "Error: Invalid version format. Expected semantic version (e.g., 1.0.0)"
+                    exit 1
+                  fi
+
+            - name: Create Git tag
+              run: |
+                  git config user.name "github-actions[bot]"
+                  git config user.email "github-actions[bot]@users.noreply.github.com"
+                  git tag -a "v${{ inputs.version }}" -m "Release v${{ inputs.version }}"
+                  git push origin "v${{ inputs.version }}"
+
+            - name: Create GitHub Release
+              uses: actions/create-release@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  tag_name: v${{ inputs.version }}
+                  release_name: Release v${{ inputs.version }}
+                  body: |
+                      ## Release v${{ inputs.version }}
+
+                      ${{ inputs.release-notes }}
+
+                      ### Installation
+
+                      ```bash
+                      npm install
+                      ```
+
+                      ### Changes
+
+                      See [CHANGELOG.md](./CHANGELOG.md) for detailed changes.
+
+                      ---
+
+                      **MicroCODE App Template** - Enterprise SaaS Application Platform
+
+                      For support, contact: dev-team@mcode.com
+                  draft: false
+                  prerelease: ${{ contains(inputs.version, '-') }}
+
+            - name: Update package.json version
+              run: |
+                  npm version ${{ inputs.version }} --no-git-tag-version
+                  git add package.json package-lock.json
+                  git commit -m "chore: bump version to ${{ inputs.version }}"
+                  git push
+              working-directory: ${{ inputs.working-directory }}

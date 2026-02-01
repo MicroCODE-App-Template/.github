@@ -1,0 +1,111 @@
+# Reusable CI Workflow for MicroCODE App Template
+# This workflow can be called from repository-specific workflows
+
+name: CI
+
+on:
+    workflow_call:
+        inputs:
+            node-version:
+                description: "Node.js version to use"
+                required: false
+                type: string
+                default: "20"
+            working-directory:
+                description: "Working directory for the job"
+                required: false
+                type: string
+                default: "."
+            install-command:
+                description: "Command to install dependencies"
+                required: false
+                type: string
+                default: "npm ci"
+            lint-command:
+                description: "Command to run linter"
+                required: false
+                type: string
+                default: "npm run lint"
+            test-command:
+                description: "Command to run tests"
+                required: false
+                type: string
+                default: "npm test"
+            build-command:
+                description: "Command to build the project"
+                required: false
+                type: string
+                default: "npm run build"
+
+jobs:
+    lint:
+        name: Lint
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ${{ inputs.working-directory }}
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ inputs.node-version }}
+                  cache: "npm"
+                  cache-dependency-path: ${{ inputs.working-directory }}/package-lock.json
+
+            - name: Install dependencies
+              run: ${{ inputs.install-command }}
+
+            - name: Run linter
+              run: ${{ inputs.lint-command }}
+
+    test:
+        name: Test
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ${{ inputs.working-directory }}
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ inputs.node-version }}
+                  cache: "npm"
+                  cache-dependency-path: ${{ inputs.working-directory }}/package-lock.json
+
+            - name: Install dependencies
+              run: ${{ inputs.install-command }}
+
+            - name: Run tests
+              run: ${{ inputs.test-command }}
+
+    build:
+        name: Build
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ${{ inputs.working-directory }}
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ inputs.node-version }}
+                  cache: "npm"
+                  cache-dependency-path: ${{ inputs.working-directory }}/package-lock.json
+
+            - name: Install dependencies
+              run: ${{ inputs.install-command }}
+
+            - name: Build project
+              run: ${{ inputs.build-command }}

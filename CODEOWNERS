@@ -1,0 +1,46 @@
+# CODEOWNERS
+# This file defines code owners for the MicroCODE App Template organization
+# See: https://DOCs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owners for the entire organization
+* @MicroCODE-App-Template/architecture-team
+
+# Organization-wide configuration files
+/.github/ @MicroCODE-App-Template/platform-team
+/.github/workflows/ @MicroCODE-App-Template/platform-team
+/.github/ISSUE_TEMPLATE/ @MicroCODE-App-Template/platform-team
+
+# Documentation
+*.md @MicroCODE-App-Template/platform-team
+/DOCs/ @MicroCODE-App-Template/platform-team
+
+# Configuration files
+package.json @MicroCODE-App-Template/platform-team
+package-lock.json @MicroCODE-App-Template/platform-team
+*.config.js @MicroCODE-App-Template/platform-team
+*.config.mjs @MicroCODE-App-Template/platform-team
+*.config.json @MicroCODE-App-Template/platform-team
+tsconfig.json @MicroCODE-App-Template/platform-team
+jsconfig.json @MicroCODE-App-Template/platform-team
+
+# Environment and secrets
+.env* @MicroCODE-App-Template/platform-team @MicroCODE-App-Template/security-team
+*.key @MicroCODE-App-Template/security-team
+*.pem @MicroCODE-App-Template/security-team
+*.p12 @MicroCODE-App-Template/security-team
+
+# Database migrations and seeds
+/migrations/ @MicroCODE-App-Template/platform-team
+/seeds/ @MicroCODE-App-Template/platform-team
+knexfile.js @MicroCODE-App-Template/platform-team
+
+# Security-related files
+SECURITY.md @MicroCODE-App-Template/security-team
+.github/dependabot.yml @MicroCODE-App-Template/security-team
+
+# License and legal
+LICENSE* @MicroCODE-App-Template/legal-team
+COPYRIGHT* @MicroCODE-App-Template/legal-team
+
+# Note: Repository-specific CODEOWNERS files can override these defaults
+# Each repository (admin, app, client, portal, server) may have its own CODEOWNERS file
