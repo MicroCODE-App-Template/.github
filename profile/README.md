@@ -73,12 +73,12 @@ Common benefits:
 - Clear separation of concerns
 - Easier to scale teams per component
 
-📚 **[Developer Setup Guide](../DOCs/DEV/DEVELOPER-SETUP.md)** - Complete installation and configuration instructions
+📚 **[Developer Setup Guide](../.issue/DEV/DEVELOPER-SETUP.md)** - Complete installation and configuration instructions
 📋 **[Changelog](../CHANGELOG.md)** - Version history and release notes
 
 ### Version Management
 
-- Platform version follows semantic versioning (vM.F.p), see **[App Versioning GIT Rules](../DOCs/DEV/DEVELOPER-GIT.md)**
+- Platform version follows semantic versioning (vM.F.p), see **[App Versioning GIT Rules](../.issue/DEV/DEVELOPER-GIT.md)**
 - Breaking changes communicated to all product teams
 - Backward compatibility maintained whereever possible
 - Migration guides provided for major updates

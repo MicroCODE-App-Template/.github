@@ -82,7 +82,7 @@ For general company or business inquiries:
 1. **Read the Documentation:**
 
    - Start with [README.md](./README.md)
-   - Review [Developer Setup Guide](../DOCs/DEV/DEVELOPER-SETUP.md)
+   - Review [Developer Setup Guide](../.issue/DEV/DEVELOPER-SETUP.md)
    - Check [CHANGELOG.md](./CHANGELOG.md) for recent changes
 
 2. **Set Up Your Environment:**
@@ -104,8 +104,8 @@ For general company or business inquiries:
 
 **Solution:**
 
-1. Review [DEVELOPER-SETUP.md](../DOCs/DEV/DEVELOPER-SETUP.md)
-2. Check [DEVELOPER-ENV.md](../DOCs/DEV/DEVELOPER-ENV.md) for environment variables
+1. Review [DEVELOPER-SETUP.md](../.issue/DEV/DEVELOPER-SETUP.md)
+2. Check [DEVELOPER-ENV.md](../.issue/DEV/DEVELOPER-ENV.md) for environment variables
 3. Verify Node.js version compatibility
 4. Check database connection settings
 5. Contact dev-team@mcode.com if issues persist
@@ -127,7 +127,7 @@ For general company or business inquiries:
 
 **Solution:**
 
-1. Review [DEVELOPER-MONGO.md](../DOCs/DEV/DEVELOPER-MONGO.md) or SQL setup guides
+1. Review [DEVELOPER-MONGO.md](../.issue/DEV/DEVELOPER-MONGO.md) or SQL setup guides
 2. Verify database credentials in environment variables
 3. Check migration files for errors
 4. Review database logs
@@ -238,7 +238,7 @@ For general company or business inquiries:
 - [CHANGELOG.md](./CHANGELOG.md) - Version history
 - [CONTRIBUTING.md](./CONTRIBUTING.md) - Contribution guidelines
 - [SECURITY.md](./SECURITY.md) - Security policy
-- [Developer Documentation](../DOCs/DEV/) - Detailed developer guides
+- [Developer Documentation](../.issue/DEV/) - Detailed developer guides
 
 ### External Resources
 
