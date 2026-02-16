@@ -1,4 +1,4 @@
-# MicroCODE App Template
+# MicroCODE App
 
 **Enterprise SaaS Application Platform**
 
