@@ -2,7 +2,7 @@
 
 **Enterprise SaaS Application Platform**
 
-**_⚠️ This is a MONOREPO hold a 'Platform' and its derived APPs**
+**⚠️ This is a MONOREPO hold a 'Platform' and its derived APPs**
 
 This repository contains a working copy of the licensed [Gravity SaaS Boilerplate](https://usegravity.app/) that we have modified for bulding our Apps.
 
