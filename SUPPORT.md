@@ -80,19 +80,19 @@ For general company or business inquiries:
 ### New to the Platform?
 
 1. **Read the Documentation:**
-   - Start with [README.md](./README.md)
-   - Review [Developer Setup Guide](../.issue/DEV/DEVELOPER-SETUP.md)
-   - Check [CHANGELOG.md](./CHANGELOG.md) for recent changes
+    - Start with [README.md](./README.md)
+    - Review [Developer Setup Guide](../.issue/DEV/DEVELOPER-SETUP.md)
+    - Check [CHANGELOG.md](./CHANGELOG.md) for recent changes
 
 2. **Set Up Your Environment:**
-   - Follow the setup instructions in the Developer Setup Guide
-   - Configure your development environment
-   - Run the setup scripts
+    - Follow the setup instructions in the Developer Setup Guide
+    - Configure your development environment
+    - Run the setup scripts
 
 3. **Explore the Codebase:**
-   - Review the repository structure
-   - Understand the entity configuration system
-   - Explore example implementations
+    - Review the repository structure
+    - Understand the entity configuration system
+    - Explore example implementations
 
 ### Common Issues
 
@@ -136,81 +136,81 @@ For general company or business inquiries:
 ### Before Reporting
 
 1. **Search Existing Issues:**
-   - Check if the issue has already been reported
-   - Review closed issues for solutions
+    - Check if the issue has already been reported
+    - Review closed issues for solutions
 
 2. **Gather Information:**
-   - Repository and version affected
-   - Steps to reproduce
-   - Expected vs. actual behavior
-   - Error messages or logs
-   - Environment details
+    - Repository and version affected
+    - Steps to reproduce
+    - Expected vs. actual behavior
+    - Error messages or logs
+    - Environment details
 
 3. **Use the Right Template:**
-   - Bug Report for bugs
-   - Feature Request for new features
-   - Security Vulnerability for security issues
+    - Bug Report for bugs
+    - Feature Request for new features
+    - Security Vulnerability for security issues
 
 ### Issue Reporting Process
 
 1. **Create an Issue:**
-   - Use the appropriate issue template
-   - Provide detailed information
-   - Include relevant code snippets or logs
+    - Use the appropriate issue template
+    - Provide detailed information
+    - Include relevant code snippets or logs
 
 2. **Wait for Response:**
-   - Issues are triaged within 1-2 business days
-   - Priority is assigned based on severity and impact
-   - You'll be notified of status updates
+    - Issues are triaged within 1-2 business days
+    - Priority is assigned based on severity and impact
+    - You'll be notified of status updates
 
 3. **Follow Up:**
-   - Respond to questions from the team
-   - Test proposed fixes
-   - Provide feedback on solutions
+    - Respond to questions from the team
+    - Test proposed fixes
+    - Provide feedback on solutions
 
 ## Feature Requests
 
 ### Submitting Feature Requests
 
 1. **Use the Feature Request Template:**
-   - Clearly describe the feature
-   - Explain the problem it solves
-   - Provide use cases
-   - Assess impact and effort
+    - Clearly describe the feature
+    - Explain the problem it solves
+    - Provide use cases
+    - Assess impact and effort
 
 2. **Review Process:**
-   - Feature requests are reviewed by the architecture team
-   - Priority is assigned based on:
-     - Alignment with platform goals
-     - Impact on multiple applications
-     - Development effort required
-     - Strategic value
+    - Feature requests are reviewed by the architecture team
+    - Priority is assigned based on:
+        - Alignment with platform goals
+        - Impact on multiple applications
+        - Development effort required
+        - Strategic value
 
 3. **Implementation:**
-   - Approved features are added to the roadmap
-   - Implementation timeline depends on priority
-   - You'll be notified of progress
+    - Approved features are added to the roadmap
+    - Implementation timeline depends on priority
+    - You'll be notified of progress
 
 ## Contributing
 
 ### How to Contribute
 
 1. **Read Contributing Guidelines:**
-   - Review [CONTRIBUTING.md](./CONTRIBUTING.md)
-   - Understand code standards
-   - Follow development workflow
+    - Review [CONTRIBUTING.md](./CONTRIBUTING.md)
+    - Understand code standards
+    - Follow development workflow
 
 2. **Make Changes:**
-   - Create a feature branch
-   - Make your changes
-   - Write tests
-   - Update documentation
+    - Create a feature branch
+    - Make your changes
+    - Write tests
+    - Update documentation
 
 3. **Submit Pull Request:**
-   - Use the PR template
-   - Provide clear description
-   - Link related issues
-   - Request review
+    - Use the PR template
+    - Provide clear description
+    - Link related issues
+    - Request review
 
 ### Contribution Guidelines
 

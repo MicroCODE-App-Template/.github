@@ -20,11 +20,11 @@ If you discover a security vulnerability in any MicroCODE App repository, please
 1. **Email:** security@mcode.com
 2. **Subject:** `[SECURITY] MicroCODE App - [Brief Description]`
 3. **Include:**
-   - Description of the vulnerability
-   - Steps to reproduce
-   - Potential impact assessment
-   - Suggested fix (if available)
-   - Your contact information
+    - Description of the vulnerability
+    - Steps to reproduce
+    - Potential impact assessment
+    - Suggested fix (if available)
+    - Your contact information
 
 ### Response Timeline
 
@@ -64,49 +64,49 @@ If you discover a security vulnerability in any MicroCODE App repository, please
 ### For Developers
 
 1. **Never commit secrets:**
-   - API keys, passwords, tokens
-   - Private keys, certificates
-   - Database credentials
-   - Use environment variables or secure secret management
+    - API keys, passwords, tokens
+    - Private keys, certificates
+    - Database credentials
+    - Use environment variables or secure secret management
 
 2. **Validate all input:**
-   - Sanitize user input
-   - Use parameterized queries
-   - Validate data types and formats
+    - Sanitize user input
+    - Use parameterized queries
+    - Validate data types and formats
 
 3. **Keep dependencies updated:**
-   - Regularly review Dependabot alerts
-   - Update dependencies with known vulnerabilities
-   - Review changelogs for security fixes
+    - Regularly review Dependabot alerts
+    - Update dependencies with known vulnerabilities
+    - Review changelogs for security fixes
 
 4. **Follow secure coding practices:**
-   - Use HTTPS for all external communications
-   - Implement proper authentication and authorization
-   - Follow principle of least privilege
-   - Log security-relevant events
+    - Use HTTPS for all external communications
+    - Implement proper authentication and authorization
+    - Follow principle of least privilege
+    - Log security-relevant events
 
 5. **Review code before merging:**
-   - All PRs require security review for sensitive changes
-   - Use code scanning tools
-   - Follow MicroCODE security guidelines
+    - All PRs require security review for sensitive changes
+    - Use code scanning tools
+    - Follow MicroCODE security guidelines
 
 ### For Operations
 
 1. **Monitor security alerts:**
-   - GitHub Security Advisories
-   - Dependabot alerts
-   - Security scanning results
+    - GitHub Security Advisories
+    - Dependabot alerts
+    - Security scanning results
 
 2. **Maintain secure configurations:**
-   - Keep systems patched
-   - Use strong authentication
-   - Implement network security controls
-   - Regular security audits
+    - Keep systems patched
+    - Use strong authentication
+    - Implement network security controls
+    - Regular security audits
 
 3. **Incident response:**
-   - Document security incidents
-   - Follow incident response procedures
-   - Coordinate with security team
+    - Document security incidents
+    - Follow incident response procedures
+    - Coordinate with security team
 
 ## Security Features
 

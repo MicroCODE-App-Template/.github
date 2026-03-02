@@ -33,32 +33,32 @@ This project adheres to the [Code of Conduct](./CODE_OF_CONDUCT.md). By particip
 
 1. **Clone the Repository:**
 
-   ```bash
-   git clone https://github.com/MicroCODE-App/[repository-name].git
-   cd [repository-name]
-   ```
+    ```bash
+    git clone https://github.com/MicroCODE-App/[repository-name].git
+    cd [repository-name]
+    ```
 
 2. **Install Dependencies:**
 
-   ```bash
-   npm install
-   ```
+    ```bash
+    npm install
+    ```
 
 3. **Set Up Environment:**
-   - Copy `.env.example` to `.env` (if available)
-   - Configure environment variables (see [DEVELOPER-ENV.md](../.issue/DEV/DEVELOPER-ENV.md))
-   - Set up database connection
+    - Copy `.env.example` to `.env` (if available)
+    - Configure environment variables (see [DEVELOPER-ENV.md](../.issue/DEV/DEVELOPER-ENV.md))
+    - Set up database connection
 
 4. **Run Setup Scripts:**
 
-   ```bash
-   npm run setup
-   ```
+    ```bash
+    npm run setup
+    ```
 
 5. **Verify Installation:**
-   ```bash
-   npm run dev
-   ```
+    ```bash
+    npm run dev
+    ```
 
 For detailed setup instructions, see [DEVELOPER-SETUP.md](../.issue/DEV/DEVELOPER-SETUP.md).
 
@@ -107,49 +107,49 @@ git checkout -b hotfix/issue-number-short-description
 
 1. **Use ESLint:**
 
-   ```bash
-   npm run lint
-   npm run lint:fix
-   ```
+    ```bash
+    npm run lint
+    npm run lint:fix
+    ```
 
 2. **Follow Style Guide:**
-   - Use 2 spaces for indentation
-   - Use single quotes for strings
-   - Use semicolons
-   - Maximum line length: 100 characters
-   - Use meaningful variable and function names
+    - Use 2 spaces for indentation
+    - Use single quotes for strings
+    - Use semicolons
+    - Maximum line length: 100 characters
+    - Use meaningful variable and function names
 
 3. **Code Organization:**
-   - Group related functionality
-   - Separate concerns (UI, UX, DB, IO layers)
-   - Use consistent file naming conventions
+    - Group related functionality
+    - Separate concerns (UI, UX, DB, IO layers)
+    - Use consistent file naming conventions
 
 4. **Error Handling:**
-   - Always handle errors appropriately
-   - Use try-catch for async operations
-   - Provide meaningful error messages
-   - Log errors appropriately
+    - Always handle errors appropriately
+    - Use try-catch for async operations
+    - Provide meaningful error messages
+    - Log errors appropriately
 
 ### Example Code Structure
 
 ```javascript
 // Good: Clear, self-documenting code
 async function getUserById(userId) {
-  try {
-    const user = await UserModel.findById(userId);
-    if (!user) {
-      throw new Error(`User ${userId} not found`);
+    try {
+        const user = await UserModel.findById(userId);
+        if (!user) {
+            throw new Error(`User ${userId} not found`);
+        }
+        return user;
+    } catch (error) {
+        logger.error('Error fetching user', { userId, error });
+        throw error;
     }
-    return user;
-  } catch (error) {
-    logger.error("Error fetching user", { userId, error });
-    throw error;
-  }
 }
 
 // Avoid: Unclear, poorly named code
 async function get(u) {
-  return await U.findById(u);
+    return await U.findById(u);
 }
 ```
 
@@ -208,23 +208,23 @@ Fixes #456
 ### Before Submitting
 
 1. **Update Documentation:**
-   - Update README if needed
-   - Add/update code comments
-   - Update API documentation
-   - Update CHANGELOG.md
+    - Update README if needed
+    - Add/update code comments
+    - Update API documentation
+    - Update CHANGELOG.md
 
 2. **Run Tests:**
 
-   ```bash
-   npm test
-   npm run lint
-   ```
+    ```bash
+    npm test
+    npm run lint
+    ```
 
 3. **Self-Review:**
-   - Review your own code
-   - Check for typos and errors
-   - Verify all tests pass
-   - Ensure no console.log statements remain
+    - Review your own code
+    - Check for typos and errors
+    - Verify all tests pass
+    - Ensure no console.log statements remain
 
 ### PR Checklist
 
@@ -258,28 +258,28 @@ Use the [Pull Request Template](./PULL_REQUEST_TEMPLATE.md) and include:
 
 ```javascript
 // Example test structure
-describe("UserController", () => {
-  describe("getUserById", () => {
-    it("should return user when found", async () => {
-      // Arrange
-      const userId = "123";
-      const expectedUser = { id: userId, name: "Test User" };
+describe('UserController', () => {
+    describe('getUserById', () => {
+        it('should return user when found', async () => {
+            // Arrange
+            const userId = '123';
+            const expectedUser = { id: userId, name: 'Test User' };
 
-      // Act
-      const result = await getUserById(userId);
+            // Act
+            const result = await getUserById(userId);
 
-      // Assert
-      expect(result).toEqual(expectedUser);
+            // Assert
+            expect(result).toEqual(expectedUser);
+        });
+
+        it('should throw error when user not found', async () => {
+            // Arrange
+            const userId = '999';
+
+            // Act & Assert
+            await expect(getUserById(userId)).rejects.toThrow();
+        });
     });
-
-    it("should throw error when user not found", async () => {
-      // Arrange
-      const userId = "999";
-
-      // Act & Assert
-      await expect(getUserById(userId)).rejects.toThrow();
-    });
-  });
 });
 ```
 
@@ -312,7 +312,7 @@ npm run test:coverage
  * @throws {Error} If user is not found
  */
 async function getUserById(userId) {
-  // Implementation
+    // Implementation
 }
 ```
 
@@ -328,28 +328,28 @@ async function getUserById(userId) {
 ### Review Criteria
 
 1. **Code Quality:**
-   - Follows coding standards
-   - Is readable and maintainable
-   - Has appropriate error handling
+    - Follows coding standards
+    - Is readable and maintainable
+    - Has appropriate error handling
 
 2. **Functionality:**
-   - Works as intended
-   - Handles edge cases
-   - Doesn't break existing functionality
+    - Works as intended
+    - Handles edge cases
+    - Doesn't break existing functionality
 
 3. **Testing:**
-   - Has adequate test coverage
-   - Tests are meaningful and pass
+    - Has adequate test coverage
+    - Tests are meaningful and pass
 
 4. **Documentation:**
-   - Code is well-commented
-   - Documentation is updated
-   - Changes are clearly described
+    - Code is well-commented
+    - Documentation is updated
+    - Changes are clearly described
 
 5. **Security:**
-   - No security vulnerabilities introduced
-   - Follows security best practices
-   - Handles sensitive data appropriately
+    - No security vulnerabilities introduced
+    - Follows security best practices
+    - Handles sensitive data appropriately
 
 ### Review Timeline
 
@@ -360,19 +360,19 @@ async function getUserById(userId) {
 ### Addressing Review Feedback
 
 1. **Respond to Comments:**
-   - Acknowledge all feedback
-   - Ask questions if unclear
-   - Discuss alternatives if needed
+    - Acknowledge all feedback
+    - Ask questions if unclear
+    - Discuss alternatives if needed
 
 2. **Make Changes:**
-   - Address all requested changes
-   - Update code based on feedback
-   - Re-request review when ready
+    - Address all requested changes
+    - Update code based on feedback
+    - Re-request review when ready
 
 3. **Be Open to Feedback:**
-   - Reviews are collaborative
-   - Feedback improves code quality
-   - Learn from each review
+    - Reviews are collaborative
+    - Feedback improves code quality
+    - Learn from each review
 
 ## Entity Configuration
 

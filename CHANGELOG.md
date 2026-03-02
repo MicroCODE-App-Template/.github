@@ -12,61 +12,61 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **Combine all onboarding into single flow** (Issue #15)
-  - Redesign of onboarding to include Clubs, Org payments
-  - Ability to Add Boats
-  - Separate Credit Card Validation
+    - Redesign of onboarding to include Clubs, Org payments
+    - Ability to Add Boats
+    - Separate Credit Card Validation
 
 - **UI Components**:
-  - Added complete INFO module for both CONSOLE and CLIENT
-  - Added App version display to SUPPORT View
-  - Added 'alpha' and 'beta' logo support
-  - Added 'not implemented' modals for future features
-  - Added dynamic filters to most Views
-  - Added screen and context capture to Feedback
+    - Added complete INFO module for both CONSOLE and CLIENT
+    - Added App version display to SUPPORT View
+    - Added 'alpha' and 'beta' logo support
+    - Added 'not implemented' modals for future features
+    - Added dynamic filters to most Views
+    - Added screen and context capture to Feedback
 
 ### Changed
 
 - **Model Schema** (`server/model/*.model.js`):
-  - Made minor updates to schema
-  - Prepared a MongoDB Review (ISSUE#16) for next stage
+    - Made minor updates to schema
+    - Prepared a MongoDB Review (ISSUE#16) for next stage
 
 - **UI Components**:
-  - Updated many Views with new columns
+    - Updated many Views with new columns
 
 - **Seeder** (`server/seed/seeder.js`):
-  - Upgraded Import USERs
-  - Upgraded IMport BOATs
-  - Added 'merge' capability for multi-pass merge
+    - Upgraded Import USERs
+    - Upgraded IMport BOATs
+    - Added 'merge' capability for multi-pass merge
 
 `December 26, 2025`
 
 ### Added
 
 - **Complete Locales Implementation with Flags and Sail CC Support** (Issue #11)
-  - Comprehensive flag support for all 138 World Sailing countries
-  - Reusable Flag and SailNumber components across all platforms (client, admin, app)
-  - Legacy sail country code normalization (automatic mapping of pre-standard codes)
-  - Flag display in Entity Cards, tables, lists, and locale pickers
-  - New optional API endpoint: `GET /api/sail-cc` for dynamic mapping access
-  - **Tag Lock:** See PRs #xxx (server), #xxx (client), #xxx (admin), #xxx (app)
+    - Comprehensive flag support for all 138 World Sailing countries
+    - Reusable Flag and SailNumber components across all platforms (client, admin, app)
+    - Legacy sail country code normalization (automatic mapping of pre-standard codes)
+    - Flag display in Entity Cards, tables, lists, and locale pickers
+    - New optional API endpoint: `GET /api/sail-cc` for dynamic mapping access
+    - **Tag Lock:** See PRs #xxx (server), #xxx (client), #xxx (admin), #xxx (app)
 
 ### Changed
 
 - **Boat Model Schema** (`server/model/boat.model.js`):
-  - Added `sail_cc_raw` field (optional) to preserve original legacy codes
-  - `sail_cc` and `sail_no` now required for new records
-  - `boat_design_id` and `boat_builder_id` now required
-  - `bdsn_key` and `bbld_key` now optional
+    - Added `sail_cc_raw` field (optional) to preserve original legacy codes
+    - `sail_cc` and `sail_no` now required for new records
+    - `boat_design_id` and `boat_builder_id` now required
+    - `bdsn_key` and `bbld_key` now optional
 
 - **UI Components**:
-  - EntityCard: BOAT entities display flag instead of logo when `sail_cc` present
-  - Admin Tables: Added 'Country' flag column, removed boat 'name' column
-  - Boat/SV Lists: Display Flag + Sail No. (bold) on line 1, Design (gray) on line 2
-  - Locale Pickers: Dynamic flag rendering using Flag component
+    - EntityCard: BOAT entities display flag instead of logo when `sail_cc` present
+    - Admin Tables: Added 'Country' flag column, removed boat 'name' column
+    - Boat/SV Lists: Display Flag + Sail No. (bold) on line 1, Design (gray) on line 2
+    - Locale Pickers: Dynamic flag rendering using Flag component
 
 - **Seeder** (`server/seed/seeder.js`):
-  - Applies legacy sail_cc normalization during boat seeding
-  - Ensures consistency between API-created and seeded records
+    - Applies legacy sail_cc normalization during boat seeding
+    - Ensures consistency between API-created and seeded records
 
 ## MicroCODE App [0.0.5]
 
@@ -75,14 +75,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - **BREAKING:** Removed all SQL database support, standardized exclusively on MongoDB
-  - Removed SQL model files, migrations, and Knex configuration
-  - Removed MongoDB source directories (files consolidated in `/model/` root)
-  - Removed SQL dependencies (`knex`, `mysql2`) from all repositories
-  - Simplified setup/teardown scripts to MongoDB-only workflow
-  - Updated setup UI components to remove SQL database options
-  - Updated README files with MongoDB-only requirements
-  - **Migration Note:** Existing SQL installations require manual data migration to MongoDB
-  - **Tag Lock:** See PRs #xxx (server), #xxx (admin), #xxx (client)
+    - Removed SQL model files, migrations, and Knex configuration
+    - Removed MongoDB source directories (files consolidated in `/model/` root)
+    - Removed SQL dependencies (`knex`, `mysql2`) from all repositories
+    - Simplified setup/teardown scripts to MongoDB-only workflow
+    - Updated setup UI components to remove SQL database options
+    - Updated README files with MongoDB-only requirements
+    - **Migration Note:** Existing SQL installations require manual data migration to MongoDB
+    - **Tag Lock:** See PRs #xxx (server), #xxx (admin), #xxx (client)
 
 ### Removed
 
@@ -99,11 +99,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Added a complete `.github/` directory with:
-  - GIT - Issue Templates/ for hotfix, feature, bugfix and release requests
-  - PULL_REQUEST_TEMPLATE for standardized PR submissions
-  - FUNDING.yml to support open source funding options
-  - CODE_OF_CONDUCT.md to establish community guidelines
-  - CONTRIBUTING.md to guide contributors on how to contribute effectively
+    - GIT - Issue Templates/ for hotfix, feature, bugfix and release requests
+    - PULL_REQUEST_TEMPLATE for standardized PR submissions
+    - FUNDING.yml to support open source funding options
+    - CODE_OF_CONDUCT.md to establish community guidelines
+    - CONTRIBUTING.md to guide contributors on how to contribute effectively
 
 ## MicroCODE App [0.0.3]
 
@@ -156,10 +156,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed 'dirty' \*.model.js files from /model directory
 - Added MicroCODE Branding Images to all (4) repositories
 - Updated `server: npm run setup` and `server: npm run dev` scripts to init, build, and 'run dev' all all solution components:
-  - 'server'
-  - 'client'
-  - 'mission-control:server'
-  - 'mission-control:client'
+    - 'server'
+    - 'client'
+    - 'mission-control:server'
+    - 'mission-control:client'
 
 ### Updated
 

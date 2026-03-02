@@ -46,16 +46,16 @@ If you experience or witness unacceptable behavior, please report it:
 
 1. **Email:** dev-team@mcode.com or company@mcode.com
 2. **Include:**
-   - Description of the incident
-   - Date and time
-   - Names of individuals involved
-   - Any relevant context or evidence
+    - Description of the incident
+    - Date and time
+    - Names of individuals involved
+    - Any relevant context or evidence
 
 3. **Response:**
-   - Reports will be acknowledged within 24 hours
-   - Investigation will begin within 3 business days
-   - Appropriate action will be taken based on findings
-   - You will be informed of the outcome (respecting privacy where appropriate)
+    - Reports will be acknowledged within 24 hours
+    - Investigation will begin within 3 business days
+    - Appropriate action will be taken based on findings
+    - You will be informed of the outcome (respecting privacy where appropriate)
 
 ## Confidentiality
 
