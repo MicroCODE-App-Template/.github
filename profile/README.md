@@ -146,7 +146,7 @@ These features were added by MicroCODE, Inc. befoe using Gravity for production 
 
 Products built on this platform:
 
-- **LADDERS® as a Service**: Cloud-based PLC compare reporting for industrial automation
+- **LADDERS™ as a Service**: Cloud-based PLC compare reporting for industrial automation
 - **Regatta RC™**: Race Committee management and Recision Scoring for sailing regattas
 - **[Additional Applications]**: Enterprise SaaS solutions for various industries
 
